@@ -4,7 +4,7 @@ import CASClient, os
 
 def index(request):
     C = CASClient.CASClient()
-    netid = C.Authenticate()
+#    netid = C.Authenticate()
     print "Content-Type; text/html"
     print ""
 
