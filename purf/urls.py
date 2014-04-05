@@ -10,4 +10,6 @@ urlpatterns = patterns('',
 
     url(r'^admin/', include(admin.site.urls)),
     url(r'^', include('purf_app.urls')),
+    (r'^accounts/login/$', 'django_cas.views.login'),
+	(r'^accounts/logout/$', 'django_cas.views.logout'),
 )
