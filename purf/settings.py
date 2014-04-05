@@ -25,6 +25,11 @@ SECRET_KEY = 'z$ep=9fspffv%#m&#d6lu$1yqhjkt@z4@q(*)+m#ep1)%)rah0'
 DEBUG = True
 
 TEMPLATE_DEBUG = True
+TEMPLATE_DIRS = (
+    'templates',
+    'templates/main.css',
+    'templates/index.html'
+)
 
 ALLOWED_HOSTS = []
 
@@ -49,14 +54,14 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    # 'django_cas.middleware.CASMiddleware',
-    # 'django.middleware.doc.XViewMiddleware',
+    'django_cas.middleware.CASMiddleware',
+    'django.middleware.doc.XViewMiddleware',
 )
 
-# AUTHENTICATION_BACKENDS = (
-#     'django.contrib.auth.backends.ModelBackend',
-#     'django_cas.backends.CASBackend',
-# )
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'django_cas.backends.CASBackend',
+)
 
 ROOT_URLCONF = 'purf.urls'
 
@@ -95,7 +100,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-# CAS_SERVER_URL = 'https://fed.princeton.edu/cas/'
+CAS_SERVER_URL = 'https://fed.princeton.edu/cas/'
 
 #Parse database configuration from $DATABASE_URL
 
