@@ -1,11 +1,11 @@
 from django.contrib import admin
 from purf_app.models import Student, Professor
 
-class ChoiceInline(admin.ModelAdmin):
+class StudentAdmin(admin.ModelAdmin):
     list_display = ('name', 'email')
 
-class PollAdmin(admin.ModelAdmin):
+class ProfAdmin(admin.ModelAdmin):
     list_display = ('name', 'title', 'email')
 
-admin.site.register(Professor, PollAdmin)
-admin.site.register(Student, ChoiceInline)
+admin.site.register(Professor, ProfAdmin)
+admin.site.register(Student, StudentAdmin)
