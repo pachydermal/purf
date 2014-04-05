@@ -24,7 +24,7 @@ DEPTS = (
     ('GEO', 'Geosciences'),
     ('GER', 'German'),
     ('HIS', 'History'),
-    ('IND', 'Independent Concentration'),
+#    ('IND', 'Independent Concentration'),
     ('MAT', 'Mathematics'),
     ('MAE', 'Mechanical and Aerospace Engineering'),
     ('MOL', 'Molecular Biology'),
@@ -39,7 +39,6 @@ DEPTS = (
     ('SLA', 'Slavic Languages and Literatures'),
     ('SOC', 'Sociology'),
     ('SPA', 'Spanish and Portuguese'),
-    ('UND', 'Undecided'),
     ('WWS', 'Woodrow Wilson School'),
 )
 
@@ -47,7 +46,7 @@ class Professor(models.Model):
     name = models.CharField(max_length=200)
     title = models.CharField(max_length=200,blank=True)
     department = models.CharField(max_length=200, choices=DEPTS)
-    #image = models.ImageField()
+    image = models.ImageField('Profile Pic', upload_to='images/', blank=True, null=True)
     email = models.EmailField()
     office = models.CharField(max_length=200,blank=True)
     phone = models.CharField(max_length=200,blank=True)
@@ -73,8 +72,8 @@ class Student(models.Model):
     professor = models.ForeignKey(Professor,blank=True,null=True, default=None)
     name = models.CharField(max_length=200)
     department = models.CharField(max_length=200, choices=DEPTS)
+    image = models.ImageField('Profile Pic', upload_to='images/', blank=True, null=True)
     year = models.PositiveIntegerField()
-    #image
     email = models.EmailField()
     website_link = models.URLField(blank=True)
     resume_link = models.URLField(blank=True)

@@ -25,11 +25,6 @@ SECRET_KEY = 'z$ep=9fspffv%#m&#d6lu$1yqhjkt@z4@q(*)+m#ep1)%)rah0'
 DEBUG = True
 
 TEMPLATE_DEBUG = True
-TEMPLATE_DIRS = (
-    'templates',
-    'templates/main.css',
-    'templates/index.html'
-)
 
 ALLOWED_HOSTS = []
 
