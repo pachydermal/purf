@@ -44,7 +44,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
 	'purf_app',
-    'django-tastypie'
+    'tastypie'
 )
 
 MIDDLEWARE_CLASSES = (
