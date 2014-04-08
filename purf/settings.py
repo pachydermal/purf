@@ -31,6 +31,16 @@ TEMPLATE_DIRS = (
     'templates/index.html'
 )
 
+TEMPLATE_CONTEXT_PROCESSORS = ( 
+    'django.contrib.messages.context_processors.messages', 
+    'django.contrib.auth.context_processors.auth', 
+    'django.core.context_processors.static', 
+)
+
+STATICFILES_DIRS = (
+    os.path.join(SITE_ROOT, 'static'),
+)
+
 ALLOWED_HOSTS = []
 
 
