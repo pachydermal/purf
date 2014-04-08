@@ -44,7 +44,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
 	'purf_app',
-    'tastypie'
+    'tastypie',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -102,7 +102,7 @@ STATIC_URL = '/static/'
 
 CAS_SERVER_URL = 'https://fed.princeton.edu/cas/'
 
-#Parse database configuration from $DATABASE_URL
+# Parse database configuration from $DATABASE_URL
 
 import dj_database_url
 DATABASES['default'] =  dj_database_url.config()
