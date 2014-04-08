@@ -1,30 +1,136 @@
+<!DOCTYPE html>
 <html>
-<body>
-<head>
-	 <title>PURF</title>
-<!-- 	 <link rel="stylesheet" type="text/css" href="templates/main.css">-->
-</head>
+  <head>
+    <title>PURF</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <style>
+         body {padding-top: 50px;}
 
-<!-- Top Navigation Bar -->
-<div class = "search-bar">
-  	<form id="search" action="" method="get">
-     	<input type="search" name="search" placeholder="Search for Professors, Departments, or Research Areas here" style="width:700px"/>
-     	<!-- <input type="submit" value="Search" class="sbutton"/> -->
-	</form>
+         /*https://stackoverflow.com/questions/13810059/bootstrap-simple-form-checkbox-grids*/
+         h4 {
+    clear: both;
+}
+
+.control-group { 
+    margin-bottom: 20px;
+    margin-left: 20px;
+}
+
+.checkbox-columns {
+    -moz-column-count: 4;
+    -moz-column-gap: 20px;
+    -webkit-column-count: 4;
+    -webkit-column-gap: 20px;
+    column-count: 4;
+    column-gap: 20px;
+}
+    </style>
+
+
+    <!-- Some bootstrap tut thing... -->
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="../../assets/js/html5shiv.js"></script>
+      <script src="../../assets/js/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+   
+ <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">Princeton Undergraduate Research Finder</a>
+      </div>
+      <div class="collapse navbar-collapse">
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="#about">Account</a></li>
+          <li><a href="#contact">Logout</a></li>
+        </ul>
+      </div><!--/.nav-collapse -->
+    </div>
+  </div>
+
+  <div class="jumbotron" style="background-color: #DB7332;">
+    <div class="container" style="margin-bottom:-75px;">
+        <div align="center">
+          <!-- Make the following text responsive to major? -->
+          <h1>Computer Science</h1>  
+          <p class="lead">Useful Information Here: Deadlines approaching!
+            <br>(PS. Sorry it's ugly, just wanted to try to get... something up... the code's pretty janky too :)</p>
+          <form class="form-search">
+             <div class="input-append">
+                 <input type="search" class="span2 search-query" style="border-radius: 0px; width:700px" placeholder="                                       Search for Professors, Departments or Research Areas here">
+             </div>
+        </div>
+    </div>
+  </div>
+
+    <div class="jumbotron" style="background-color: #AECDD6;">
+    <div class="container">
+        <!-- This part isn't working, obviously -->
+        <div class="collapse"> BLAHBLAHBLAH</div>
+        <div align="center">
+          <!-- Make the following text responsive to major? -->
+          <h1>Relevant Research Areas</h1>   
+        </div>
+
+        <!-- Below taken from https://stackoverflow.com/questions/13810059/bootstrap-simple-form-checkbox-grids. Have to modify... note the first column is lower than the others? -->
+
+        <!-- Have to somehow make this responsive??? -->
+<div class="control-group clearfix">
+    <div class="checkbox-columns">
+        <label class="checkbox span2">
+            <input type="checkbox" value="option1"> One
+        </label>
+        <label class="checkbox span2">
+            <input type="checkbox" value="option2"> Two
+        </label>
+        <label class="checkbox span2">
+            <input type="checkbox" value="option3"> Three
+        </label>
+        <label class="checkbox span2">
+            <input type="checkbox" value="option3"> Four
+        </label>
+        <label class="checkbox span2">
+            <input type="checkbox" value="option1"> Five
+        </label>
+        <label class="checkbox span2">
+            <input type="checkbox" value="option2"> Six
+        </label>
+        <label class="checkbox span2">
+            <input type="checkbox" value="option3"> Seven
+        </label>
+        <label class="checkbox span2">
+            <input type="checkbox" value="option3"> Eight
+        </label>
+        <label class="checkbox span2">
+            <input type="checkbox" value="option1"> Nine
+        </label>
+        <label class="checkbox span2">
+            <input type="checkbox" value="option2"> Ten
+        </label>
+        <label class="checkbox span2">
+            <input type="checkbox" value="option3"> Eleven
+        </label>
+        <label class="checkbox span2">
+            <input type="checkbox" value="option3"> Twelve
+        </label>
+    </div>
 </div>
-	<!-- <div class = "search-bar"> 
-		<input type="search" role="search" value="" placeholder="Search for Professors, Departments, or Research Areas here" />
-	</div>	</div> -->
-    <!-- Load JS -->
-    <script src="js/jquery-1.8.3.min.js"></script>
-    <script src="js/jquery-ui-1.10.3.custom.min.js"></script>
-    <script src="js/jquery.ui.touch-punch.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/bootstrap-select.js"></script>
-    <script src="js/bootstrap-switch.js"></script>
-    <script src="js/flatui-checkbox.js"></script>
-    <script src="js/flatui-radio.js"></script>
-    <script src="js/jquery.tagsinput.js"></script>
-    <script src="js/jquery.placeholder.js"></script>
-</body>
+
+
+    </div>
+  </div>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+
+        <script src="bootstrap/js/bootstrap.min.js"></script>
+
+  </body>
 </html>
