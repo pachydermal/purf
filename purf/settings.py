@@ -38,7 +38,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 )
 
 STATICFILES_DIRS = (
-    os.path.join(SITE_ROOT, 'static'),
+    os.path.join(purf.herokuapp.com, 'static'),
 )
 
 ALLOWED_HOSTS = []
