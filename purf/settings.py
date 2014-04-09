@@ -45,6 +45,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
 	'purf_app',
     'tastypie',
+    'bootstrap3',
 )
 
 MIDDLEWARE_CLASSES = (
