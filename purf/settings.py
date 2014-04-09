@@ -100,7 +100,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-#CAS_SERVER_URL = 'https://fed.princeton.edu/cas/'
+CAS_SERVER_URL = 'https://fed.princeton.edu/cas/'
 
 # Parse database configuration from $DATABASE_URL
 
