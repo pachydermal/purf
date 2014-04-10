@@ -1,2 +1,4 @@
 *.pyc
 staticfiles
+.idea
+.DS_Store
