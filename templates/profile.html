@@ -39,6 +39,14 @@ profile.html{% load bootstrap3 %}
     <![endif]-->
   </head>
   <body>
+
+{% if prof %}
+    <ul>
+        <h1> {{prof.name}} </h1>
+    </ul>
+{% else %}
+    <p> No profs are available. </p>
+{% endif}
    
  <div class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">

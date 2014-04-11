@@ -13,5 +13,5 @@ urlpatterns = patterns('',
 	(r'^login/$', 'django_cas.views.login'),
 	(r'^logout/$', 'django_cas.views.logout'),
     (r'^api/', include(v1_api.urls)),
-    url(r'^profile/', views.profile, name='profile'),
+    url(r'^profile/(?P<id>\d+)', views.profile, name='profile'),
 )
