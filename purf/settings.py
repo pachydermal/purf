@@ -13,7 +13,8 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 # Parse database configuration from $DATABASE_URL
 import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
-MEDIA_ROOT = 'media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+MEDIA_URL = '/media/'
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/

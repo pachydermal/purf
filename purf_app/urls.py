@@ -14,4 +14,6 @@ urlpatterns = patterns('',
 	(r'^logout/$', 'django_cas.views.logout'),
     (r'^api/', include(v1_api.urls)),
     url(r'^profile/(?P<id>\d+)', views.profile, name='profile'),
+    (r'^media/(?P<path>.*)$', 'django.views.static.serve',
+        {'document_root': 'media'}),
 )

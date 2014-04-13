@@ -4,7 +4,7 @@ from django.db import models
 
 class Professor(models.Model):
     name = models.CharField(max_length=200)
-    title = models.CharField(max_length=200,blank=True)
+    title = models.CharField(max_length=200)
     department = models.CharField(max_length=200)
     image = models.ImageField('Profile Pic',upload_to='images/',blank=True,null=True)
     email = models.EmailField()
