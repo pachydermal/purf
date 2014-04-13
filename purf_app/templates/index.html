@@ -1,4 +1,5 @@
-index.html{% load bootstrap3 %}
+{% load bootstrap3 %}
+{% load static %}
 
 <!DOCTYPE html>
 <html>
@@ -12,31 +13,30 @@ index.html{% load bootstrap3 %}
 
          /*https://stackoverflow.com/questions/13810059/bootstrap-simple-form-checkbox-grids*/
          h4 {
-    clear: both;
-}
+            clear: both;
+        }
 
-.control-group { 
-    margin-bottom: 20px;
-    margin-left: 20px;
-}
+        .control-group {
+            margin-bottom: 20px;
+            margin-left: 20px;
+        }
 
-.checkbox-columns {
-    -moz-column-count: 4;
-    -moz-column-gap: 20px;
-    -webkit-column-count: 4;
-    -webkit-column-gap: 20px;
-    column-count: 4;
-    column-gap: 20px;
-}
+        .checkbox-columns {
+            -moz-column-count: 4;
+            -moz-column-gap: 20px;
+            -webkit-column-count: 4;
+            -webkit-column-gap: 20px;
+            column-count: 4;
+            column-gap: 20px;
+        }
     </style>
-
 
     <!-- Some bootstrap tut thing... -->
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
       <script src="../../assets/js/html5shiv.js"></script>
       <script src="../../assets/js/respond.min.js"></script>
-    <![endif]-->
+      <![endif]-->
   </head>
   <body>
 
@@ -155,6 +155,7 @@ index.html{% load bootstrap3 %}
   </div>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+  <script src="{% static "js/protosearch.js" %}"></script>
   {% bootstrap_javascript %}
 
   </body>
