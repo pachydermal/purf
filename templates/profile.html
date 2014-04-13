@@ -1,4 +1,4 @@
-profile.html{% load bootstrap3 %}
+{% load bootstrap3 %}
 
 <!DOCTYPE html>
 <html>
@@ -39,14 +39,6 @@ profile.html{% load bootstrap3 %}
     <![endif]-->
   </head>
   <body>
-
-{% if prof %}
-    <ul>
-        <h1> {{prof.name}} </h1>
-    </ul>
-{% else %}
-    <p> No profs are available. </p>
-{% endif %}
    
  <div class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
@@ -70,18 +62,15 @@ profile.html{% load bootstrap3 %}
   <div class="container-fluid" style="background-color: #DB7332;">
     <div class="container">
       <div class="row">
-          <div align="center">
-            <!-- Make the following text responsive to major? -->
-            <h1>PROFILLELELELEL PAGEGEGE</h1>
-            <img src="https://fbcdn-sphotos-b-a.akamaihd.net/hphotos-ak-frc1/t1.0-9/1964957_10203321624945893_1507530097_n.jpg"/>
-            <p class="lead">LOL PROFILE PAGE
-              <br>(PS. Sorry I'm ugly, just trying to look cool....:D)</p>
-            <form class="form-search">
-               <div class="input-append">
-                   <input type="search" class="span2 search-query" style="border-radius: 0px; width:700px" placeholder="                                       Search for Professors, Departments or Research Areas here"/>
-               </div>
-            </form>
-          </div>
+          {% if prof %}
+              <h2> {{prof.name}} </h2>
+              <h3> {{prof.title}}</h3>
+              <h3> {{prof.department}}</h3>
+              <h3> {{prof.email}}</h3>
+              {% if prof.image %} <img src="{{prof.image.url}}"> {% endif %}
+          {% else %}
+              <p> No profs are available. </p>
+          {% endif %}
       </div>
     </div>
   </div>
