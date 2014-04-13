@@ -1,5 +1,4 @@
 media/
-purf/settings.py
 *~
 *.pyc
 staticfiles
