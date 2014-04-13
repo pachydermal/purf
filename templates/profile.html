@@ -66,8 +66,20 @@
               <h2> {{prof.name}} </h2>
               <h3> {{prof.title}}</h3>
               <h3> {{prof.department}}</h3>
-              <h3> {{prof.email}}</h3>
+              <h3> Email: <a href="mailto:{{prof.email}}">{{prof.email}}</a></h3>
+              {% if prof.office %} <h3> {{prof.office}} </h3> {% endif %}
+              {% if prof.WASS %} <h3> WASS: <a href="{{prof.WASS}}">{{prof.WASS}}</a></h3>{% endif %}
+              {% if prof.website_link %} <h3> Website: <a href="{{prof.website_link}}">{{prof.website_link}}</a></h3>{% endif %}
               {% if prof.image %} <img src="{{prof.image.url}}"> {% endif %}
+              <h3> Research Areas: </h3>
+              <p> {{prof.research_areas}} </p>
+              <h3> Research Topics: </h3>
+              <p> {{prof.research_topics}} </p>
+              <h3> Research Links: </h3>
+              <p> {{prof.research_links}} </p>
+              <h3> Description: </h3>
+              <p> {{prof.description}} </p>
+              <h3> Full?: {% if prof.full %} Yes {% else %} No {% endif %} </h3>
           {% else %}
               <p> No profs are available. </p>
           {% endif %}
