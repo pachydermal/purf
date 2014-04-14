@@ -1,47 +1,46 @@
 {% load bootstrap3 %}
 {% load static %}
 
-<!DOCTYPE html>
 <html>
-  <head>
-    <title>PURF</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<head>
+  <title>PURF</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    {% bootstrap_css %}
-    <style>
-         body {padding-top: 50px;}
+  {% bootstrap_css %}
+  <style>
+     body {padding-top: 50px;}
 
-         /*https://stackoverflow.com/questions/13810059/bootstrap-simple-form-checkbox-grids*/
-         h4 {
-            clear: both;
-        }
+     /*https://stackoverflow.com/questions/13810059/bootstrap-simple-form-checkbox-grids*/
+     h4 {
+        clear: both;
+    }
 
-        .control-group {
-            margin-bottom: 20px;
-            margin-left: 20px;
-        }
+    .control-group {
+        margin-bottom: 20px;
+        margin-left: 20px;
+    }
 
-        .checkbox-columns {
-            -moz-column-count: 4;
-            -moz-column-gap: 20px;
-            -webkit-column-count: 4;
-            -webkit-column-gap: 20px;
-            column-count: 4;
-            column-gap: 20px;
-        }
-    </style>
+    .checkbox-columns {
+        -moz-column-count: 4;
+        -moz-column-gap: 20px;
+        -webkit-column-count: 4;
+        -webkit-column-gap: 20px;
+        column-count: 4;
+        column-gap: 20px;
+    }
+  </style>
 
-    <!-- Some bootstrap tut thing... -->
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="../../assets/js/html5shiv.js"></script>
-      <script src="../../assets/js/respond.min.js"></script>
-      <![endif]-->
-  </head>
-  <body>
+  <!-- Some bootstrap tut thing... -->
+  <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!--[if lt IE 9]>
+  <script src="../../assets/js/html5shiv.js"></script>
+  <script src="../../assets/js/respond.min.js"></script>
+  <![endif]-->
+</head>
+<body>
 
-   
- <div class="navbar navbar-inverse navbar-fixed-top">
+  <!-- NAVBAR -->
+  <div class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
       <div class="navbar-header">
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -60,95 +59,108 @@
     </div>
   </div>
 
+
+  <!-- SECTION HEADER + SEARCH BOX -->
   <div class="container-fluid" style="background-color: #DB7332;">
     <div class="container">
       <div class="row">
-          <div align="center">
+          <div align="center" >
             <!-- Make the following text responsive to major? -->
             <h1>Computer Science</h1>
-            <p class="lead">Useful Information Here: Deadlines approaching!
-              <br>(PS. Sorry it's ugly, just wanted to try to get... something up... the code's pretty janky too :)</p>
-            <form class="form-search">
-               <div class="input-append">
-                   <input type="search" class="span2 search-query" style="border-radius: 0px; width:700px" placeholder="                                       Search for Professors, Departments or Research Areas here"/>
+            <p class="lead">Next Deadline: approaching!</p>
+            <form id="search-form" class="form-search">
+               <div class="form-group col-sm-7 col-sm-offset-2 ">
+                 <input id="searchbox"  type="email" class="form-control" id="exampleInputEmail2" placeholder="Search for Professors, Departments or Research Areas here"/>
                </div>
+                <button id="searchbutton" type="submit" class="btn btn-default col-sm-1">Search</button>
             </form>
           </div>
       </div>
     </div>
   </div>
 
+
+  <!-- EXPANDING RESEARCH AREA SEARCH REFINEMENTS -->
   <div class="container-fluid" style="background-color: #AECDD6;">
     <div class="container">
       <div class="row" >
         <!-- This part isn't working, obviously -->
-        <div class="collapse"> BLAHBLAHBLAH</div>
-        <div align="center">
-          <!-- Make the following text responsive to major? -->
-          <h1>Relevant Research Areas</h1>   
-        </div>
+        <a data-toggle="collapse" data-target="#sliding-panel">
+          <div align="center">
+            Refine Search by Research Area
+          </div>
+        </a>
+
+        <div id="sliding-panel" class="collapse">
+          <div align="center">
+            <!-- Make the following text responsive to major? -->
+            <h1>Research Areas</h1>
+          </div>
 
           <!-- Below taken from https://stackoverflow.com/questions/13810059/bootstrap-simple-form-checkbox-grids. Have to modify... note the first column is lower than the others? -->
 
           <!-- Have to somehow make this responsive??? -->
-        <div class="control-group clearfix">
-          <div class="checkbox-columns">
-            <label class="checkbox span2">
-                <input type="checkbox" value="option1"> One
-            </label>
-            <label class="checkbox span2">
-                <input type="checkbox" value="option2"> Two
-            </label>
-            <label class="checkbox span2">
-                <input type="checkbox" value="option3"> Three
-            </label>
-            <label class="checkbox span2">
-                <input type="checkbox" value="option3"> Four
-            </label>
-            <label class="checkbox span2">
-                <input type="checkbox" value="option1"> Five
-            </label>
-            <label class="checkbox span2">
-                <input type="checkbox" value="option2"> Six
-            </label>
-            <label class="checkbox span2">
-                <input type="checkbox" value="option3"> Seven
-            </label>
-            <label class="checkbox span2">
-                <input type="checkbox" value="option3"> Eight
-            </label>
-            <label class="checkbox span2">
-                <input type="checkbox" value="option1"> Nine
-            </label>
-            <label class="checkbox span2">
-                <input type="checkbox" value="option2"> Ten
-            </label>
-            <label class="checkbox span2">
-                <input type="checkbox" value="option3"> Eleven
-            </label>
-            <label class="checkbox span2">
-                <input type="checkbox" value="option3"> Twelve
-            </label>
+          <div class="control-group clearfix">
+            <div class="checkbox-columns">
+              <label class="checkbox span2">
+                  <input type="checkbox" value="option1"> One
+              </label>
+              <label class="checkbox span2">
+                  <input type="checkbox" value="option2"> Two
+              </label>
+              <label class="checkbox span2">
+                  <input type="checkbox" value="option3"> Three
+              </label>
+              <label class="checkbox span2">
+                  <input type="checkbox" value="option3"> Four
+              </label>
+              <label class="checkbox span2">
+                  <input type="checkbox" value="option1"> Five
+              </label>
+              <label class="checkbox span2">
+                  <input type="checkbox" value="option2"> Six
+              </label>
+              <label class="checkbox span2">
+                  <input type="checkbox" value="option3"> Seven
+              </label>
+              <label class="checkbox span2">
+                  <input type="checkbox" value="option3"> Eight
+              </label>
+              <label class="checkbox span2">
+                  <input type="checkbox" value="option1"> Nine
+              </label>
+              <label class="checkbox span2">
+                  <input type="checkbox" value="option2"> Ten
+              </label>
+              <label class="checkbox span2">
+                  <input type="checkbox" value="option3"> Eleven
+              </label>
+              <label class="checkbox span2">
+                  <input type="checkbox" value="option3"> Twelve
+              </label>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
 
+
+  <!-- SEARCH RESULTS -->
   <div class="container-fluid" style="background-color: #EEEEEE;">
     <div class="container">
       <div align="center">
         <!-- Make the following text responsive to major? -->
         <h1>Search Results</h1>
-        <p class="lead">Pull and place Professor information here, in columns.</p>
       </div>
-
-      <div class="row" style="padding: 10px 0">
-        <div class="profile col-md-2">
-          <img src="http://lorempixel.com/50/50/people"/>
-        </div>
-        <div class="name col-md-5">
-          Ira Banks
+      <div id="search-results">
+        <div class="row" style="padding: 10px 0; background:white; margin: 1px 0">
+          <div class="profile col-md-2">
+            <img src="http://lorempixel.com/50/50/people"/>
+          </div>
+          <div class="name col-md-5">
+            Ira Banks
+          </div>
         </div>
       </div>
     </div>

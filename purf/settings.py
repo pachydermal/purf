@@ -113,8 +113,6 @@ MEDIA_URL = '/media/'
 
 # COMMENT EVERYTHING BELOW HERE WHEN RUNNING LOCALLY
 # REMEMBER TO UNCOMMENT BEFORE PUSHING!!
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.6/howto/static-files/
 
 CAS_SERVER_URL = 'https://fed.princeton.edu/cas/'
 
