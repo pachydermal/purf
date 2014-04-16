@@ -54,7 +54,29 @@
 			</h3>
 			<div class="row clearfix">
 				<div class="col-md-4 column">
-				{% if student.favorited_professors %} {%for prof in student.favorited_professors.all %} <p> {{prof.name}} </p> {% endfor %} {% endif %}
+                    <table border="1">
+                    <tr>
+                        <td> Image</td>
+                        <td> Name </td>
+                        <td> Email</td>
+                        <td> Department </td>
+                        <td> Full? </td>
+                        <td> Delete </td>
+                    </tr>
+                    {% if student.favorited_professors %} {%for prof in student.favorited_professors.all %} 
+                    <tr>
+                        <td>{{prof.image}}</td>
+                        <td>{{prof.name}} </td>
+                        <td>{{prof.email}} </td>
+                        <td>{{prof.department}}</td>
+                        <td>{{prof.full}}</td> 
+                        <td> <form action='/del_prof/{{prof.id}}/' method="post">  
+                                {% csrf_token %}
+                                <input type = "submit" value ="Delete" /></td>
+                            </form>
+                    </tr>
+                    {% endfor %} {% endif %}
+                    </table>
 				</div>
 			</div>
 		</div>

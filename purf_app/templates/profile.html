@@ -52,6 +52,7 @@
 			<img alt="140x140" src="http://lorempixel.com/140/140/" class="img-thumbnail">
 		</div>
 		<div class="col-md-6 column">
+            
             {% if prof %}
 			<p>
                 {{prof.department}}
@@ -61,7 +62,9 @@
 			<h1>{% if prof.name %}{{prof.name}} {%else%} N/A {%endif%}</h1>
 			<p> {{prof.email}} </p>
 			<p>
-				<a href="www.homepage.com">
+				
+                <a href="www.homepage.com">
+                
                 {{prof.website_link}}
                 </a>
 			</p>
@@ -70,7 +73,13 @@
 		<div class="col-md-3 column">
 			<div class="row clearfix">
 				<div class="col-md-6 column">
-					 <button type="button" class="btn btn-default">Favorite</button>
+                      {% if isFavorited %}
+                       <p> Already Favorited </p>
+                       {% endif %}
+					 <form action='/fav_prof/{{prof.id}}/' method="post">  
+                        {% csrf_token %}
+                        <input type = "submit" value ="Favorite" />
+                    </form>
 				</div>
 			</div> Professor is unable to accept students:{{prof.full}}
 		</div>
@@ -145,7 +154,8 @@
                             Overall Rating: {{item.overall}}
                             Comments: {{item.comments}}
                      </p>
-                        {% endfor %}
+                    {% endfor %}
+                        
                     
                 </div>
             </div>

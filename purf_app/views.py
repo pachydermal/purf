@@ -1,7 +1,8 @@
 from django.shortcuts import render, render_to_response
 from purf_app.models import Professor, Student, User, Rating, Project
 from purf_app.forms import StudentForm
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
+from django.template import RequestContext
 #from perf_app import models
 
 def index(request):
@@ -17,29 +18,40 @@ def profile(request, id):
     else: areas = []
     if prof.research_topics: topics = prof.research_topics.split(';')
     else: topics = []
-    context ={'prof': prof, 'rating': rating, 'project': project, 'research': research, 'areas': areas, 'topics': topics}
+    
+    student = Student.objects.get(user=request.user.id)
+    #print student.favorited_professors.filter(pk=id).exists()
+    isFavorited = student.favorited_professors.filter(pk=id).exists()
+    context ={'prof': prof, 'rating': rating, 'project': project, 'research': research, 'areas': areas, 'topics': topics, 'isFavorited' : isFavorited}
     return render(request, 'profile.html', context)
 
+def del_prof(request,id):
+    prof = Professor.objects.get(pk =id )
+    student = Student.objects.get(user=request.user.id)
+    student.favorited_professors.remove(prof)
+    return HttpResponseRedirect('/account/')
+    
+def fav_prof(request,id):
+    prof = Professor.objects.get(pk =id )
+    student = Student.objects.get(user=request.user.id)
+    student.favorited_professors.add(prof)
+    return HttpResponseRedirect('/profile/'+str(id))
+    
 def student(request):
     try:   
-        print 'try'
         student = Student.objects.get(user=request.user.id)
     except Student.DoesNotExist:
-        print 'except'
         student = None
     
     if request.method == 'POST':
-        print request.POST.get('name', '')
         form = StudentForm(request.POST)
-        print 'if'
         if form.is_valid():
-            print 'valid'
             temp_post = form.save(commit=False)
             temp_post.user = request.user
             temp_post.save()
+            form.save_m2m()
             return HttpResponseRedirect('/account/')
     else:
-        print 'else'
         form = StudentForm()
     
     
