@@ -1,65 +1,11 @@
-{% load bootstrap3 %}
 
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>PURF</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% extends "base.html" %}
 
-    {% bootstrap_css %}
-    <style>
-         body {padding-top: 50px;}
+{% block content %} 
 
-         /*https://stackoverflow.com/questions/13810059/bootstrap-simple-form-checkbox-grids*/
-         h4 {
-    clear: both;
-}
+  
 
-.control-group { 
-    margin-bottom: 20px;
-    margin-left: 20px;
-}
-
-.checkbox-columns {
-    -moz-column-count: 4;
-    -moz-column-gap: 20px;
-    -webkit-column-count: 4;
-    -webkit-column-gap: 20px;
-    column-count: 4;
-    column-gap: 20px;
-}
-    </style>
-
-
-    <!-- Some bootstrap tut thing... -->
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="../../assets/js/html5shiv.js"></script>
-      <script src="../../assets/js/respond.min.js"></script>
-    <![endif]-->
-  </head>
-  <body>
-   
- <div class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container">
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" href="#">Princeton Undergraduate Research Finder</a>
-      </div>
-      <div class="collapse navbar-collapse">
-        <ul class="nav navbar-nav navbar-right">
-          <li><a href="#about">Account</a></li>
-          <li><a href="#contact">Logout</a></li>
-        </ul>
-      </div><!--/.nav-collapse -->
-    </div>
-  </div>
-
-  <div class="container-fluid" style="background-color: #DB7332;">
+  <!--div class="container-fluid" style="background-color: #DB7332;">
     <div class="container">
       <div class="row">
           {% if prof %}
@@ -98,10 +44,116 @@
         </div>
       </div>
     </div>
-  </div>
+  </div-->
+  
+  <div class="container">
+	<div class="row clearfix">
+		<div class="col-md-3 column">
+			<img alt="140x140" src="http://lorempixel.com/140/140/" class="img-thumbnail">
+		</div>
+		<div class="col-md-6 column">
+            {% if prof %}
+			<p>
+                {{prof.department}}
+                {% if prof.department and prof.title %} | {% endif %}
+                {{prof.title}}
+			</p>
+			<h1>{% if prof.name %}{{prof.name}} {%else%} N/A {%endif%}</h1>
+			<p> {{prof.email}} </p>
+			<p>
+				<a href="www.homepage.com">
+                {{prof.website_link}}
+                </a>
+			</p>
+            {% endif %}
+		</div>
+		<div class="col-md-3 column">
+			<div class="row clearfix">
+				<div class="col-md-6 column">
+					 <button type="button" class="btn btn-default">Favorite</button>
+				</div>
+			</div> Professor is unable to accept students:{{prof.full}}
+		</div>
+	</div>
+	<div class="row clearfix">
+		<div class="col-md-3 column">
+			{% if prof %}
+                {% if areas %}
+                    <h3>Areas</h3>
+                    <ul>
+                    {%for area in areas %}
+                        <li> {{area}} </li>
+                    {%endfor%}
+                    </ul>
+                {% endif %}     
+            
+			
+                {% if research %}
+                    <h3>Research Links</h3>
+                    <ul>
+                    {%for link in research %}
+                        <li> <a href={{link}}>{{link}} </a> </li>
+                    {%endfor%}
+                    </ul>
+                {% endif %}                
+            {% endif %} 
+		</div>
+		<div class="col-md-9 column">
+			<ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
+                <li class="active"><a href="#red" data-toggle="tab">Description</a></li>
+                <li><a href="#orange" data-toggle="tab">Research Topics</a></li>
+                <li><a href="#yellow" data-toggle="tab">Past Projects</a></li>
+                <li><a href="#green" data-toggle="tab">Student Reviews</a></li>
+            </ul>
+            <div id="my-tab-content" class="tab-content">
+                <div class="tab-pane active" id="red">
+                    <h1>Description</h1>
+                    <p>{% if prof.description%} {{prof.description}} 
+                    {% else %} No Description Available. {% endif %}</p>
+                </div>
+                <div class="tab-pane" id="orange">
+                    <h1>Research Topics</h1>
+                    {% if not topics %} <p>No topics.</p>
+                    {% else %} <ul>
+                        {%for topic in topics %}
+                            <li> {{topic}} </li>
+                        {%endfor%} </ul>
+                    {% endif %} 
+                </div>
+                <div class="tab-pane" id="yellow">
+                    <h1>Past Projects</h1>
+                    {% for proj in project %}
+                    <p>
+                     Name: {{proj.student_name}}
+                     {% if proj.netid %} NetID: {{proj.netid}} {% endif %}
+                     {% if proj.year %} Year: {{proj.year}} {% endif %} 
+                     {% if proj.project_title %} Project Title: {{proj.project_title}} {% endif %} 
+                     {% if proj.project_description %} Project Description: {{proj.project_description}} {% endif %} 
+                     {% if proj.project_description %} Project Description: {{proj.project_description}} {% endif %} 
+                     {% if proj.department %} Department: {{proj.department}} {% endif %} 
+                     {% if proj.link %} Link: {{proj.link}} {% endif %} 
+                     </p>
+                    {% endfor %}
+                </div>
+                <div class="tab-pane" id="green">
+                    <h1>Student Reviews</h1>
+                    {% for item in rating %}
+                    <p>
+                            Responsiveness: {{item.responsive}}
+                            Frequency of Contact: {{item.frequency}}
+                            Input into Idea: {{item.idea_input}}
+                            Overall Rating: {{item.overall}}
+                            Comments: {{item.comments}}
+                     </p>
+                        {% endfor %}
+                    
+                </div>
+            </div>
+		</div>
+	</div>
 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-  {% bootstrap_javascript %}
 
-  </body>
-</html>
+</div>
+
+{% endblock %}
+  

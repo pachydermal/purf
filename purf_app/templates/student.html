@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% if not student %}
+<form action="/account/" method="post">{% csrf_token %}
+{{ form.as_p }}
+<input type="submit" value="Submit" />
+</form>
+{% else %}
+<div class="container">
+	<div class="row clearfix">
+		<div class="col-md-3 column">
+			<img alt="140x140" src="http://lorempixel.com/140/140/">
+		</div>
+		<div class="col-md-6 column">
+			<p>
+				{% if student.department %}
+					{{student.department}}
+				{%endif%}
+				{% if student.department and student.year %}
+					|
+				{% endif %}
+				{% if student.year %}
+					{{student.year}}
+				{%endif%}
+			</p>
+			{% if student %} <h3> {{student.name}} </h3> {% endif %}
+			{% if student %} <p> {{student.email}} </p> {% endif %}
+		</div>
+		<div class="col-md-3 column">
+		</div>
+	</div>
+	<div class="row clearfix">
+		<div class="col-md-3 column">
+			<div class="row clearfix">
+				<div class="col-md-4 column">
+				</div>
+				<div class="col-md-4 column" align="center">
+					<h3>
+						Interests
+					</h3>
+				</div>
+				<div class="col-md-4 column" align ="center">
+					 <button type="button" class="btn btn-default">Edit</button>
+				</div>
+			</div>
+			<div class="row clearfix">
+				{% if student %} <p> {{ student.research_interests }} </p> {% endif %}
+			</div>
+		</div>
+		<div class="col-md-9 column">
+			<h3>
+				Favorite Professors
+			</h3>
+			<div class="row clearfix">
+				<div class="col-md-4 column">
+				{% if student.favorited_professors %} {%for prof in student.favorited_professors.all %} <p> {{prof.name}} </p> {% endfor %} {% endif %}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{%endif %}
+{% endblock %}
