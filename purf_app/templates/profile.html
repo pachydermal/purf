@@ -1,63 +1,9 @@
-{% load bootstrap3 %}
 
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>PURF</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% extends "base.html" %}
 
-    {% bootstrap_css %}
-    <style>
-         body {padding-top: 50px;}
+{% block content %} 
 
-         /*https://stackoverflow.com/questions/13810059/bootstrap-simple-form-checkbox-grids*/
-         h4 {
-    clear: both;
-}
-
-.control-group { 
-    margin-bottom: 20px;
-    margin-left: 20px;
-}
-
-.checkbox-columns {
-    -moz-column-count: 4;
-    -moz-column-gap: 20px;
-    -webkit-column-count: 4;
-    -webkit-column-gap: 20px;
-    column-count: 4;
-    column-gap: 20px;
-}
-    </style>
-
-
-    <!-- Some bootstrap tut thing... -->
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="../../assets/js/html5shiv.js"></script>
-      <script src="../../assets/js/respond.min.js"></script>
-    <![endif]-->
-  </head>
-  <body>
-   
- <div class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container">
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" href="#">Princeton Undergraduate Research Finder</a>
-      </div>
-      <div class="collapse navbar-collapse">
-        <ul class="nav navbar-nav navbar-right">
-          <li><a href="#about">Account</a></li>
-          <li><a href="#contact">Logout</a></li>
-        </ul>
-      </div><!--/.nav-collapse -->
-    </div>
-  </div>
+  
 
   <!--div class="container-fluid" style="background-color: #DB7332;">
     <div class="container">
@@ -209,9 +155,5 @@
 
 </div>
 
-
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-  {% bootstrap_javascript %}
-
-  </body>
-</html>
+{% endblock %}
+  
