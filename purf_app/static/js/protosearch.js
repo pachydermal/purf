@@ -1,3 +1,5 @@
+// TODO - Throttle searches when enter button is held down, or only search once
+
 var search_prof = (function () {
 
     // the methods that are publicly accessible.
@@ -44,9 +46,11 @@ var search_prof = (function () {
                           <div class="profile col-md-2"> \
                             <img src="http://lorempixel.com/50/50/people"/> \
                           </div> \
-                          <div class="name col-md-5">'
-                            + val.name +
-                          '</div> \
+                          <div class="name col-md-5">\
+                            <a href="profile/' + val.id + '">'
+                                + val.name +
+                            '</a>\
+                          </div> \
                         </div>'
                         );
             });
