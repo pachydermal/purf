@@ -1,6 +1,7 @@
 import datetime
 from django.utils import timezone
 from django.db import models
+from django.contrib.auth.models import User
 
 class Professor(models.Model):
     name = models.CharField(max_length=200)
@@ -30,20 +31,22 @@ class Student(models.Model):
     website_link = models.URLField(blank=True)
     resume_link = models.URLField(blank=True)
     description = models.TextField(blank=True)
-    previous_professors = models.ManyToManyField('Professor',blank=True,null=True,default=None)
+    previous_professors = models.ManyToManyField('Professor',blank=True,null=True,default=None, related_name='previous_professors')
     research_interests = models.TextField(blank=True)
     certificates = models.TextField(blank=True)
+    favorited_professors = models.ManyToManyField('Professor',blank=True,null=True,default=None, related_name='favorited_professors')
+    user = models.OneToOneField(User, editable=False,related_name="student_user")
     def __unicode__(self):  
         return self.name
-       
+'''
 class User(models.Model):
     student = models.ForeignKey('Student',blank=True,null=True,default=None,related_name='controlled_student')
     professor = models.ForeignKey('Professor',blank=True,null=True,default=None,related_name='controlled_professor')
     preferences = models.TextField(blank=True)
-    favorited_students = models.ManyToManyField('Student',blank=True,null=True,default=None)
-    favorited_professors = models.ManyToManyField('Professor',blank=True,null=True,default=None)
+    #favorited_students = models.ManyToManyField('Student',blank=True,null=True,default=None)
+    #favorited_professors = models.ManyToManyField('Professor',blank=True,null=True,default=None)
     first_access = models.DateTimeField('Time of first access')
-
+'''
 class Rating(models.Model):
     professor = models.ForeignKey('Professor')
     responsive = models.PositiveIntegerField()

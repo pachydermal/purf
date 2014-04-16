@@ -1,9 +1,11 @@
 from django.shortcuts import render, render_to_response
 from purf_app.models import Professor, Student, User, Rating, Project
+from purf_app.forms import StudentForm
+from django.http import HttpResponseRedirect
 #from perf_app import models
 
 def index(request):
-    return render_to_response('index.html')
+    return render(request, 'index.html')
 
 def profile(request, id):
     prof = Professor.objects.get(pk=id)
@@ -18,12 +20,32 @@ def profile(request, id):
     context ={'prof': prof, 'rating': rating, 'project': project, 'research': research, 'areas': areas, 'topics': topics}
     return render(request, 'profile.html', context)
 
-def student(request, id):
-	student = Student.objects.get(pk=id)
-	user = User.objects.get(student=id)
-	favorited_professors = user.favorited_professors
-	context ={'student':student, 'favorited_professors':favorited_professors}
-	return render(request, 'student.html', context)
+def student(request):
+    try:   
+        print 'try'
+        student = Student.objects.get(user=request.user.id)
+    except Student.DoesNotExist:
+        print 'except'
+        student = None
+    
+    if request.method == 'POST':
+        print request.POST.get('name', '')
+        form = StudentForm(request.POST)
+        print 'if'
+        if form.is_valid():
+            print 'valid'
+            temp_post = form.save(commit=False)
+            temp_post.user = request.user
+            temp_post.save()
+            return HttpResponseRedirect('/account/')
+    else:
+        print 'else'
+        form = StudentForm()
+    
+    
+    context ={'form': form, 'student':student}
+    
+    return render(request, 'student.html', context)
+    
 
 
-# Create your views here.
