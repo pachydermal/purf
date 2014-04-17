@@ -2,10 +2,30 @@
 
 {% block content %}
 {% if not student %}
-<form action="/account/" method="post">{% csrf_token %}
-{{ form.as_p }}
-<input type="submit" value="Submit" />
-</form>
+<ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
+    <li class="active"><a href="#red" data-toggle="tab">Student Profile</a></li>
+    <li><a href="#orange" data-toggle="tab">Professor Profile</a></li>
+</ul>
+<div id="my-tab-content" class="tab-content">
+    <div class="tab-pane active" id="red">
+        <h1>Student Profile</h1>
+
+        <form action="/account/" method="post" >{% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" name="student" value="Submit Student" />
+        </form>
+    </div>
+    <div class="tab-pane" id="orange">
+        <h1>Professor Profile</h1>
+
+        <form action="/account/" method="post">{% csrf_token %}
+        {{ profForm.as_p }}
+        <input type="submit" name="professor" value="Submit Professor" />
+        </form>
+    </div>
+
+</div>
+
 {% else %}
 <div class="container">
 	<div class="row clearfix">

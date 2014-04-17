@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 
 class Professor(models.Model):
     name = models.CharField(max_length=200)
-    title = models.CharField(max_length=200)
+    title = models.CharField(max_length=200,blank=True)
     department = models.CharField(max_length=200)
     image = models.ImageField('Profile Pic',upload_to='images/',blank=True,null=True)
     email = models.EmailField()
@@ -19,6 +19,7 @@ class Professor(models.Model):
     description = models.TextField(blank=True)
     full = models.BooleanField(default=False)
     advisees = models.ManyToManyField('Student',blank=True,null=True,default=None)
+    user = models.OneToOneField(User, editable=False,related_name="professor_user")
     def __unicode__(self):
         return self.name
 
