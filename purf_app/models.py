@@ -4,6 +4,7 @@ from django.db import models
 from django.contrib.auth.models import User
 
 class Professor(models.Model):
+    netid = models.CharField(max_length=200, primary_key=True)
     name = models.CharField(max_length=200)
     title = models.CharField(max_length=200)
     department = models.CharField(max_length=200)
@@ -58,7 +59,7 @@ class Rating(models.Model):
 class Project(models.Model):
     professor = models.ForeignKey('Professor')
     student_name = models.CharField(max_length=200)
-    netid = models.CharField(max_length=200)
+    student_email = models.CharField(max_length=200, blank=True)
     year = models.PositiveIntegerField()
     project_title = models.CharField(max_length=500)
     project_description = models.TextField(blank=True)
