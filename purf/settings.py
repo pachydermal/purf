@@ -13,8 +13,7 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 # Parse database configuration from $DATABASE_URL
 import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
-MEDIA_URL = '/media/'
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
@@ -44,7 +43,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-	'purf_app',
+    'purf_app',
     'tastypie',
     'bootstrap3',
 )
@@ -104,27 +103,25 @@ STATIC_ROOT = 'staticfiles'
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'staticfiles'),
+    os.path.join(BASE_DIR, 'static'),
 )
-
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-MEDIA_URL = '/media/'
-
 
 # COMMENT EVERYTHING BELOW HERE WHEN RUNNING LOCALLY
 # REMEMBER TO UNCOMMENT BEFORE PUSHING!!
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 
-# CAS_SERVER_URL = 'https://fed.princeton.edu/cas/'
-#
-# # Parse database configuration from $DATABASE_URL
-#
-# import dj_database_url
-# DATABASES['default'] =  dj_database_url.config()
-#
-# # Honor the 'X-Forwarded-Proto' header for request.is_secure()
-# SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-#
-# # Allow all host headers
-# ALLOWED_HOSTS = ['*']
+STATIC_URL = '/static/'
+
+CAS_SERVER_URL = 'https://fed.princeton.edu/cas/'
+
+# Parse database configuration from $DATABASE_URL
+
+import dj_database_url
+DATABASES['default'] =  dj_database_url.config()
+
+# Honor the 'X-Forwarded-Proto' header for request.is_secure()
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+# Allow all host headers
+ALLOWED_HOSTS = ['*']
