@@ -1,5 +1,5 @@
 from django import forms
-from purf_app.models import Professor, Student, User, Rating, Project
+from purf_app.models import Professor, Student, Rating, Project, User
 from django.forms import ModelForm
 '''
 class StudentForm(forms.Form):
@@ -9,4 +9,9 @@ class StudentForm(forms.Form):
 class StudentForm(ModelForm):
     class Meta:
         model = Student
+        fields = '__all__'
+
+class ProfessorForm(ModelForm):
+    class Meta:
+        model = Professor
         fields = '__all__'
