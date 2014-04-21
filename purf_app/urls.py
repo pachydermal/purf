@@ -1,12 +1,13 @@
 from django.conf.urls import patterns, include, url
 from tastypie.api import Api
-from purf_app.api import ProfessorResource
+from purf_app.api import ProfessorResource, SearchProfessorResource
 
 from purf_app import views
 
 
 v1_api = Api(api_name='v1')
 v1_api.register(ProfessorResource())
+v1_api.register(SearchProfessorResource())
 
 urlpatterns = patterns('',
 	url(r'^$', views.index, name='index'),

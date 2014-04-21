@@ -59,10 +59,10 @@ MIDDLEWARE_CLASSES = (
     # 'django.middleware.doc.XViewMiddleware',
 )
 
-# AUTHENTICATION_BACKENDS = (
-#     'django.contrib.auth.backends.ModelBackend',
-#     'django_cas.backends.CASBackend',
-# )
+#AUTHENTICATION_BACKENDS = (
+#    'django.contrib.auth.backends.ModelBackend',
+#    'django_cas.backends.CASBackend',
+#)
 
 ROOT_URLCONF = 'purf.urls'
 
@@ -108,6 +108,7 @@ STATICFILES_DIRS = (
 
 # COMMENT EVERYTHING BELOW HERE WHEN RUNNING LOCALLY
 # REMEMBER TO UNCOMMENT BEFORE PUSHING!!
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 

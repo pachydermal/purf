@@ -43,42 +43,12 @@
           <!-- Have to somehow make this responsive??? -->
           <div class="control-group clearfix">
             <div class="checkbox-columns">
-              <label class="checkbox span2">
-                  <input type="checkbox" value="option1"> One
-              </label>
-              <label class="checkbox span2">
-                  <input type="checkbox" value="option2"> Two
-              </label>
-              <label class="checkbox span2">
-                  <input type="checkbox" value="option3"> Three
-              </label>
-              <label class="checkbox span2">
-                  <input type="checkbox" value="option3"> Four
-              </label>
-              <label class="checkbox span2">
-                  <input type="checkbox" value="option1"> Five
-              </label>
-              <label class="checkbox span2">
-                  <input type="checkbox" value="option2"> Six
-              </label>
-              <label class="checkbox span2">
-                  <input type="checkbox" value="option3"> Seven
-              </label>
-              <label class="checkbox span2">
-                  <input type="checkbox" value="option3"> Eight
-              </label>
-              <label class="checkbox span2">
-                  <input type="checkbox" value="option1"> Nine
-              </label>
-              <label class="checkbox span2">
-                  <input type="checkbox" value="option2"> Ten
-              </label>
-              <label class="checkbox span2">
-                  <input type="checkbox" value="option3"> Eleven
-              </label>
-              <label class="checkbox span2">
-                  <input type="checkbox" value="option3"> Twelve
-              </label>
+              {% for area in research_areas %}
+                <label class="checkbox span2">
+                  <input type="checkbox" value="{{area}}">
+                  {{area}}
+                </label>
+              {% endfor %}
             </div>
           </div>
         </div>
@@ -94,15 +64,20 @@
         <!-- Make the following text responsive to major? -->
         <h1>Search Results</h1>
       </div>
+
       <div id="search-results">
-        <div class="row" style="padding: 10px 0; background:white; margin: 1px 0">
-          <div class="profile col-md-2">
-            <img src="http://lorempixel.com/50/50/people"/>
-          </div>
-          <div class="name col-md-5">
-            Ira Banks
-          </div>
+      {% for result in results %}
+      <div class="row" style="padding: 10px 0; background:white; margin: 1px 0">
+        <div class="profile col-md-2">
+          <img src="http://lorempixel.com/50/50/people"/>
         </div>
+        <div class="name col-md-5">
+          <a href="profile/{{ result.id }}">
+            {{ result.name }}
+          </a>
+        </div>
+      </div>
+      {% endfor %}
       </div>
     </div>
   </div>
