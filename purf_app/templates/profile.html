@@ -4,54 +4,13 @@
 {% block content %} 
 
   
-
-  <!--div class="container-fluid" style="background-color: #DB7332;">
-    <div class="container">
-      <div class="row">
-          {% if prof %}
-              <h2> {{prof.name}} </h2>
-              <h3> {{prof.title}}</h3>
-              <h3> {{prof.department}}</h3>
-              <h3> Email: <a href="mailto:{{prof.email}}">{{prof.email}}</a></h3>
-              {% if prof.office %} <h3> {{prof.office}} </h3> {% endif %}
-              {% if prof.WASS %} <h3> WASS: <a href="{{prof.WASS}}">{{prof.WASS}}</a></h3>{% endif %}
-              {% if prof.website_link %} <h3> Website: <a href="{{prof.website_link}}">{{prof.website_link}}</a></h3>{% endif %}
-              {% if prof.image %} <img src="{{prof.image.url}}"> {% endif %}
-              <h3> Research Areas: </h3>
-              <p> {{prof.research_areas}} </p>
-              <h3> Research Topics: </h3>
-              <p> {{prof.research_topics}} </p>
-              <h3> Research Links: </h3>
-              <p> {{prof.research_links}} </p>
-              <h3> Description: </h3>
-              <p> {{prof.description}} </p>
-              <h3> Full?: {% if prof.full %} Yes {% else %} No {% endif %} </h3>
-          {% else %}
-              <p> No profs are available. </p>
-          {% endif %}
-      </div>
-    </div>
-  </div>
-
-  <div class="container-fluid" style="background-color: #EEEEEE;">
-    <div class="container">
-      <div class="row" style="padding: 10px 0">
-        <div class="profile col-md-2">
-          <img src="http://lorempixel.com/50/50/people"/>
-        </div>
-        <div class="name col-md-5">
-          Ira Banks
-        </div>
-      </div>
-    </div>
-  </div-->
-  
   <div class="container">
 	<div class="row clearfix">
 		<div class="col-md-3 column">
 			<img alt="140x140" src="http://lorempixel.com/140/140/" class="img-thumbnail">
 		</div>
 		<div class="col-md-6 column">
+            
             {% if prof %}
 			<p>
                 {{prof.department}}
@@ -61,16 +20,31 @@
 			<h1>{% if prof.name %}{{prof.name}} {%else%} N/A {%endif%}</h1>
 			<p> {{prof.email}} </p>
 			<p>
-				<a href="www.homepage.com">
+				
+                <a href="www.homepage.com">
+                
                 {{prof.website_link}}
                 </a>
 			</p>
             {% endif %}
+
+
+            {% if myProfId == prof.id %}
+                <button type="button" class="btn btn-default">Edit</button>
+            {% endif %}
+
 		</div>
 		<div class="col-md-3 column">
 			<div class="row clearfix">
 				<div class="col-md-6 column">
-					 <button type="button" class="btn btn-default">Favorite</button>
+                      {% if isFavorited == "1" %}
+                       <p> Already Favorited </p>
+                        {% elif isFavorited == "0" %}
+                        <p> <form action='/fav_prof/{{prof.id}}/' method="post">
+                        {% csrf_token %}
+                        <input type = "submit" value ="Favorite" />
+                        </form></p>
+                       {% endif %}
 				</div>
 			</div> Professor is unable to accept students:{{prof.full}}
 		</div>
@@ -145,7 +119,8 @@
                             Overall Rating: {{item.overall}}
                             Comments: {{item.comments}}
                      </p>
-                        {% endfor %}
+                    {% endfor %}
+                        
                     
                 </div>
             </div>

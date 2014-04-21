@@ -2,10 +2,30 @@
 
 {% block content %}
 {% if not student %}
-<form action="/account/" method="post">{% csrf_token %}
-{{ form.as_p }}
-<input type="submit" value="Submit" />
-</form>
+<ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
+    <li class="active"><a href="#red" data-toggle="tab">Student Profile</a></li>
+    <li><a href="#orange" data-toggle="tab">Professor Profile</a></li>
+</ul>
+<div id="my-tab-content" class="tab-content">
+    <div class="tab-pane active" id="red">
+        <h1>Student Profile</h1>
+
+        <form action="/account/" method="post" >{% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" name="student" value="Submit Student" />
+        </form>
+    </div>
+    <div class="tab-pane" id="orange">
+        <h1>Professor Profile</h1>
+
+        <form action="/account/" method="post">{% csrf_token %}
+        {{ profForm.as_p }}
+        <input type="submit" name="professor" value="Submit Professor" />
+        </form>
+    </div>
+
+</div>
+
 {% else %}
 <div class="container">
 	<div class="row clearfix">
@@ -54,7 +74,29 @@
 			</h3>
 			<div class="row clearfix">
 				<div class="col-md-4 column">
-				{% if student.favorited_professors %} {%for prof in student.favorited_professors.all %} <p> {{prof.name}} </p> {% endfor %} {% endif %}
+                    <table border="1">
+                    <tr>
+                        <td> Image</td>
+                        <td> Name </td>
+                        <td> Email</td>
+                        <td> Department </td>
+                        <td> Full? </td>
+                        <td> Delete </td>
+                    </tr>
+                    {% if student.favorited_professors %} {%for prof in student.favorited_professors.all %} 
+                    <tr>
+                        <td>{{prof.image}}</td>
+                        <td>{{prof.name}} </td>
+                        <td>{{prof.email}} </td>
+                        <td>{{prof.department}}</td>
+                        <td>{{prof.full}}</td> 
+                        <td> <form action='/del_prof/{{prof.id}}/' method="post">  
+                                {% csrf_token %}
+                                <input type = "submit" value ="Delete" /></td>
+                            </form>
+                    </tr>
+                    {% endfor %} {% endif %}
+                    </table>
 				</div>
 			</div>
 		</div>
