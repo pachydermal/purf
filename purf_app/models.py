@@ -3,16 +3,12 @@ from django.utils import timezone
 from django.db import models
 from django.contrib.auth.models import User
 
-class UserProfile(models.Model):
-    user = models.OneToOneField(User, editable=False,related_name='user_profile')
+class Professor(UserProfile):
     name = models.CharField(max_length=200)
     department = models.CharField(max_length=200)
     email = models.EmailField()
     image = models.URLField(max_length=200,blank=True)
     website_link = models.URLField(blank=True)
-    professor_or_student = models.BooleanField(default=False) # professor = True
-
-class Professor(UserProfile):
     title = models.CharField(max_length=200,blank=True)
     office = models.CharField(max_length=200,blank=True)
     phone = models.CharField(max_length=200,blank=True)
@@ -26,6 +22,11 @@ class Professor(UserProfile):
         return self.name
 
 class Student(UserProfile):
+    name = models.CharField(max_length=200)
+    department = models.CharField(max_length=200)
+    email = models.EmailField()
+    image = models.URLField(max_length=200,blank=True)
+    website_link = models.URLField(blank=True)
     year = models.PositiveIntegerField()
     resume_link = models.URLField(blank=True)
     description = models.TextField(blank=True)
