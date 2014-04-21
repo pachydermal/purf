@@ -3,7 +3,7 @@ from django.utils import timezone
 from django.db import models
 from django.contrib.auth.models import User
 
-class Professor(UserProfile):
+class Professor(models.Model):
     name = models.CharField(max_length=200)
     department = models.CharField(max_length=200)
     email = models.EmailField()
@@ -21,7 +21,7 @@ class Professor(UserProfile):
     def __unicode__(self):
         return self.name
 
-class Student(UserProfile):
+class Student(models.Model):
     name = models.CharField(max_length=200)
     department = models.CharField(max_length=200)
     email = models.EmailField()
