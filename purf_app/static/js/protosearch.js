@@ -52,7 +52,7 @@ var search_prof = (function () {
                 items.push(
                         '<div class="row" style="padding: 10px 0; background:white; margin: 1px 0"> \
                           <div class="profile col-md-2"> \
-                            <img src="http://lorempixel.com/50/50/people"/> \
+                            <img src=' + val.image + ' height=100 /> \
                           </div> \
                           <div class="name col-md-5">\
                             <a href="profile/' + val.netid + '">'
