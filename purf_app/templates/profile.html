@@ -64,11 +64,11 @@
 			
                 {% if research %}
                     <h3>Research Links</h3>
-                    <ul>
+
                     {%for link in research %}
-                        <li> <a href={{link}}>{{link}} </a> </li>
+                        <pre> <a href={{link}}>{{link}} </a></pre>
                     {%endfor%}
-                    </ul>
+
                 {% endif %}                
             {% endif %} 
 		</div>

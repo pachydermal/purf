@@ -55,7 +55,7 @@ var search_prof = (function () {
                             <img src="http://lorempixel.com/50/50/people"/> \
                           </div> \
                           <div class="name col-md-5">\
-                            <a href="profile/' + val.id + '">'
+                            <a href="profile/' + val.netid + '">'
                                 + val.name +
                             '</a>\
                           </div> \

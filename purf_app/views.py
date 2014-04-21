@@ -13,6 +13,7 @@ def index(request):
     return render(request, 'index.html', context)
 
 def profile(request, id):
+    print id
     prof = Professor.objects.get(pk=id)
 
     try:
@@ -28,7 +29,7 @@ def profile(request, id):
     if prof.research_topics: topics = prof.research_topics.split(';')
     else: topics = []
 
-    try:
+    '''try:
         student = Student.objects.get(user=request.user.id)
         isFavorited = student.favorited_professors.filter(pk=id).count()
     except Student.DoesNotExist:
@@ -36,8 +37,8 @@ def profile(request, id):
         try:
             student = Professor.objects.get(user=request.user.id)
         except Professor.DoesNotExist:
-            student = None
-
+            student = None'''
+    isFavorited = '-1'
     context ={'prof': prof, 'rating': rating, 'project': project, 'research': research, 'areas': areas, 'topics': topics, 'isFavorited' : isFavorited, 'myProfId' : myProfId}
     return render(request, 'profile.html', context)
 
