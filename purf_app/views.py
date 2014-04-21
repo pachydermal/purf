@@ -6,7 +6,11 @@ from django.template import RequestContext
 #from perf_app import models
 
 def index(request):
-    return render(request, 'index.html')
+    results = [{'name':'Ira Banks', 'id':1}, {'name':'Lassy Delomina', 'id':2}]
+    research_areas = ['Bleh', 'Blah', 'Blu', 'Blo', 'Blei', 'Blee', 'Blar', 'Blair', 'Blaf', 'Blaz', 'Blarf']
+
+    context = {'results':results, 'research_areas':research_areas, }
+    return render(request, 'index.html', context)
 
 def profile(request, id):
     prof = Professor.objects.get(pk=id)

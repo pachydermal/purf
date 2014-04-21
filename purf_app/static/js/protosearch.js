@@ -5,14 +5,14 @@ var search_prof = (function () {
     // the methods that are publicly accessible.
     // ENSURE THAT NO PRIVATE DATABASE VALUES CAN BE ACCESSED!!
     var public = {};
-    var searchform, searchbox, searchbutton, searchresults;
+    var searchform, searchbox, searchbutton, searchresults, searchareas;
 
     // INITIALIZATION
     init = function () {
-        searchform = $("#search-form")
+        searchform = $("#search-form");
         searchbox = $("#searchbox").first();
         searchbutton =  $("#searchbutton").first();
-        searchresults = $("#search-results")
+        searchresults = $("#search-results");
 
         // set trigger on enter
         searchbox.keyup(function(event){
@@ -40,6 +40,9 @@ var search_prof = (function () {
         query = query.trim().split(/[\s,]+/)
         $.each(query, function(key, value){
             querystring += "query=" + value + "&"
+        })
+        $(".checkbox :checkbox:checked").each(function(key, value){
+            querystring += "research_areas=" + value.value + "&"
         })
 
         $.getJSON("api/v1/search/?" + querystring + "format=json", function(data) {
