@@ -35,9 +35,14 @@ var search_prof = (function () {
 
     // MAIN SEARCH FUNCTION
     search = function () {
-        console.log("Searched for " + searchbox.val())
+        query = searchbox.val()
+        querystring = ""
+        query = query.trim().split(/[\s,]+/)
+        $.each(query, function(key, value){
+            querystring += "query=" + value + "&"
+        })
 
-        $.getJSON("api/v1/professor/?format=json", function(data) {
+        $.getJSON("api/v1/search/?" + querystring + "format=json", function(data) {
             searchresults.empty();
             var items = [];
             $.each( data.objects, function( key, val ) {
