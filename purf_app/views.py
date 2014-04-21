@@ -20,6 +20,7 @@ def profile(request, id):
         myProfId = Professor.objects.get(user=request.user.id).id
     except:
         myProfId = -1
+    print id
     rating = Rating.objects.filter(professor=id)
     project = Project.objects.filter(professor=id)
     if prof.research_links: research = prof.research_links.split(';')

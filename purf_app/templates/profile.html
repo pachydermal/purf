@@ -7,7 +7,7 @@
   <div class="container">
 	<div class="row clearfix">
 		<div class="col-md-3 column">
-			<img alt="140x140" src="http://lorempixel.com/140/140/" class="img-thumbnail">
+			<img alt="140x140" src={{prof.image}} class="img-thumbnail">
 		</div>
 		<div class="col-md-6 column">
             
@@ -21,7 +21,7 @@
 			<p> {{prof.email}} </p>
 			<p>
 				
-                <a href="www.homepage.com">
+                <a href={{prof.website_link}} target="_newtab">
                 
                 {{prof.website_link}}
                 </a>
@@ -53,7 +53,7 @@
 		<div class="col-md-3 column">
 			{% if prof %}
                 {% if areas %}
-                    <h3>Areas</h3>
+                    <h3>Research Areas</h3>
                     <ul>
                     {%for area in areas %}
                         <li> {{area}} </li>
@@ -66,7 +66,7 @@
                     <h3>Research Links</h3>
 
                     {%for link in research %}
-                        <pre> <a href={{link}}>{{link}} </a></pre>
+                        <pre> <a href={{link}} target="_newtab">{{link}} </a></pre>
                     {%endfor%}
 
                 {% endif %}                
