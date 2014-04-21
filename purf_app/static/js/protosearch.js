@@ -57,7 +57,10 @@ var search_prof = (function () {
                           <div class="name col-md-5">\
                             <a href="profile/' + val.netid + '">'
                                 + val.name +
-                            '</a>\
+                            '</a> <p>' + val.research_areas + '</p>\
+                          </div> \
+                          <div class="name col-md-2">\
+                            ' + val.department + ' \
                           </div> \
                         </div>'
                         );
