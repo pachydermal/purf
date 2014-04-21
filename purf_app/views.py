@@ -29,6 +29,8 @@ def profile(request, id):
     else: areas = []
     if prof.research_topics: topics = prof.research_topics.split(';')
     else: topics = []
+    if prof.department: department = prof.department.split(';')
+    else: department = []
 
     '''try:
         student = Student.objects.get(user=request.user.id)
@@ -40,7 +42,7 @@ def profile(request, id):
         except Professor.DoesNotExist:
             student = None'''
     isFavorited = '-1'
-    context ={'prof': prof, 'rating': rating, 'project': project, 'research': research, 'areas': areas, 'topics': topics, 'isFavorited' : isFavorited, 'myProfId' : myProfId}
+    context ={'prof': prof, 'department': department, 'rating': rating, 'project': project, 'research': research, 'areas': areas, 'topics': topics, 'isFavorited' : isFavorited, 'myProfId' : myProfId}
     return render(request, 'profile.html', context)
 
 def del_prof(request,id):
