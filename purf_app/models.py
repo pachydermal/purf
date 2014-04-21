@@ -40,15 +40,15 @@ class Student(models.Model):
     user = models.OneToOneField(User, editable=False,related_name="student_user")
     def __unicode__(self):  
         return self.name
-'''
-class User(models.Model):
+
+"""class User(models.Model):
     student = models.ForeignKey('Student',blank=True,null=True,default=None,related_name='controlled_student')
     professor = models.ForeignKey('Professor',blank=True,null=True,default=None,related_name='controlled_professor')
     preferences = models.TextField(blank=True)
     #favorited_students = models.ManyToManyField('Student',blank=True,null=True,default=None)
     #favorited_professors = models.ManyToManyField('Professor',blank=True,null=True,default=None)
     first_access = models.DateTimeField('Time of first access')
-'''
+"""
 class Rating(models.Model):
     professor = models.ForeignKey('Professor')
     responsive = models.PositiveIntegerField()
