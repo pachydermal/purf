@@ -14,26 +14,26 @@ from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS
 
 # Parse database configuration from $DATABASE_URL
 import os
-# BASE_DIR = os.path.dirname(os.path.dirname(__file__))
-#
-#
+BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+
+
 # # Quick-start development settings - unsuitable for production
 # # See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
 #
-# # SECURITY WARNING: keep the secret key used in production secret!
-# SECRET_KEY = 'z$ep=9fspffv%#m&#d6lu$1yqhjkt@z4@q(*)+m#ep1)%)rah0'
-#
-# # SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = True
-#
-# TEMPLATE_DEBUG = True
-# TEMPLATE_DIRS = (
-#     'templates',
-#     'templates/main.css',
-#     'templates/index.html'
-# )
-#
-# ALLOWED_HOSTS = []
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = 'z$ep=9fspffv%#m&#d6lu$1yqhjkt@z4@q(*)+m#ep1)%)rah0'
+
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = True
+
+TEMPLATE_DEBUG = True
+TEMPLATE_DIRS = (
+    'templates',
+    'templates/main.css',
+    'templates/index.html'
+)
+
+ALLOWED_HOSTS = []
 
 
 # Application definition
