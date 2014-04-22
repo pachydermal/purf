@@ -90,7 +90,7 @@
                         <td>{{prof.email}} </td>
                         <td>{{prof.department}}</td>
                         <td>{{prof.full}}</td> 
-                        <td> <form action='/del_prof/{{prof.id}}/' method="post">  
+                        <td> <form action='/del_prof/{{prof.netid}}/' method="post">
                                 {% csrf_token %}
                                 <input type = "submit" value ="Delete" /></td>
                             </form>

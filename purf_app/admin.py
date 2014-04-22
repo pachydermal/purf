@@ -7,8 +7,8 @@ class StudentAdmin(admin.ModelAdmin):
 class ProfAdmin(admin.ModelAdmin):
     list_display = ('name', 'title', 'email')
 
-#class UserAdmin(admin.ModelAdmin):
-#    list_display = ('student', 'professor', 'first_access')
+#class UserProfileAdmin(admin.ModelAdmin):
+#    list_display = ('name', 'image')
 
 class RatingAdmin(admin.ModelAdmin):
     list_display = ('professor', 'overall')
@@ -20,4 +20,5 @@ admin.site.register(Professor, ProfAdmin)
 admin.site.register(Student, StudentAdmin)
 #admin.site.register(User, UserAdmin)
 admin.site.register(Rating, RatingAdmin)
+#admin.site.register(UserProfile, UserProfileAdmin)
 admin.site.register(Project, ProjectAdmin)

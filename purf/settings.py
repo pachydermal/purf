@@ -8,30 +8,32 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.6/ref/settings/
 """
 
+from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 
 # Parse database configuration from $DATABASE_URL
 import os
-BASE_DIR = os.path.dirname(os.path.dirname(__file__))
-
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'z$ep=9fspffv%#m&#d6lu$1yqhjkt@z4@q(*)+m#ep1)%)rah0'
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-TEMPLATE_DEBUG = True
-TEMPLATE_DIRS = (
-    'templates',
-    'templates/main.css',
-    'templates/index.html'
-)
-
-ALLOWED_HOSTS = []
+# BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+#
+#
+# # Quick-start development settings - unsuitable for production
+# # See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
+#
+# # SECURITY WARNING: keep the secret key used in production secret!
+# SECRET_KEY = 'z$ep=9fspffv%#m&#d6lu$1yqhjkt@z4@q(*)+m#ep1)%)rah0'
+#
+# # SECURITY WARNING: don't run with debug turned on in production!
+# DEBUG = True
+#
+# TEMPLATE_DEBUG = True
+# TEMPLATE_DIRS = (
+#     'templates',
+#     'templates/main.css',
+#     'templates/index.html'
+# )
+#
+# ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -106,18 +108,20 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
 
+TEMPLATE_CONTEXT_PROCESSORS += ('purf.context_processors.getStudent',)
+
 # COMMENT EVERYTHING BELOW HERE WHEN RUNNING LOCALLY
 # REMEMBER TO UNCOMMENT BEFORE PUSHING!!
 
-CAS_SERVER_URL = 'https://fed.princeton.edu/cas/'
+#CAS_SERVER_URL = 'https://fed.princeton.edu/cas/'
 
 # Parse database configuration from $DATABASE_URL
 
-import dj_database_url
-DATABASES['default'] =  dj_database_url.config()
+#import dj_database_url
+#DATABASES['default'] =  dj_database_url.config()
 
 # Honor the 'X-Forwarded-Proto' header for request.is_secure()
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+#SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 # Allow all host headers
-ALLOWED_HOSTS = ['*']
+#ALLOWED_HOSTS = ['*']

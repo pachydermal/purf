@@ -23,6 +23,7 @@ class Professor(models.Model):
         return self.name
 
 class Student(models.Model):
+    netid = models.CharField(max_length=200, primary_key=True)
     name = models.CharField(max_length=200)
     department = models.CharField(max_length=200)
     email = models.EmailField()

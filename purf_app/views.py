@@ -9,8 +9,8 @@ def index(request):
     results = [{'name':'Ira Banks', 'id':1}, {'name':'Lassy Delomina', 'id':2}]
     research_areas = ['Bleh', 'Blah', 'Blu', 'Blo', 'Blei', 'Blee', 'Blar', 'Blair', 'Blaf', 'Blaz', 'Blarf']
 
-    context = {'results':results, 'research_areas':research_areas, }
-    return render(request, 'index.html', context)
+    context = {'results':results, 'research_areas':research_areas}
+    return render_to_response('index.html', context, context_instance=RequestContext(request))
 
 def profile(request, id):
     print id
@@ -46,15 +46,16 @@ def profile(request, id):
     return render(request, 'profile.html', context)
 
 def del_prof(request,id):
-    prof = Professor.objects.get(pk =id )
-    student = Student.objects.get(user=request.user.id)
+    print id
+    prof = Professor.objects.get(netid =id )
+    student = Student.objects.get(netid=request.user.username)
     student.favorited_professors.remove(prof)
     return HttpResponseRedirect('/account/')
     
 def fav_prof(request,id):
-    prof = Professor.objects.get(pk =id )
+    prof = Professor.objects.get(netid =id )
     try:
-        student = Student.objects.get(user=request.user.id)
+        student = Student.objects.get(netid=request.user.username)
         student.favorited_professors.add(prof)
     except:
         print 'hi'
@@ -62,7 +63,7 @@ def fav_prof(request,id):
 
 def new_prof(request):
     try:
-        student = Student.objects.get(user=request.user.id)
+        student = Student.objects.get(netid=request.user.username)
     except Student.DoesNotExist:
         student = None
 
@@ -84,10 +85,10 @@ def new_prof(request):
 
 def student(request):
     try:   
-        student = Student.objects.get(user=request.user.id)
+        student = Student.objects.get(netid=request.user.username)
     except Student.DoesNotExist:
         try:
-            student = Professor.objects.get(user=request.user.id)
+            student = Professor.objects.get(netid=request.user.username)
         except Professor.DoesNotExist:
             student = None
 
@@ -107,7 +108,7 @@ def student(request):
                 temp_post.user = request.user
                 temp_post.save()
                 profForm.save_m2m()
-                me = Professor.objects.get(user=request.user.id)
+                me = Professor.objects.get(netid=request.user.username)
                 return HttpResponseRedirect('/profile/' + str(me.id))
     else:
         form = StudentForm()
