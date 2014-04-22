@@ -7,21 +7,23 @@
   <div class="container">
 	<div class="row clearfix">
 		<div class="col-md-3 column">
-			<img alt="140x140" src="http://lorempixel.com/140/140/" class="img-thumbnail">
+            {% if prof.image %}
+			<img alt="140x140" src="{{prof.image}}" class="img-thumbnail">
+            {% endif %}
 		</div>
 		<div class="col-md-6 column">
-            
+
             {% if prof %}
 			<p>
-                {{prof.department}}
-                {% if prof.department and prof.title %} | {% endif %}
+                {% if department %} {% for d in department %} {{d}} {% endfor %} {% endif %}
+                {% if department and prof.title %} | {% endif %}
                 {{prof.title}}
 			</p>
 			<h1>{% if prof.name %}{{prof.name}} {%else%} N/A {%endif%}</h1>
 			<p> {{prof.email}} </p>
 			<p>
 				
-                <a href="www.homepage.com">
+                <a href={{prof.website_link}} target="_newtab">
                 
                 {{prof.website_link}}
                 </a>
@@ -53,10 +55,10 @@
 		<div class="col-md-3 column">
 			{% if prof %}
                 {% if areas %}
-                    <h3>Areas</h3>
+                    <h3>Research Areas</h3>
                     <ul>
                     {%for area in areas %}
-                        <li> {{area}} </li>
+                        <li> {{area|title}} </li>
                     {%endfor%}
                     </ul>
                 {% endif %}     
@@ -64,11 +66,11 @@
 			
                 {% if research %}
                     <h3>Research Links</h3>
-                    <ul>
+
                     {%for link in research %}
-                        <li> <a href={{link}}>{{link}} </a> </li>
+                        <pre> <a href={{link}} target="_newtab">{{link}} </a></pre>
                     {%endfor%}
-                    </ul>
+
                 {% endif %}                
             {% endif %} 
 		</div>
@@ -104,7 +106,7 @@
                      {% if proj.project_title %} Project Title: {{proj.project_title}} {% endif %} 
                      {% if proj.project_description %} Project Description: {{proj.project_description}} {% endif %} 
                      {% if proj.project_description %} Project Description: {{proj.project_description}} {% endif %} 
-                     {% if proj.department %} Department: {{proj.department}} {% endif %} 
+                     {% if proj.department %} Department: {{proj.department}} {% endif %}
                      {% if proj.link %} Link: {{proj.link}} {% endif %} 
                      </p>
                     {% endfor %}

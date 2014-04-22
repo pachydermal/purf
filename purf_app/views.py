@@ -13,12 +13,14 @@ def index(request):
     return render(request, 'index.html', context)
 
 def profile(request, id):
+    print id
     prof = Professor.objects.get(pk=id)
 
     try:
         myProfId = Professor.objects.get(user=request.user.id).id
     except:
         myProfId = -1
+    print id
     rating = Rating.objects.filter(professor=id)
     project = Project.objects.filter(professor=id)
     if prof.research_links: research = prof.research_links.split(';')
@@ -27,8 +29,10 @@ def profile(request, id):
     else: areas = []
     if prof.research_topics: topics = prof.research_topics.split(';')
     else: topics = []
+    if prof.department: department = prof.department.split(';')
+    else: department = []
 
-    try:
+    '''try:
         student = Student.objects.get(user=request.user.id)
         isFavorited = student.favorited_professors.filter(pk=id).count()
     except Student.DoesNotExist:
@@ -36,9 +40,9 @@ def profile(request, id):
         try:
             student = Professor.objects.get(user=request.user.id)
         except Professor.DoesNotExist:
-            student = None
-
-    context ={'prof': prof, 'rating': rating, 'project': project, 'research': research, 'areas': areas, 'topics': topics, 'isFavorited' : isFavorited, 'myProfId' : myProfId}
+            student = None'''
+    isFavorited = '-1'
+    context ={'prof': prof, 'department': department, 'rating': rating, 'project': project, 'research': research, 'areas': areas, 'topics': topics, 'isFavorited' : isFavorited, 'myProfId' : myProfId}
     return render(request, 'profile.html', context)
 
 def del_prof(request,id):
