@@ -9,7 +9,19 @@ def index(request):
     results = [{'name':'Ira Banks', 'id':1}, {'name':'Lassy Delomina', 'id':2}]
     research_areas = ['Bleh', 'Blah', 'Blu', 'Blo', 'Blei', 'Blee', 'Blar', 'Blair', 'Blaf', 'Blaz', 'Blarf']
 
-    context = {'results':results, 'research_areas':research_areas}
+    #Check if the first time they logged in
+    try:
+        student = Student.objects.get(netid=request.user.username)
+    except Student.DoesNotExist:
+        try:
+            student = Professor.objects.get(netid=request.user.username)
+        except Professor.DoesNotExist:
+            student = None
+    if student == None:
+        new = True
+    else: new = False
+
+    context = {'results':results, 'research_areas':research_areas, 'new':new}
     return render_to_response('index.html', context, context_instance=RequestContext(request))
 
 def profile(request, id):

@@ -54,13 +54,13 @@ var search_prof = (function () {
                           <div class="profile col-md-2"> \
                             <img src=' + val.image + ' height=100 /> \
                           </div> \
-                          <div class="name col-md-5">\
+                          <div class="name col-md-3">\
                             <a href="profile/' + val.netid + '">'
                                 + val.name +
-                            '</a> <p>' + val.research_areas + '</p>\
+                            '</a> <p>' + val.department + '</p>\
                           </div> \
-                          <div class="name col-md-2">\
-                            ' + val.department + ' \
+                          <div class="name col-md-5">\
+                            ' + val.research_areas + ' \
                           </div> \
                         </div>'
                         );
