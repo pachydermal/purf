@@ -1,0 +1,73 @@
+Claire Gmachl	4	5	5	5	"Worked alot with Loan Le, graduate student in the lab. Awesome experience!"
+Edward Felten	4	4	3	5	
+Olga Troyanskaya	5	4	5	4	
+Gilbert Harman	4	5	1	2	
+Adam Elga	2	4	2	2	
+Mark Braverman	5	5	5	5	
+Brian Kernighan	5	5	3	5	"Kernighan is a great professor to come to with program design / implementation questions, and will keep you on track by asking for a regular meeting and email update once a week. I'd recommend him as an advisor for just about any practical independent work project, but especially for those that are off the beaten path."
+Mung Chiang	2	4	1	3	Very hands off. I usually had no idea what he wanted or was thinking. The graduate students and post docs he assigns to help are very helpful though.
+Bob Dondero	5	5	5	5	
+Waseem Bakr	5	5	5	5	
+Christiane Fellbaum	5	5	5	5	She's excited by everything and very involved with all of her advisees. Really fantastic.
+Claire Gmachl	2	2	4	3	
+Adel Mahmoud	4	3	4	5	"(I'm MOL/GHP.) While Mahmoud is not very hands-on in designing your project, he's totally the man. He has tons of connections and is laid back. He puts his confidence in his students abilities."
+Shiva Kintali	5	5	4	5	"Shiva expects you to meet every week and have progress to discuss in detail. I was doing an applications project, not theory, so this may be different for theory students. This style worked very well for me and I would highly recommend him as an advisor."
+Michael Freedman	5	5	4	5	Just awesome.
+Christiane Fellbaum	3	5	5	3	"Professor Fellbaum will give you good general ideas for things to do, but is usually badly overextended and won't have the effort to get upset if you aren't making good progress or using good methods. I turned in a bad project and received a generous grade for its quality, but I didn't learn as much as I wish I had about doing research."
+Edward Felten	4	5	4	5	
+Edward Felten	5	4	4	5	"Professor Felten is a wonderful advisor! He does get busy and/or travel somewhat frequently, so you have to be pro-active about scheduling meetings rather than just having a weekly slot, but he's very invested during meetings and will certainly spend as much time as you need from project design through implementation. However he is fairly laid back and won't pressure you to have too much done. If you're interested in computer security, tech policy, or closely related areas, I highly recommend Professor Felten."
+Michael Freedman	4	5	5	3	
+Christiane Fellbaum	3	5	4	5	"Professor Fellbaum is a fantastic advisor, who is deeply invested in her advisees. She's very good at coming up with topics that are interesting, and she's very willing to meet with you to talk about your project. She's more of a hands-off advisor outside of initial planning, so at times it's hard to proceed when you're stuck, but overall, she's a fantastic advisor."
+Brian Kernighan	4	5	2	5	
+David Wentzlaff	5	5	3	5	"David has a lot of cutting edge research projects - he isn't afraid to trust undergraduates with large, important projects. Be aware that he will require at least two two weekly meetings (one individual and one with the rest of the research team). He is very bright and willing to lend a hand when you need it.
+(he also plans skiing trips with the team which are a ton of fun).
+David is also one of the most demanding advisors in the department - expect to be hitting page 40 on your report before other people have even solidified topics. You'll do legitimate work, but possibly at the cost of your other courses."
+Naveen Verma	5	4	3	5	"Naveen has a ton of interesting projects. He is a laid back advisor who's main concern is that you grasp the fundamental understanding of things - not necessarily that you do thousands of hours of work. His research group is hard to break into socially, but is really a very friendly bunch of people."
+Jennifer Rexford	5	4	4	5	
+John Londregan	3	5	4	4	"Good advisor-- while a bit spacey at times, he was often as available as I needed him to be. Gave me third draft JP corrections only two days before due date, however."
+William Massey	2	3	2	2	
+Edward Felten	4	4	4	5	
+Christopher Moretti	4	4	3	3	
+Andrew Appel	5	4	4	4	
+Harriet Flower	5	4	3	5	
+Andrew Bocarsly	2	2	1	1	
+Göran Blix	5	4	1	5	
+Andy Dobson	3	2	3	4	"I was looking for a relatively hands-off, flexible adviser so this worked out well. He's very busy and generally unavailable though not very demanding. It just depends on what you're looking for--pick your poison."
+Edgar Choueiri	2	2	4	2	
+Michael Mueller	5	5	5	5	"great advisor, would pick him again"
+Yiguang Ju	3	3	2	4	"Heavy accent makes it somewhat difficult to communicate. Extremely brilliant. Very busy in his own lab, so a good choice for a student looking for a low-maintenance advisor."
+Christopher Moretti	5	5	2	5	Chris is da bomb. Absolutely love him.
+Michael Freedman	3	3	5	3	
+Luigi Martinelli	5	4	5	5	
+Kai Li	5	5	5	4	
+Andrew Appel	5	5	4	5	
+Jason Fleischer	3	4	5	4	
+Schapire	4	4	4	5	"Great guy, incredibly intelligent and yet humble, patient and caring. You have to take the initiative (as in he won't pressure you) but he'll always have time for you!"
+Brian Kernighan	5	5	3	5	Woo I like Kernighan.
+Brian Kernighan	4	5	2	4	
+Daniel Nosenchuck	5	5	4	5	
+Martin Semmelhack	4	4	4	4	
+Bruce Koel	4	3	5	5	
+Rene Carmona	5	3	4	5	
+David Walker	5	5	5	5	
+Kevin Wayne	5	5	5	5	Kevin Wayne is the man.
+Mung Chiang	3	4	5	3	"Awesome dude -- too busy to be a highly involved advisor. Cool project as well, but be prepared for a lot of autonomy."
+Christiane Fellbaum	5	5	4	5	
+Brian Kernighan	5	5	5	5	
+Arvind Narayanan	5	5	5	5	
+Rebecca Fiebrink	5	5	5	5	
+Brian Kernighan	5	5	1	5	
+Moses Charikar	3	5	1	5	"If you email Moses Charikar late at night (like 12 am) you sometimes have a pretty high chance of him responding very quickly. Otherwise, it can be somewhat hard to get a hold of him by email. Nonetheless, he is still available and is good at suggesting problems. He is pretty relaxed and is very helpful during meetings."
+Bernard Haykel	5	3	3	5	"Personally, I found Prof. Haykel really great - he was helpful when I needed him, and gave really thoughtful feedback, but I didn't find that he was overbearing or demanding to meet with me. It was definitely up to me when I wanted to see him, ask for his help, etc. This style might not suit everyone, but I personally found it really useful for my style of working."
+John Higgins	3	4	5	4	
+Szymon Rusinkiewicz	5	5	4	5	He's a bauss
+Henry Farber	4	3	4	4	"Farber knows his stuff, but can be very overbearing at times. It often felt like he was being demanding just for the sake of an increased workload. He is a tough grader when it comes to this stuff, but is definitely very passionate about working with datasets to solve problems."
+Robert Dondero	5	5	1	5	Robert Dondero is an incredible pedagogue and advisor.
+Michael Mueller	5	4	2	5	
+Jianxiong Xiao	5	5	4	5	
+Shivaji Sondhi	1	5	4	5	"Hard to reach via email, but almost always reachable in his office."
+Andrew Appel	4	4	5	5	"Andrew Appel is a wonderful advisor. He's brilliant and inspires me to do better work. He cares about theory but is also a pragmatist, a rare and awesome combination."
+David Walker	4	4	4	4	"David Walker is great overall. He's somewhat hands-off, which may not be the best advising style for everyone. If you need an advisor to watch over you more closely and be more active in keeping you on target, you should bear this in mind. He won't do this for you (unless you ask specifically)."
+Claire Gmachl	5	5	4	5	
+Ned Wingreen	5	5	5	5	He advises me whenever he can... Even on the weekends...
+Leon Rosenberg	5	5	5	5	

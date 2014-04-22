@@ -4,7 +4,7 @@ csv_filepathname2 ="Projects.tsv"
 csv_filepathname3 ="Reviews.tsv"
 
 # Full path to your django project directory
-your_djangoproject_home="C:/Users/Stephen/Documents/GitHub/purf/"
+your_djangoproject_home="/Users/Pallavi/COS_Archive/Classes/COS333/Project/"
 
 import sys, os
 sys.path.append(your_djangoproject_home)
