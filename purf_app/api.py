@@ -1,7 +1,6 @@
 from tastypie.resources import ModelResource
 from django.db.models import Q
 from purf_app.models import Professor, Student
-import operator
 
 class ProfessorResource(ModelResource): 
 	class Meta: 
@@ -36,22 +35,16 @@ class SearchProfessorResource(ModelResource):
         if filters is None:
             filters = {}
         orm_filters = super(SearchProfessorResource, self).build_filters(filters)
-        filters_dict = dict(filters.iterlists())
-        if('query' in filters_dict.keys()):
-            query = filters_dict['query']
-            qsets = []
-            filtList = [] 
-            for q in query:
-                qset = (
-                    Q(name__icontains=q) |
-                    Q(department__iexact=q) |
-                    Q(email__icontains=q) |
-                    Q(research_areas__icontains=q)
-                    )
-                qsets.append(qset)
-                filtList.append(set(Professor.objects.filter(qset)))
 
-            orm_filters.update({'custom': qsets})
+        if('query' in filters):
+            query = filters['query']
+            qset = (
+                    Q(name__icontains=query) |
+                    Q(description__icontains=query) |
+                    Q(email__icontains=query)
+                    )
+            orm_filters.update({'custom': qset})
+
         return orm_filters
 
     def apply_filters(self, request, applicable_filters):
@@ -62,10 +55,5 @@ class SearchProfessorResource(ModelResource):
 
         semi_filtered = super(SearchProfessorResource, self).apply_filters(request, applicable_filters)
 
-        if custom:
-            for i in custom:
-                print i
-                semi_filtered = semi_filtered.filter(i)
-
-        return semi_filtered
+        return semi_filtered.filter(custom) if custom else semi_filtered
 

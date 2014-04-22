@@ -6,9 +6,8 @@ from django.template import RequestContext
 #from perf_app import models
 
 def index(request):
-    results = []
-    research_areas = ['Compilers', 'Computer Security', 'Programming Languages']
-    research_areas.sort()
+    results = [{'name':'Ira Banks', 'id':1}, {'name':'Lassy Delomina', 'id':2}]
+    research_areas = ['Bleh', 'Blah', 'Blu', 'Blo', 'Blei', 'Blee', 'Blar', 'Blair', 'Blaf', 'Blaz', 'Blarf']
 
     #Check if the first time they logged in
     try:
