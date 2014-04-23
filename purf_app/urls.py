@@ -3,7 +3,8 @@ from tastypie.api import Api
 from purf_app.api import ProfessorResource, SearchProfessorResource
 
 from purf_app import views
-
+from moderation.helpers import auto_discover
+auto_discover()
 
 v1_api = Api(api_name='v1')
 v1_api.register(ProfessorResource())

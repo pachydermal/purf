@@ -16,6 +16,7 @@ class RatingAdmin(admin.ModelAdmin):
 class ProjectAdmin(admin.ModelAdmin):
     list_display = ('professor', 'student_name', 'project_title')
 
+
 admin.site.register(Professor, ProfAdmin)
 admin.site.register(Student, StudentAdmin)
 #admin.site.register(User, UserAdmin)
