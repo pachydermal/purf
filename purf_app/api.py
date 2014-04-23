@@ -44,7 +44,7 @@ class SearchProfessorResource(ModelResource):
             for q in query:
                 qset = (
                     Q(name__icontains=q) |
-                    Q(department__iexact=q) |
+                    Q(department__icontains=q) |
                     Q(email__icontains=q) |
                     Q(research_areas__icontains=q)
                     )
