@@ -7,7 +7,7 @@ from django.contrib.auth.decorators import login_required
 
 #from perf_app import models
 
-@login_required(redirect_field_name='login/')
+@login_required
 def index(request):
     results = [{'name':'Ira Banks', 'id':1}, {'name':'Lassy Delomina', 'id':2}]
     research_areas = ['Bleh', 'Blah', 'Blu', 'Blo', 'Blei', 'Blee', 'Blar', 'Blair', 'Blaf', 'Blaz', 'Blarf']
