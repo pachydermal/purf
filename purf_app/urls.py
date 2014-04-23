@@ -10,8 +10,8 @@ v1_api.register(ProfessorResource())
 v1_api.register(SearchProfessorResource())
 
 urlpatterns = patterns('',
-	url(r'^$', views.index, name='index'),
-	(r'^$', 'django_cas.views.login'),
+	url(r'^$', 'django_cas.views.login'),
+    (r'^$', views.index, name='index'),
 	(r'^logout/$', 'django_cas.views.logout'),
     (r'^api/', include(v1_api.urls)),
     url(r'^profile/(?P<id>.+)', views.profile, name='profile'),
