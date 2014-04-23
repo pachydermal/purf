@@ -7,8 +7,8 @@ from django.core.mail import send_mail
 #from perf_app import models
 
 def index(request):
-    results = [{'name':'Ira Banks', 'id':1}, {'name':'Lassy Delomina', 'id':2}]
-    research_areas = ['Bleh', 'Blah', 'Blu', 'Blo', 'Blei', 'Blee', 'Blar', 'Blair', 'Blaf', 'Blaz', 'Blarf']
+    results = []
+    research_areas = ['Compilers', 'Computer Security', 'Programming Languages']
 
     #Check if the first time they logged in
     try:

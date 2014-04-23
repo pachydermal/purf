@@ -38,15 +38,15 @@ class Student(models.Model):
     favorited_professors = models.ManyToManyField('Professor',blank=True,null=True,default=None, related_name='favorited_professors')
     def __unicode__(self):  
         return self.name
-'''
-class User(models.Model):
+
+"""class User(models.Model):
     student = models.ForeignKey('Student',blank=True,null=True,default=None,related_name='controlled_student')
     professor = models.ForeignKey('Professor',blank=True,null=True,default=None,related_name='controlled_professor')
     preferences = models.TextField(blank=True)
     #favorited_students = models.ManyToManyField('Student',blank=True,null=True,default=None)
     #favorited_professors = models.ManyToManyField('Professor',blank=True,null=True,default=None)
     first_access = models.DateTimeField('Time of first access')
-'''
+"""
 class Rating(models.Model):
     professor = models.ForeignKey('Professor')
     responsive = models.PositiveIntegerField()
@@ -58,7 +58,7 @@ class Rating(models.Model):
 class Project(models.Model):
     professor = models.ForeignKey('Professor')
     student_name = models.CharField(max_length=200)
-    netid = models.CharField(max_length=200)
+    netid = models.CharField(max_length=200, blank=True)
     year = models.PositiveIntegerField()
     project_title = models.CharField(max_length=500)
     project_description = models.TextField(blank=True)
