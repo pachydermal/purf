@@ -49,13 +49,13 @@ def index(request):
     return render_to_response('index.html', context, context_instance=RequestContext(request))
 
 def profile(request, id):
-	prof = Professor.objects.get(pk=id)
+	prof = Professor.objects.get(netid=id)
     #try:
     #    myProfId = Professor.objects.get(user=request.user.id).id
     #except:
     #    myProfId = -1
-	rating = Rating.objects.filter(professor=id)
-	project = Project.objects.filter(professor=id)
+	rating = Rating.objects.filter(professor=prof.id)
+	project = Project.objects.filter(professor=prof.id)
 	if prof.research_links: research = prof.research_links.split(';')
 	else: research = []
 	if prof.research_areas: areas = prof.research_areas.split(';')
@@ -91,13 +91,13 @@ def del_prof(request,id):
 
 
 def fav_prof(request,id):
-    prof = Professor.objects.get(netid =id )
-    try:
-        student = Student.objects.get(netid=request.user.username)
-        student.favorited_professors.add(prof)
-    except:
-        print 'hi'
-    return HttpResponseRedirect('/profile/'+str(id))
+	prof = Professor.objects.get(netid=id)
+	try:
+		student = Student.objects.get(netid=request.user.username)
+		student.favorited_professors.add(prof)
+	except:
+		print 'hi'
+	return HttpResponseRedirect('/profile/'+str(id))
 
 def new_prof(request):
     try:
