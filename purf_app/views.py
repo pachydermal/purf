@@ -3,8 +3,11 @@ from purf_app.models import Professor, Student, User, Rating, Project
 from purf_app.forms import StudentForm, ProfessorForm
 from django.http import HttpResponseRedirect, HttpResponse
 from django.template import RequestContext
+from django.contrib.auth.decorators import login_required
+
 #from perf_app import models
 
+@login_required(redirect_field_name='login/')
 def index(request):
     results = [{'name':'Ira Banks', 'id':1}, {'name':'Lassy Delomina', 'id':2}]
     research_areas = ['Bleh', 'Blah', 'Blu', 'Blo', 'Blei', 'Blee', 'Blar', 'Blair', 'Blaf', 'Blaz', 'Blarf']
