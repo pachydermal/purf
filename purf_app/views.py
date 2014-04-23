@@ -1,8 +1,9 @@
 from django.shortcuts import render, render_to_response
 from purf_app.models import Professor, Student, User, Rating, Project
-from purf_app.forms import StudentForm, ProfessorForm
+from purf_app.forms import StudentForm, ShortProfessorForm, ShortStudentForm, ProfessorForm
 from django.http import HttpResponseRedirect, HttpResponse
 from django.template import RequestContext
+from django.core.mail import send_mail
 #from perf_app import models
 
 def index(request):
@@ -21,7 +22,31 @@ def index(request):
         new = True
     else: new = False
 
-    context = {'results':results, 'research_areas':research_areas, 'new':new}
+    ##RECEIVE FORM DATA FOR FIRST USERS
+    if request.method == 'POST':
+        sForm = ShortStudentForm(request.POST)
+        pForm = ShortProfessorForm(request.POST)
+        if 'student' in request.POST:
+            if sForm.is_valid():
+                temp_post = sForm.save(commit=False)
+                temp_post.netid = request.user.username
+                temp_post.email = request.user.username + '@princeton.edu'
+                temp_post.name = request.user.username #Fix this later
+                temp_post.save()
+                return HttpResponseRedirect('/')
+        elif 'professor' in request.POST:
+            if pForm.is_valid():
+                temp_post = pForm.save(commit=False)
+                temp_post.netid = request.user.username
+                temp_post.email = request.user.username + '@princeton.edu'
+                temp_post.name = request.user.username #Fix this later
+                temp_post.save()
+                return HttpResponseRedirect('/')
+    else:
+        sForm = ShortStudentForm()
+        pForm = ShortProfessorForm()
+
+    context = {'results':results, 'research_areas':research_areas, 'new':new, 'sForm': sForm, 'pForm':pForm}
     return render_to_response('index.html', context, context_instance=RequestContext(request))
 
 def profile(request, id):
@@ -63,7 +88,8 @@ def del_prof(request,id):
     student = Student.objects.get(netid=request.user.username)
     student.favorited_professors.remove(prof)
     return HttpResponseRedirect('/account/')
-    
+
+
 def fav_prof(request,id):
     prof = Professor.objects.get(netid =id )
     try:
