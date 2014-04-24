@@ -93,7 +93,6 @@ def del_prof(request,id):
     student.favorited_professors.remove(prof)
     return HttpResponseRedirect('/account/')
 
-
 @login_required 
 def fav_prof(request,id):
 	prof = Professor.objects.get(netid=id)
