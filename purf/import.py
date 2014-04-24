@@ -5,7 +5,7 @@ csv_filepathname3 ="Reviews.tsv"
 
 # Full path to your django project directory
 your_djangoproject_home="/Users/Pallavi/COS_Archive/Classes/COS333/Project/"
-
+#your_djangoproject_home="C:/Users/Jean/Documents/GitHub/purf/"
 import sys, os
 sys.path.append(your_djangoproject_home)
 os.environ['DJANGO_SETTINGS_MODULE'] = 'settings'
@@ -41,7 +41,7 @@ for i,row in enumerate(profdataReader):
 for i,row in enumerate(projdataReader):
     proj = Project()
     try:
-        proj.professor=Professor.objects.get(pk=row[1])
+        proj.professor=Professor.objects.get(netid=row[1])
     except:
         continue
 
@@ -58,7 +58,7 @@ for i,row in enumerate(projdataReader):
 for i,row in enumerate(ratdataReader):
     rat = Rating()
     try:
-        rat.professor=Professor.objects.get(pk=row[0])
+        rat.professor=Professor.objects.get(netid=row[0])
     except:
         continue
 

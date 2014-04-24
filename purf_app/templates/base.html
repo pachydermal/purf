@@ -54,6 +54,9 @@
       <div class="collapse navbar-collapse">
 
         <ul class="nav navbar-nav navbar-right">
+		
+			{% if professor %}
+			{% else %}
             <li><div class="btn-group">
 			  <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
 				Favorites
@@ -68,6 +71,7 @@
 			  </ul>
 
 		    </div></li>
+			{% endif %}
 
 
           <li><a href="/account">{{user}}</a></li>
@@ -80,7 +84,25 @@
  <body>
  {% block content %} Content goes here {% endblock %}
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+
   <script src="{% static "js/protosearch.js" %}"></script>
+
   {% bootstrap_javascript %}
+  <script src="{% static "js/bootbox.min.js" %}"></script>
+
+     <script>
+    {% if new %}
+    <!--bootbox.prompt("Are you a student or a professor?", function(result) {
+      if (result === null) {
+        Example.show("Prompt dismissed");
+      } else {
+        Example.show("Hi <b>"+result+"</b>");
+      }
+    });-->
+
+    {% endif %}
+    </script>
+
+
   </body>
 </html>

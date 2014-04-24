@@ -4,7 +4,61 @@
 
   {% if new %}
         You are new!
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script type="text/javascript">
+    $(window).load(function(){
+        $('#myModal').modal('show');
+    });
+</script>
+<!-- Button trigger modal -->
+<a class="btn" data-toggle="modal" href="#myModal" >Launch Modal</a>
+
+<!-- Modal -->
+<a data-controls-modal="myModal" data-backdrop="static" data-keyboard="false" href="#"></a>
+
+<div class="modal in" id="myModal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="myModalLabel">New User Form</h4>
+      </div>
+      <div class="modal-body">
+          Welcome to PURF. Please fill out this brief form to get started.
+        <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
+            <li class="active"><a href="#red" data-toggle="tab">Student Profile</a></li>
+            <li><a href="#orange" data-toggle="tab">Professor Profile</a></li>
+        </ul>
+        <div id="my-tab-content" class="tab-content">
+            <div class="tab-pane active" id="red">
+                <h1>Student Profile</h1>
+
+                <form action="/" method="post" >{% csrf_token %}
+                {{ sForm.as_p }}
+                <input type="submit" name="student" value="Submit Student" />
+                </form>
+            </div>
+            <div class="tab-pane" id="orange">
+                <h1>Professor Profile</h1>
+
+                <form action="/" method="post">{% csrf_token %}
+                {{ pForm.as_p }}
+                <input type="submit" name="professor" value="Submit Professor" />
+                </form>
+
+                We will send a confirmation email to confirm that you are a Professor.
+                Until then you will not be registered in our database.
+            </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
   {% endif %}
+
+
+
   <!-- SECTION HEADER + SEARCH BOX -->
   <div class="container-fluid" style="background-color: #A0A0A0;">
     <div class="container">

@@ -26,6 +26,8 @@ SECRET_KEY = 'z$ep=9fspffv%#m&#d6lu$1yqhjkt@z4@q(*)+m#ep1)%)rah0'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+SITE_ID = 1
+
 TEMPLATE_DEBUG = True
 TEMPLATE_DIRS = (
     'templates',
@@ -45,9 +47,11 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
     'purf_app',
     'tastypie',
     'bootstrap3',
+    'moderation',
 )
 
 MIDDLEWARE_CLASSES = (

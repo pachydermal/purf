@@ -30,26 +30,40 @@
 			</p>
             {% endif %}
 
-
-            {% if myProfId == prof.id %}
-                <button type="button" class="btn btn-default">Edit</button>
-            {% endif %}
+			{% if professor %}
+				{% if professor.netid == prof.netid %}
+				<button type="button" class="btn btn-default">Edit</button>
+				{% endif %}
+			{% endif %}
 
 		</div>
+		
 		<div class="col-md-3 column">
+			{% if professor %}
+			{% else %}
 			<div class="row clearfix">
 				<div class="col-md-6 column">
-                      {% if isFavorited == "1" %}
-                       <p> Already Favorited </p>
-                        {% elif isFavorited == "0" %}
-                        <p> <form action='/fav_prof/{{prof.id}}/' method="post">
+					{% if isFavorited == "1" %}
+						<p> Already Favorited </p>
+					{% else %}
+						<p> <form action='/fav_prof/{{prof.netid}}/' method="post">
                         {% csrf_token %}
                         <input type = "submit" value ="Favorite" />
                         </form></p>
-                       {% endif %}
+					{% endif %}
+					
 				</div>
-			</div> Professor is unable to accept students:{{prof.full}}
+			</div> 
+			{% endif %}
+			Professor is unable to accept students:{{prof.full}}
 		</div>
+		
+		
+		
+		
+		
+		
+		
 	</div>
 	<div class="row clearfix">
 		<div class="col-md-3 column">

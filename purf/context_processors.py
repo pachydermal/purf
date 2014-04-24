@@ -1,8 +1,16 @@
 def getStudent(request):
-    from purf_app.models import Student
-    try:
-        student = Student.objects.get(netid=request.user.username)
-    except:
-        student = None
+#	global myStudent
+#	global myProfessor
+	from purf_app.models import Student, Professor
+	try:
+		student = Student.objects.get(netid=request.user.username)
+	except Student.DoesNotExist:
+		student = None
+		try:
+			professor = Professor.objects.get(netid=request.user.username)
+		except Professor.DoesNotExist:
+			professor = None
+	if student != None:
+		professor = None
 
-    return { 'student': student}
+	return { 'student': student, 'professor': professor,}
