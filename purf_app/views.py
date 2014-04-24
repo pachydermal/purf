@@ -45,8 +45,8 @@ def index(request):
         sForm = ShortStudentForm()
         pForm = ShortProfessorForm()
 
-    context = {'results':results, 'research_areas':research_areas, 'new':new, 'sForm': sForm, 'pForm':pForm}
-    return render_to_response('index.html', context, context_instance=RequestContext(request))
+    context = {'results':results, 'research_areas':research_areas, 'new':new, 'sForm': sForm, 'pForm':pForm, 'student':student}
+    return render_to_response('major.html', context, context_instance=RequestContext(request))
 
 def profile(request, id):
 	prof = Professor.objects.get(netid=id)
