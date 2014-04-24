@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 
 #from perf_app import models
 from django.core.mail import send_mail
+
 @login_required
 def index(request):
     results = []
