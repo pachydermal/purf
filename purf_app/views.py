@@ -6,7 +6,7 @@ from django.template import RequestContext
 from django.core.mail import send_mail
 from django.contrib.auth.decorators import login_required
 
-@login_required
+# @login_required
 def index(request):
     results = []
     research_areas = ['Compilers', 'Computer Security', 'Programming Languages']
@@ -50,7 +50,7 @@ def index(request):
     context = {'results':results, 'research_areas':research_areas, 'new':new, 'sForm': sForm, 'pForm':pForm, 'student':student}
     return render_to_response('major.html', context, context_instance=RequestContext(request))
 
-@login_required
+# @login_required
 def profile(request, id):
 	prof = Professor.objects.get(netid=id)
     #try:
@@ -85,7 +85,7 @@ def profile(request, id):
 	context ={'prof': prof, 'department': department, 'rating': rating, 'project': project, 'research': research, 'areas': areas, 'topics': topics, 'isFavorited': isFavorited}
 	return render_to_response('profile.html', context, context_instance=RequestContext(request))
 
-@login_required
+# @login_required
 def del_prof(request,id):
     print id
     prof = Professor.objects.get(netid =id )
@@ -93,7 +93,7 @@ def del_prof(request,id):
     student.favorited_professors.remove(prof)
     return HttpResponseRedirect('/account/')
 
-@login_required 
+# @login_required 
 def fav_prof(request,id):
 	prof = Professor.objects.get(netid=id)
 	try:
@@ -103,7 +103,7 @@ def fav_prof(request,id):
 		print 'hi'
 	return HttpResponseRedirect('/profile/'+str(id))
 
-@login_required
+# @login_required
 def new_prof(request):
     try:
         student = Student.objects.get(netid=request.user.username)
@@ -125,7 +125,7 @@ def new_prof(request):
     context = {'form':form, 'profForm':profForm}
     return render(request, 'student.html', context)
 
-@login_required
+# @login_required
 def student(request):
     try:   
         student = Student.objects.get(netid=request.user.username)

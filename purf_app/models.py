@@ -3,6 +3,12 @@ from django.utils import timezone
 from django.db import models
 from django.contrib.auth.models import User
 
+class Department(models.Model):
+    name = models.CharField(max_length=200)
+    research_areas = models.TextField(blank=True)
+    def __unicode__(self):
+        return self.name
+
 class Professor(models.Model):
     netid = models.CharField(max_length=200)
     name = models.CharField(max_length=200)
