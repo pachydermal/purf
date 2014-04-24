@@ -3,15 +3,12 @@
 {% block content %}
 
   {% if new %}
-        You are new!
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 <script type="text/javascript">
     $(window).load(function(){
         $('#myModal').modal('show');
     });
 </script>
-<!-- Button trigger modal -->
-<a class="btn" data-toggle="modal" href="#myModal" >Launch Modal</a>
 
 <!-- Modal -->
 <a data-controls-modal="myModal" data-backdrop="static" data-keyboard="false" href="#"></a>
