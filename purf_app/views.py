@@ -3,8 +3,6 @@ from purf_app.models import Professor, Student, User, Rating, Project
 from purf_app.forms import StudentForm, ShortProfessorForm, ShortStudentForm, ProfessorForm
 from django.http import HttpResponseRedirect, HttpResponse
 from django.template import RequestContext
-from django.core.mail import send_mail
-from django.contrib.auth.decorators import login_required
 
 @login_required
 def index(request):
@@ -47,11 +45,28 @@ def index(request):
         sForm = ShortStudentForm()
         pForm = ShortProfessorForm()
 
-    context = {'results':results, 'research_areas':research_areas, 'new':new, 'sForm': sForm, 'pForm':pForm, 'student':student}
-    return render_to_response('major.html', context, context_instance=RequestContext(request))
+    try:
+        mod = Professor.unmoderated_objects.get(netid=request.user.username)
+        context = {'results':results, 'research_areas':research_areas, 'new':new, 'sForm': sForm, 'pForm':pForm, 'student':student}
+        return render_to_response('mod.html', context, context_instance=RequestContext(request))
+    except:
+        context = {'results':results, 'research_areas':research_areas, 'new':new, 'sForm': sForm, 'pForm':pForm, 'student':student}
+        return render_to_response('major.html', context, context_instance=RequestContext(request))
+
 
 @login_required
 def profile(request, id):
+    #Prevent unidentified user from accessing any part of the site
+    try:
+        student = Student.objects.get(netid=request.user.username)
+    except Student.DoesNotExist:
+        try:
+            student = Professor.objects.get(netid=request.user.username)
+        except Professor.DoesNotExist:
+            student = None
+    if student == None:
+        return HttpResponseRedirect('/')
+
 	prof = Professor.objects.get(netid=id)
     #try:
     #    myProfId = Professor.objects.get(user=request.user.id).id
@@ -87,14 +102,35 @@ def profile(request, id):
 
 @login_required
 def del_prof(request,id):
-    print id
+    #Prevent unidentified user from accessing any part of the site
+    try:
+        student = Student.objects.get(netid=request.user.username)
+    except Student.DoesNotExist:
+        try:
+            student = Professor.objects.get(netid=request.user.username)
+        except Professor.DoesNotExist:
+            student = None
+    if student == None:
+        return HttpResponseRedirect('/')
+
     prof = Professor.objects.get(netid =id )
     student = Student.objects.get(netid=request.user.username)
     student.favorited_professors.remove(prof)
     return HttpResponseRedirect('/account/')
 
-@login_required 
+#@login_required
 def fav_prof(request,id):
+    #Prevent unidentified user from accessing any part of the site
+    try:
+        student = Student.objects.get(netid=request.user.username)
+    except Student.DoesNotExist:
+        try:
+            student = Professor.objects.get(netid=request.user.username)
+        except Professor.DoesNotExist:
+            student = None
+    if student == None:
+        return HttpResponseRedirect('/')
+
 	prof = Professor.objects.get(netid=id)
 	try:
 		student = Student.objects.get(netid=request.user.username)
@@ -105,6 +141,17 @@ def fav_prof(request,id):
 
 @login_required
 def new_prof(request):
+    #Prevent unidentified user from accessing any part of the site
+    try:
+        student = Student.objects.get(netid=request.user.username)
+    except Student.DoesNotExist:
+        try:
+            student = Professor.objects.get(netid=request.user.username)
+        except Professor.DoesNotExist:
+            student = None
+    if student == None:
+        return HttpResponseRedirect('/')
+
     try:
         student = Student.objects.get(netid=request.user.username)
     except Student.DoesNotExist:
@@ -127,13 +174,16 @@ def new_prof(request):
 
 @login_required
 def student(request):
-    try:   
+    #Prevent unidentified user from accessing any part of the site
+    try:
         student = Student.objects.get(netid=request.user.username)
     except Student.DoesNotExist:
         try:
             student = Professor.objects.get(netid=request.user.username)
         except Professor.DoesNotExist:
             student = None
+    if student == None:
+        return HttpResponseRedirect('/')
 
     if request.method == 'POST':
         form = StudentForm(request.POST)

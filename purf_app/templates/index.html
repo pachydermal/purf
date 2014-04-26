@@ -19,6 +19,7 @@
       <div class="modal-header">
         <h4 class="modal-title" id="myModalLabel">New User Form</h4>
       </div>
+      {% block mod %}
       <div class="modal-body">
           Welcome to PURF. Please fill out this brief form to get started.
         <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
@@ -48,7 +49,7 @@
 
         </div>
       </div>
-
+        {% endblock %}
     </div>
   </div>
 </div>
