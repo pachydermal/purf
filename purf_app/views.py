@@ -1,6 +1,6 @@
 from django.shortcuts import render, render_to_response
 from purf_app.models import Professor, Student, User, Rating, Project
-from purf_app.forms import StudentForm, ShortProfessorForm, ShortStudentForm, ProfessorForm
+from purf_app.forms import StudentForm, ShortProfessorForm, ShortStudentForm, ProfessorForm, EditProfessorForm, EditStudentForm
 from django.http import HttpResponseRedirect, HttpResponse
 from django.template import RequestContext
 
@@ -66,10 +66,7 @@ def profile(request, id):
     if student == None:
         return HttpResponseRedirect('/')
     prof = Professor.objects.get(netid=id)
-    #try:
-    #    myProfId = Professor.objects.get(user=request.user.id).id
-    #except:
-    #    myProfId = -1
+
     rating = Rating.objects.filter(professor=prof.id)
     project = Project.objects.filter(professor=prof.id)
     if prof.research_links: research = prof.research_links.split(';')
@@ -91,10 +88,24 @@ def profile(request, id):
     if student != None:
         if student.favorited_professors.filter(netid=prof.netid).exists():
             isFavorited = "1"
-
-    #isFavorited = '-1'
-    #context ={'prof': prof, 'department': department, 'rating': rating, 'project': project, 'research': research, 'areas': areas, 'topics': topics, 'isFavorited' : isFavorited, 'myProfId' : myProfId}
-    context ={'prof': prof, 'department': department, 'rating': rating, 'project': project, 'research': research, 'areas': areas, 'topics': topics, 'isFavorited': isFavorited}
+			
+	try:
+		myProf = Professor.objects.get(netid=request.user.username)
+	except:
+		myProf = None
+	url = '/profile/'+str(request.user.username)
+	
+	#ALLOW EDITING
+	if request.method == 'POST':
+		eForm = EditProfessorForm(request.POST, instance=myProf)
+		if eForm.is_valid():
+			eForm.save()
+			return HttpResponseRedirect('/profile/'+str(request.user.username))
+	else:
+		eForm = EditProfessorForm(instance=myProf)
+		
+		
+    context ={'prof': prof, 'department': department, 'rating': rating, 'project': project, 'research': research, 'areas': areas, 'topics': topics, 'isFavorited': isFavorited, 'eForm': eForm, 'url':url}
     return render_to_response('profile.html', context, context_instance=RequestContext(request))
 
 @login_required
@@ -172,42 +183,46 @@ def new_prof(request):
 @login_required
 def student(request):
     #Prevent unidentified user from accessing any part of the site
-    try:
-        student = Student.objects.get(netid=request.user.username)
-    except Student.DoesNotExist:
-        try:
-            student = Professor.objects.get(netid=request.user.username)
-        except Professor.DoesNotExist:
-            student = None
-    if student == None:
-        return HttpResponseRedirect('/')
-
-    if request.method == 'POST':
-        form = StudentForm(request.POST)
-        profForm = ProfessorForm(request.POST)
-        if 'student' in request.POST:
-            if form.is_valid():
-                temp_post = form.save(commit=False)
-                temp_post.user = request.user
-                temp_post.save()
-                form.save_m2m()
-                return HttpResponseRedirect('/account/')
-        elif 'professor' in request.POST:
-            if profForm.is_valid():
-                temp_post = profForm.save(commit=False)
-                temp_post.user = request.user
-                temp_post.save()
-                profForm.save_m2m()
-                me = Professor.objects.get(netid=request.user.username)
-                return HttpResponseRedirect('/profile/' + str(me.id))
-    else:
-        form = StudentForm()
-        profForm = ProfessorForm()
-
-
-    context ={'form': form, 'profForm': profForm, 'student': student}
-    
-    return render(request, 'student.html', context)
+	try:
+		student = Student.objects.get(netid=request.user.username)
+	except Student.DoesNotExist:
+		try:
+			student = Professor.objects.get(netid=request.user.username)
+		except Professor.DoesNotExist:
+			student = None
+	if student == None:
+		return HttpResponseRedirect('/')
+		
+	if request.method == 'POST':
+		form = StudentForm(request.POST)
+		profForm = ProfessorForm(request.POST)
+		eForm = EditStudentForm(request.POST, instance=student)
+		if 'student' in request.POST:
+			if form.is_valid():
+				temp_post = form.save(commit=False)
+				temp_post.user = request.user
+				temp_post.save()
+				form.save_m2m()
+				return HttpResponseRedirect('/account/')
+		elif 'professor' in request.POST:
+			if profForm.is_valid():
+				temp_post = profForm.save(commit=False)
+				temp_post.user = request.user
+				temp_post.save()
+				profForm.save_m2m()
+				me = Professor.objects.get(netid=request.user.username)
+				return HttpResponseRedirect('/profile/' + str(me.id))
+		elif 'edit' in request.POST:
+			if eForm.is_valid():
+				eForm.save()
+				return HttpResponseRedirect('/account/')
+	else:
+		form = StudentForm()
+		profForm = ProfessorForm()
+		eForm = EditStudentForm(instance=student)
+		
+	context ={'form': form, 'profForm': profForm, 'eForm': eForm, 'student': student}
+	return render(request, 'student.html', context)
     
 
 

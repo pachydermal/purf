@@ -30,13 +30,37 @@
 			</p>
             {% endif %}
 
-			{% if professor %}
-				{% if professor.netid == prof.netid %}
-				<button type="button" class="btn btn-default">Edit</button>
-				{% endif %}
-			{% endif %}
-
 		</div>
+		
+		
+		
+		{% if professor %}
+			{% if professor.netid == prof.netid %}
+		
+				<button type="button" data-toggle="modal" data-target="#editModal">Edit</button>
+		
+
+				<div class="modal in" id="editModal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+					<div class="modal-dialog modal-lg">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h4 class="modal-title" id="myModalLabel">Edit Profile</h4>
+							</div>
+							<div class="modal-body">
+								<form action={{url}} method="post" >{% csrf_token %}
+									{{ eForm.as_p }}
+							</div>
+							<div class="modal-footer">
+								<input type="submit" name="save" value="Save Changes"/>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+	</div>
+			{% endif %}
+		{% endif %}
+		
 		
 		<div class="col-md-3 column">
 			{% if professor %}
