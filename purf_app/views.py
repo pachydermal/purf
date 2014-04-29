@@ -47,7 +47,7 @@ def index(request):
         pForm = ShortProfessorForm()
 
     try:
-    	if student: 
+    	if student and student.department: 
         	department = Department.objects.get(name=student.department)
         else:
         	department = Department.objects.get('COS')
