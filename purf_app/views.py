@@ -1,6 +1,6 @@
 from django.shortcuts import render, render_to_response
 from purf_app.models import Professor, Student, User, Rating, Project, Department
-from purf_app.forms import StudentForm, ShortProfessorForm, ShortStudentForm, ProfessorForm
+from purf_app.forms import StudentForm, ShortProfessorForm, ShortStudentForm, ProfessorForm, EditProfessorForm, EditStudentForm
 from django.http import HttpResponseRedirect, HttpResponse
 from django.template import RequestContext
 from django.core.mail import send_mail
