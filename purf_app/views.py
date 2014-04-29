@@ -67,57 +67,59 @@ def index(request):
 @login_required
 def profile(request, id):
     #Prevent unidentified user from accessing any part of the site
-    try:
-        student = Student.objects.get(netid=request.user.username)
-    except Student.DoesNotExist:
-        try:
-            student = Professor.objects.get(netid=request.user.username)
-        except Professor.DoesNotExist:
-            student = None
-    if student == None:
-        return HttpResponseRedirect('/')
-    prof = Professor.objects.get(netid=id)
+	try:
+		student = Student.objects.get(netid=request.user.username)
+	except Student.DoesNotExist:
+		try:
+			student = Professor.objects.get(netid=request.user.username)
+		except Professor.DoesNotExist:
+			student = None
+	if student == None:
+		return HttpResponseRedirect('/')
+	prof = Professor.objects.get(netid=id)
 
-    rating = Rating.objects.filter(professor=prof.id)
-    project = Project.objects.filter(professor=prof.id)
-    if prof.research_links: research = prof.research_links.split(';')
-    else: research = []
-    if prof.research_areas: areas = prof.research_areas.split(';')
-    else: areas = []
-    if prof.research_topics: topics = prof.research_topics.split(';')
-    else: topics = []
-    if prof.department: department = prof.department.split(';')
-    else: department = []
+	rating = Rating.objects.filter(professor=prof.id)
+	project = Project.objects.filter(professor=prof.id)
+	if prof.research_links: research = prof.research_links.split(';')
+	else: research = []
+	if prof.research_areas: areas = prof.research_areas.split(';')
+	else: areas = []
+	if prof.research_topics: topics = prof.research_topics.split(';')
+	else: topics = []
+	if prof.department: department = prof.department.split(';')
+	else: department = []
 
+	try:
+		student = Student.objects.get(netid=request.user.username)
+	except Student.DoesNotExist:
+		student = None
 
-    try:
-        student = Student.objects.get(netid=request.user.username)
-    except Student.DoesNotExist:
-        student = None
-
-    isFavorited = "0"
-    if student != None:
-        if student.favorited_professors.filter(netid=prof.netid).exists():
-            isFavorited = "1"
+	isFavorited = "0"
+	if student != None:
+		if student.favorited_professors.filter(netid=prof.netid).exists():
+			isFavorited = "1"
 			
 	try:
 		myProf = Professor.objects.get(netid=request.user.username)
 	except:
 		myProf = None
 	url = '/profile/'+str(request.user.username)
-	
+	formInvalid = False
 	#ALLOW EDITING
+	eForm = EditProfessorForm(instance=myProf)
 	if request.method == 'POST':
 		eForm = EditProfessorForm(request.POST, instance=myProf)
 		if eForm.is_valid():
 			eForm.save()
+			myProf.moderated_object.approve(reason='Professor already exists, editing profile') #CHANGE MODERATED_BY PERSON!!
 			return HttpResponseRedirect('/profile/'+str(request.user.username))
-	else:
-		eForm = EditProfessorForm(instance=myProf)
-		
-		
-    context ={'prof': prof, 'department': department, 'rating': rating, 'project': project, 'research': research, 'areas': areas, 'topics': topics, 'isFavorited': isFavorited, 'eForm': eForm, 'url':url}
-    return render_to_response('profile.html', context, context_instance=RequestContext(request))
+		else:
+			formInvalid = True
+	#else:
+	#	eForm = EditProfessorForm(instance=myProf)
+	
+	context ={'prof': prof, 'department': department, 'rating': rating, 'project': project, 'research': research, 'areas': areas, 'topics': topics, 'isFavorited': isFavorited, 'eForm': eForm, 'url':url, 'formInvalid':formInvalid}
+	return render_to_response('profile.html', context, context_instance=RequestContext(request))
 
 @login_required
 def del_prof(request,id):
@@ -140,23 +142,23 @@ def del_prof(request,id):
 @login_required
 def fav_prof(request,id):
     #Prevent unidentified user from accessing any part of the site
-    try:
-        student = Student.objects.get(netid=request.user.username)
-    except Student.DoesNotExist:
-        try:
-            student = Professor.objects.get(netid=request.user.username)
-        except Professor.DoesNotExist:
-            student = None
-    if student == None:
-        return HttpResponseRedirect('/')
+	try:
+		student = Student.objects.get(netid=request.user.username)
+	except Student.DoesNotExist:
+		try:
+			student = Professor.objects.get(netid=request.user.username)
+		except Professor.DoesNotExist:
+			student = None
+	if student == None:
+		return HttpResponseRedirect('/')
 
-    prof = Professor.objects.get(netid=id)
-    try:
-        student = Student.objects.get(netid=request.user.username)
-        student.favorited_professors.add(prof)
-    except:
-        print 'hi'
-    return HttpResponseRedirect('/profile/'+str(id))
+	prof = Professor.objects.get(netid=id)
+	try:
+		student = Student.objects.get(netid=request.user.username)
+		student.favorited_professors.add(prof)
+	except:
+		print 'hi'
+	return HttpResponseRedirect('/profile/'+str(id))
 
 @login_required
 def new_prof(request):
@@ -194,16 +196,20 @@ def new_prof(request):
 @login_required
 def student(request):
     #Prevent unidentified user from accessing any part of the site
+	isProfessor = False
 	try:
 		student = Student.objects.get(netid=request.user.username)
 	except Student.DoesNotExist:
 		try:
 			student = Professor.objects.get(netid=request.user.username)
+			isProfessor = True
 		except Professor.DoesNotExist:
 			student = None
 	if student == None:
 		return HttpResponseRedirect('/')
 		
+	if isProfessor:
+		return HttpResponseRedirect('/profile/'+str(request.user.username))
 	if request.method == 'POST':
 		form = StudentForm(request.POST)
 		profForm = ProfessorForm(request.POST)
