@@ -3,10 +3,13 @@ from django.utils import timezone
 from django.db import models
 from django.contrib.auth.models import User
 
+YEARS = ( ('Freshman','Freshman'),('Sophomore','Sophomore'),('Junior','Junior'), ('Senior', 'Senior'),)
+DEPTS = ( ('CHM','CHM'),('COS','COS'),('ELE','ELE'), ('Other', 'Other'),('Undecided', 'Undecided'),)
+
 class Professor(models.Model):
     netid = models.CharField(max_length=200)
     name = models.CharField(max_length=200)
-    department = models.CharField(max_length=200)
+    department = models.CharField(max_length=200,choices=DEPTS)
     email = models.EmailField()
     image = models.URLField(max_length=200,blank=True)
     website_link = models.URLField(blank=True)
@@ -25,11 +28,11 @@ class Professor(models.Model):
 class Student(models.Model):
     netid = models.CharField(max_length=200, primary_key=True)
     name = models.CharField(max_length=200)
-    department = models.CharField(max_length=200)
+    department = models.CharField(max_length=200,choices=DEPTS)
     email = models.EmailField()
     image = models.URLField(max_length=200,blank=True)
     website_link = models.URLField(blank=True)
-    year = models.PositiveIntegerField()
+    year = models.CharField(max_length=200,choices=YEARS)
     resume_link = models.URLField(blank=True)
     description = models.TextField(blank=True)
     previous_professors = models.ManyToManyField('Professor',blank=True,null=True,default=None, related_name='previous_professors')
@@ -39,14 +42,7 @@ class Student(models.Model):
     def __unicode__(self):  
         return self.name
 
-"""class User(models.Model):
-    student = models.ForeignKey('Student',blank=True,null=True,default=None,related_name='controlled_student')
-    professor = models.ForeignKey('Professor',blank=True,null=True,default=None,related_name='controlled_professor')
-    preferences = models.TextField(blank=True)
-    #favorited_students = models.ManyToManyField('Student',blank=True,null=True,default=None)
-    #favorited_professors = models.ManyToManyField('Professor',blank=True,null=True,default=None)
-    first_access = models.DateTimeField('Time of first access')
-"""
+
 class Rating(models.Model):
     professor = models.ForeignKey('Professor')
     responsive = models.PositiveIntegerField()
@@ -59,11 +55,11 @@ class Project(models.Model):
     professor = models.ForeignKey('Professor')
     student_name = models.CharField(max_length=200)
     netid = models.CharField(max_length=200, blank=True)
-    year = models.PositiveIntegerField()
+    year = models.CharField(max_length=200,choices=YEARS)
     project_title = models.CharField(max_length=500)
     project_description = models.TextField(blank=True)
     type_of_project = models.CharField(max_length=200)
-    department = models.CharField(max_length=200)
+    department = models.CharField(max_length=200,choices=DEPTS)
     link = models.URLField(blank=True) 
 
 class Department(models.Model):

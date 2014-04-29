@@ -3,15 +3,12 @@
 {% block content %}
 
   {% if new %}
-        You are new!
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 <script type="text/javascript">
     $(window).load(function(){
         $('#myModal').modal('show');
     });
 </script>
-<!-- Button trigger modal -->
-<a class="btn" data-toggle="modal" href="#myModal" >Launch Modal</a>
 
 <!-- Modal -->
 <a data-controls-modal="myModal" data-backdrop="static" data-keyboard="false" href="#"></a>
@@ -22,6 +19,7 @@
       <div class="modal-header">
         <h4 class="modal-title" id="myModalLabel">New User Form</h4>
       </div>
+      {% block mod %}
       <div class="modal-body">
           Welcome to PURF. Please fill out this brief form to get started.
         <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
@@ -33,15 +31,27 @@
                 <h1>Student Profile</h1>
 
                 <form action="/" method="post" >{% csrf_token %}
-                {{ sForm.as_p }}
+                {% for field in sForm %}
+                    <div>
+                        <label for="{{ field.label }}">{{ field.label_tag }}
+                        {% if field.field.required %}<span class="special_class">*</span>{% endif %}</label>
+                        {{ field }}
+                    </div>
+                {% endfor %}
                 <input type="submit" name="student" value="Submit Student" />
                 </form>
             </div>
             <div class="tab-pane" id="orange">
                 <h1>Professor Profile</h1>
-
+                <p>* Fields are required</p>
                 <form action="/" method="post">{% csrf_token %}
-                {{ pForm.as_p }}
+                {% for field in pForm %}
+                    <div>
+                        <label for="{{ field.label }}">{{ field.label_tag }}
+                        {% if field.field.required %}<span class="special_class">*</span>{% endif %}</label>
+                        {{ field }}
+                    </div>
+                {% endfor %}
                 <input type="submit" name="professor" value="Submit Professor" />
                 </form>
 
@@ -51,7 +61,7 @@
 
         </div>
       </div>
-
+        {% endblock %}
     </div>
   </div>
 </div>
@@ -66,7 +76,7 @@
           <div align="center" >
             <!-- Make the following text responsive to major? -->
             {% block major %}
-              PURF
+              <h1>Princeton Undergraduate Research Finder</h1>
             {% endblock %}
             <form id="search-form" class="form-search">
                <div class="form-group col-sm-7 col-sm-offset-2 ">
