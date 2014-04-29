@@ -61,14 +61,14 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    # 'django_cas.middleware.CASMiddleware',
-    # 'django.middleware.doc.XViewMiddleware',
+    'django_cas.middleware.CASMiddleware',
+    'django.middleware.doc.XViewMiddleware',
 )
 
-# AUTHENTICATION_BACKENDS = (
-#    'django.contrib.auth.backends.ModelBackend',
-#    'django_cas.backends.CASBackend',
-# )
+AUTHENTICATION_BACKENDS = (
+   'django.contrib.auth.backends.ModelBackend',
+   'django_cas.backends.CASBackend',
+)
 
 ROOT_URLCONF = 'purf.urls'
 
@@ -117,7 +117,7 @@ TEMPLATE_CONTEXT_PROCESSORS += ('purf.context_processors.getStudent',)
 # COMMENT EVERYTHING BELOW HERE WHEN RUNNING LOCALLY
 # REMEMBER TO UNCOMMENT BEFORE PUSHING!!
 
-# CAS_SERVER_URL = 'https://fed.princeton.edu/cas/'
+CAS_SERVER_URL = 'https://fed.princeton.edu/cas/'
 
 LOGIN_URL = '/login/'
 # Parse database configuration from $DATABASE_URL
