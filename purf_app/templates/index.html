@@ -65,8 +65,9 @@
       <div class="row">
           <div align="center" >
             <!-- Make the following text responsive to major? -->
-            <h1>Computer Science</h1>
-            <p class="lead">Next Deadline: approaching!</p>
+            {% block major %}
+              PURF
+            {% endblock %}
             <form id="search-form" class="form-search">
                <div class="form-group col-sm-7 col-sm-offset-2 ">
                  <input id="searchbox" class="form-control" id="exampleInputEmail2" placeholder="Search for Professors, Departments or Research Areas here"/>
