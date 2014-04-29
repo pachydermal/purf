@@ -119,7 +119,7 @@ TEMPLATE_CONTEXT_PROCESSORS += ('purf.context_processors.getStudent',)
 
 # CAS_SERVER_URL = 'https://fed.princeton.edu/cas/'
 
-# LOGIN_URL = '/login/'
+LOGIN_URL = '/login/'
 # Parse database configuration from $DATABASE_URL
 
 import dj_database_url

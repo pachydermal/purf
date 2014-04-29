@@ -40,7 +40,6 @@ class SearchProfessorResource(ModelResource):
         if('query' in filters_dict.keys()):
             query = filters_dict['query']
             qsets = []
-            filtList = [] 
             for q in query:
                 qset = (
                     Q(name__icontains=q) |
@@ -49,7 +48,6 @@ class SearchProfessorResource(ModelResource):
                     Q(research_areas__icontains=q)
                     )
                 qsets.append(qset)
-                filtList.append(set(Professor.objects.filter(qset)))
 
             orm_filters.update({'custom': qsets})
         return orm_filters
@@ -63,8 +61,9 @@ class SearchProfessorResource(ModelResource):
         semi_filtered = super(SearchProfessorResource, self).apply_filters(request, applicable_filters)
 
         if custom:
+            query = custom.pop()
             for i in custom:
-                print i
-                semi_filtered = semi_filtered.filter(i)
+                query |= i
+        semi_filtered = semi_filtered.filter(query)
 
         return semi_filtered
