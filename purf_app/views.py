@@ -47,7 +47,10 @@ def index(request):
         pForm = ShortProfessorForm()
 
     try:
-        department = Department.objects.get(name=student.department)
+    	if student: 
+        	department = Department.objects.get(name=student.department)
+        else:
+        	department = Department.objects.get('COS')
     except Department.DoesNotExist:
         print 'Department does not exist'
 
