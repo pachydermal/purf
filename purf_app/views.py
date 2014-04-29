@@ -1,13 +1,14 @@
 from django.shortcuts import render, render_to_response
-from purf_app.models import Professor, Student, User, Rating, Project
+from purf_app.models import Professor, Student, User, Rating, Project, Department
 from purf_app.forms import StudentForm, ShortProfessorForm, ShortStudentForm, ProfessorForm, EditProfessorForm, EditStudentForm
 from django.http import HttpResponseRedirect, HttpResponse
 from django.template import RequestContext
+from django.core.mail import send_mail
+from django.contrib.auth.decorators import login_required
 
 @login_required
 def index(request):
     results = []
-    research_areas = ['Compilers', 'Computer Security', 'Programming Languages']
 
     #Check if the first time they logged in
     try:
@@ -44,6 +45,14 @@ def index(request):
     else:
         sForm = ShortStudentForm()
         pForm = ShortProfessorForm()
+
+    try:
+        department = Department.objects.get(name=student.department)
+    except Department.DoesNotExist:
+        print 'Department does not exist'
+
+    research_areas = department.research_areas.split(';')
+    
     try:
         mod = Professor.unmoderated_objects.get(netid=request.user.username)
         context = {'results':results, 'research_areas':research_areas, 'new':new, 'sForm': sForm, 'pForm':pForm, 'student':student}
@@ -52,6 +61,8 @@ def index(request):
         context = {'results':results, 'research_areas':research_areas, 'new':new, 'sForm': sForm, 'pForm':pForm, 'student':student}
         return render_to_response('major.html', context, context_instance=RequestContext(request))
 
+    context = {'results':results, 'research_areas':research_areas, 'new':new, 'sForm': sForm, 'pForm':pForm, 'student':student}
+    return render_to_response('major.html', context, context_instance=RequestContext(request))
 
 @login_required
 def profile(request, id):

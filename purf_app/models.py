@@ -61,3 +61,7 @@ class Project(models.Model):
     type_of_project = models.CharField(max_length=200)
     department = models.CharField(max_length=200,choices=DEPTS)
     link = models.URLField(blank=True) 
+
+class Department(models.Model):
+    name = models.CharField(max_length=200)
+    research_areas = models.TextField(blank=True)
