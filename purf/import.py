@@ -5,7 +5,7 @@ csv_filepathname3 ="Reviews.tsv"
 
 # Full path to your django project directory
 your_djangoproject_home="/Users/Pallavi/COS_Archive/Classes/COS333/Project/"
-#your_djangoproject_home="C:/Users/Jean/Documents/GitHub/purf/"
+#your_djangoproject_home="C:/Users/Stephen/Documents/GitHub/purf/"
 import sys, os
 sys.path.append(your_djangoproject_home)
 os.environ['DJANGO_SETTINGS_MODULE'] = 'settings'
@@ -69,5 +69,4 @@ for i,row in enumerate(ratdataReader):
     rat.comments = row[5]
 
     rat.save()
-
 
