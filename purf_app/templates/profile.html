@@ -55,7 +55,13 @@
 							</div>
 							<div class="modal-body">
 								<form action={{url}} method="post" >{% csrf_token %}
-									{{ eForm.as_p }}
+								{% for field in eForm %}
+									<div>
+										<label for="{{ field.label }}">{{ field.label_tag }}
+										{% if field.field.required %}<span class="special_class">*</span>{% endif %}</label>
+										{{ field }}
+									</div>
+								{% endfor %}
 							</div>
 							<div class="modal-footer">
 								<input type="submit" name="save" value="Save Changes"/>
