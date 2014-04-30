@@ -6,7 +6,7 @@ from django.template import RequestContext
 from django.core.mail import send_mail
 from django.contrib.auth.decorators import login_required
 
-@login_required
+#@login_required
 def index(request):
     results = []
 
@@ -46,15 +46,15 @@ def index(request):
         sForm = ShortStudentForm()
         pForm = ShortProfessorForm()
 
+	research_areas = []
     try:
     	if student and student.department: 
         	department = Department.objects.get(name=student.department)
         else:
         	department = Department.objects.get(name='COS')
+		research_areas = department.research_areas.split(';')
     except Department.DoesNotExist:
         print 'Department does not exist'
-
-    research_areas = department.research_areas.split(';')
     
     try:
         mod = Professor.unmoderated_objects.get(netid=request.user.username)
@@ -67,7 +67,7 @@ def index(request):
     context = {'results':results, 'research_areas':research_areas, 'new':new, 'sForm': sForm, 'pForm':pForm, 'student':student}
     return render_to_response('major.html', context, context_instance=RequestContext(request))
 
-@login_required
+#@login_required
 def profile(request, id):
     #Prevent unidentified user from accessing any part of the site
 	try:
@@ -124,7 +124,7 @@ def profile(request, id):
 	context ={'prof': prof, 'department': department, 'rating': rating, 'project': project, 'research': research, 'areas': areas, 'topics': topics, 'isFavorited': isFavorited, 'eForm': eForm, 'url':url, 'formInvalid':formInvalid}
 	return render_to_response('profile.html', context, context_instance=RequestContext(request))
 
-@login_required
+#@login_required
 def del_prof(request,id):
     #Prevent unidentified user from accessing any part of the site
     try:
@@ -142,7 +142,7 @@ def del_prof(request,id):
     student.favorited_professors.remove(prof)
     return HttpResponseRedirect('/account/')
 
-@login_required
+#@login_required
 def fav_prof(request,id):
     #Prevent unidentified user from accessing any part of the site
 	try:
@@ -163,7 +163,7 @@ def fav_prof(request,id):
 		print 'hi'
 	return HttpResponseRedirect('/profile/'+str(id))
 
-@login_required
+#@login_required
 def new_prof(request):
     #Prevent unidentified user from accessing any part of the site
     try:
@@ -196,7 +196,7 @@ def new_prof(request):
     context = {'form':form, 'profForm':profForm}
     return render(request, 'student.html', context)
 
-@login_required
+#@login_required
 def student(request):
     #Prevent unidentified user from accessing any part of the site
 	isProfessor = False
