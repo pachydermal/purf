@@ -50,7 +50,7 @@ def index(request):
     	if student and student.department: 
         	department = Department.objects.get(name=student.department)
         else:
-        	department = Department.objects.get('COS')
+        	department = Department.objects.get(name='COS')
     except Department.DoesNotExist:
         print 'Department does not exist'
 
