@@ -25,7 +25,7 @@ class ProfessorForm(ModelForm):
 class ShortStudentForm(ModelForm):
     class Meta:
         model = Student
-        fields = ('department','year', 'certificates')
+        fields = ('department','year')
         hidden_fields = ('netid','name','email')
 
 class ShortProfessorForm(ModelForm):

@@ -28,7 +28,7 @@
         <div id="my-tab-content" class="tab-content">
             <div class="tab-pane active" id="red">
                 <h1>Student Profile</h1>
-
+				<p>* Fields are required</p>
                 <form action="/" method="post" >{% csrf_token %}
                 {% for field in sForm %}
                     <div>
