@@ -4,7 +4,7 @@ from django.db import models
 from django.contrib.auth.models import User
 
 YEARS = ( ('Freshman','Freshman'),('Sophomore','Sophomore'),('Junior','Junior'), ('Senior', 'Senior'),)
-DEPTS = ( ('CHM','CHM'),('COS','COS'),('ELE','ELE'), ('Other', 'Other'),('Undecided', 'Undecided'),)
+DEPTS = ( ('CHM','CHM'),('COS','COS'),('ELE','ELE'), ('MOL','MOL'),('Other', 'Other'),('Undecided', 'Undecided'),)
 
 class Professor(models.Model):
     netid = models.CharField(max_length=200)
