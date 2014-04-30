@@ -210,7 +210,8 @@ def student(request):
 			student = None
 	if student == None:
 		return HttpResponseRedirect('/')
-		
+	
+	formInvalid = False
 	if isProfessor:
 		return HttpResponseRedirect('/profile/'+str(request.user.username))
 	if request.method == 'POST':
@@ -236,12 +237,14 @@ def student(request):
 			if eForm.is_valid():
 				eForm.save()
 				return HttpResponseRedirect('/account/')
+			else:
+				formInvalid = True
 	else:
 		form = StudentForm()
 		profForm = ProfessorForm()
 		eForm = EditStudentForm(instance=student)
 		
-	context ={'form': form, 'profForm': profForm, 'eForm': eForm, 'student': student}
+	context ={'form': form, 'profForm': profForm, 'eForm': eForm, 'student': student, 'formInvalid': formInvalid}
 	return render(request, 'student.html', context)
     
 
