@@ -17,7 +17,7 @@ class SearchProfessorResource(ModelResource):
         filtering = {
             "department": ('exact'),
             "name": ('exact', 'startswith',),
-            "research_areas": ('exact'),
+            "research_areas": ('exact', 'icontains',),
         }
         resource_name = "search"
         allowed_methods = ['get']
