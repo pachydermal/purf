@@ -6,7 +6,8 @@
   <head>
     <title>PURF</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,300,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="{% static "css/main.css" %}">
     {% bootstrap_css %}
     <style>
          body {padding-top: 50px;}
@@ -41,7 +42,7 @@
   </head>
  
    
- <div class="navbar navbar-inverse navbar-fixed-top">
+ <div class="navbar navbar-fixed-top">
     <div class="container">
       <div class="navbar-header">
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -49,33 +50,39 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="/">Princeton Undergraduate Research Finder</a>
+        <a class="navbar-brand" href="/">PURF</a>
       </div>
       <div class="collapse navbar-collapse">
 
         <ul class="nav navbar-nav navbar-right">
 		
-			{% if professor %}
-			{% else %}
-            <li><div class="btn-group">
-			  <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-				Favorites
-				<span class="caret"></span>
-			  </a>
-			  <ul class="dropdown-menu">
-				{% for pr in student.favorited_professors.all %}
-				<li><a href="/profile/{{pr.netid}}">{{pr.name}}</a></li>
-				{% endfor %}
-                <li class="divider"></li>
-                <li> <a href="/account"> Manage Favorites</a> </li>
-			  </ul>
+          {% if not professor %}
+          <li class="dropdown">
+            <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+              Favorites <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
+              {% if student.favorited_professors.all %}
+              {% for pr in student.favorited_professors.all %}
+               <li><a href="/profile/{{pr.netid}}">{{pr.name}}</a></li>
+              {% endfor %}
+              <li class="divider"></li>
+              {% endif %}
+              <li> <a href="/account"> Manage Favorites</a> </li>
+            </ul>
+          </li>
+          {% endif %}
 
-		    </div></li>
-			{% endif %}
 
-
-          <li><a href="/account">{{user}}</a></li>
-          <li><a href="/logout">Logout</a></li>
+          <li class="dropdown">
+            <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+              {{user}} <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
+              <li><a href="/account">Manage Account</a></li>
+              <li><a href="/logout">Logout</a></li>
+            </ul>
+          </li>
         </ul>
       </div><!--/.nav-collapse -->
     </div>
@@ -84,7 +91,7 @@
  <body>
  {% block content %} Content goes here {% endblock %}
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-
+  <script src="{% static "js/jquery.history.js" %}"></script>
   <script src="{% static "js/protosearch.js" %}"></script>
 
   {% bootstrap_javascript %}

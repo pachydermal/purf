@@ -3,16 +3,12 @@
 {% if student %}
         {% if student.department == 'COS' %}
             <h1>Computer Science</h1>
-            <p class="lead">Next Deadline: approaching!</p>
         {% elif student.department == 'ELE' %}
             <h1>Electrical Engineering</h1>
-            <p class="lead">Next Deadline: approaching!</p>
         {% elif student.department == 'MOL' %}
             <h1>Molecular Biology</h1>
-            <p class="lead">Next Deadline: approaching!</p>
         {% elif student.department == 'CHM' %}
             <h1>Chemistry</h1>
-            <p class="lead">Next Deadline: approaching!</p>
         {% else %}
             <h1>Princeton Undergraduate Research Finder</h1>
         {% endif %}

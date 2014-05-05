@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+{% block content %}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+  <!-- SECTION HEADER + SEARCH BOX -->
+  <div class="container-fluid search-bar">
+    <div class="container">
+      <div class="row">
+          <div align="center" >
+            <form id="search-form" class="form-search">
+               <div class="form-group col-sm-6">
+                 <input id="searchbox" class="form-control" id="exampleInputEmail2" placeholder="Search for Professors, Departments or Research Areas here"/>
+               </div>
+                <button id="searchbutton" type="submit" class="btn btn-default col-sm-1">Search</button>
+            </form>
+                <!-- This part isn't working, obviously -->
+            <a data-toggle="collapse" data-target="#sliding-panel">
+              <div align="center">
+                Refine Search
+              </div>
+            </a>
+          </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- EXPANDING RESEARCH AREA SEARCH REFINEMENTS -->
+  <div class="container-fluid" style="background-color: #AECDD6;">
+    <div class="container">
+      <div class="row" >
+        <div id="sliding-panel" class="collapse">
+          <div align="center">
+            <!-- Make the following text responsive to major? -->
+            <h1>Research Areas</h1>
+          </div>
+
+          <!-- Below taken from https://stackoverflow.com/questions/13810059/bootstrap-simple-form-checkbox-grids. Have to modify... note the first column is lower than the others? -->
+
+          <!-- Have to somehow make this responsive??? -->
+          <div class="control-group clearfix">
+            <div class="checkbox-columns">
+              {% for area in research_areas %}
+                <label class="checkbox span2">
+                  <input type="checkbox" value="{{area}}">
+                  {{area}}
+                </label>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+   <!-- SEARCH RESULTS -->
+  <div class="container-fluid search-results-container">
+    <div class="container">
+      <div align="center">
+        <!-- Make the following text responsive to major? -->
+        <h3>Search Results</h3>
+      </div>
+
+      <div id="search-results">
+        {% for result in results %}
+        <div class="row" style="padding: 10px 0; background:white; margin: 1px 0">
+          <div class="profile col-md-2">
+            <img src="http://lorempixel.com/50/50/people"/>
+          </div>
+          <div class="name col-md-5">
+            <!--a href="profile/{{ result.id }}">
+              {{ result.name }}
+            </a-->
+              Default Results
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+
+
+
+{% endblock%}

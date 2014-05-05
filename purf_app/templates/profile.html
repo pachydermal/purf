@@ -7,38 +7,155 @@
   <div class="container">
 	<div class="row clearfix">
 		<div class="col-md-3 column">
-            {% if prof.image %}
-			<img alt="140x140" src="{{prof.image}}" class="img-thumbnail">
-            {% endif %}
+      {% if prof.image %}
+			  <img alt="140x140" src="{{prof.image}}" class="img-thumbnail">
+      {% endif %}
+      {% if not professor %}
+        <div class="row clearfix">
+          <div class="col-md-6 column">
+            {% if isFavorited == "1" %}
+              <form action='/del_prof2/{{prof.netid}}/' method="post">
+                {% csrf_token %}
+                <input type = "submit" value ="Remove from Favorites" />
+              </form>
+            {% else %}
+              <form action='/fav_prof/{{prof.netid}}/' method="post">
+                {% csrf_token %}
+                <input type = "submit" value ="Favorite" />
+              </form>
+					{% endif %}
+
+          </div>
+        </div>
+			{% endif %}
+
+      {% if prof.full %}
+      <p>This professor reported they are unable to take on any more advisees. </p>
+      {% else %}
+      <p>This professor may be able to accept another advisee.</p>
+      <button class="btn">Message</button>
+      {% endif %}
 		</div>
-		<div class="col-md-6 column">
 
-            {% if prof %}
-			<p>
-                {% if department %} {% for d in department %} {{d}} {% endfor %} {% endif %}
-                {% if department and prof.title %} | {% endif %}
-                {{prof.title}}
-			</p>
-			<h1>{% if prof.name %}{{prof.name}} {%else%} N/A {%endif%}</h1>
-			<p> {{prof.email}} </p>
-			<p>
-				
-                <a href={{prof.website_link}} target="_newtab">
-                
-                {{prof.website_link}}
-                </a>
-			</p>
+    <!-- RIGHT PANEL -->
+		<div class="col-md-9 column">
+      {% if prof %}
+      <!-- PROFESSOR INFO -->
+      <h1>{% if prof.name %}{{prof.name}} {%else%} N/A {%endif%}</h1>
+      <p>
+        {% if department %} {% for d in department %} {{d}} {% endfor %} {% endif %}
+        {% if department and prof.title %} | {% endif %}
+        {{prof.title}}
+      </p>
+      <p> {{prof.email}} </p>
+      <p>
+        <a href={{prof.website_link}} target="_newtab">
+          {{prof.website_link}}
+        </a>
+      </p>
+
+    <!-- PROFESSOR INFO -->
+      <h3>Student Reviews</h3>
+      <p>(Orange bars are error bars)</p>
+      <p class="profile-review-left-text">Low</p>
+      <p class="profile-review-right-text">High</p>
+      <h4 class="profile-review-label">Responsiveness (e.g. email)</h4>
+      <div class="progress">
+        <div class="progress-bar-container">
+          <div class="progress-bar offset" style="width: {{rating.responsive}}%;"></div>
+          <div class="progress-bar error" style="width: {{rating.error1}}%;"></div>
+        </div>
+      </div>
+      <p class="profile-review-left-text">Infrequent</p>
+      <p class="profile-review-right-text">Frequent</p>
+      <h4 class="profile-review-label">Meeting Frequency</h4>
+      <div class="progress">
+        <div class="progress-bar-container">
+          <div class="progress-bar offset" style="width: {{rating.frequency}}%;"></div>
+          <div class="progress-bar error" style="width: {{rating.error2}}%;"></div>
+        </div>
+      </div>
+      <p class="profile-review-left-text">More Independence</p>
+      <p class="profile-review-right-text">More Professor Input</p>
+      <h4 class="profile-review-label">Deciding Project Topic</h4>
+      <div class="progress">
+        <div class="progress-bar-container">
+          <div class="progress-bar offset" style="width: {{rating.idea_input}}%;"></div>
+          <div class="progress-bar error" style="width: {{rating.error3}}%;"></div>
+        </div>
+      </div>
+
+      {% endif %}
+        <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
+            <li class="active"><a href="#red" data-toggle="tab">Description</a></li>
+            {% if project %}
+              <li><a href="#yellow" data-toggle="tab">Past Projects</a></li>
             {% endif %}
+        </ul>
+        <div id="my-tab-content" class="tab-content">
+            <div class="tab-pane active" id="red">
+                <h1>Description</h1>
+                {% if prof %}
+                  {% if prof.description%}
+                    <p> {{prof.description}}</p>
+                  {% endif %}
+                  {% if areas %}
+                      <h3>Research Areas</h3>
+                      <ul>
+                      {%for area in areas %}
+                          <li> {{area|title}} </li>
+                      {%endfor%}
+                      </ul>
+                  {% endif %}
 
+
+                  {% if topics %}
+                      <h3>Research Topics</h3>
+                      <ul>
+                          {%for topic in topics %}
+                              <li> {{topic}} </li>
+                          {%endfor%}
+                      </ul>
+                  {% endif %}
+
+                  {% if research %}
+                      <h3>Research Links</h3>
+
+                      {%for link in research %}
+                          <pre> <a href={{link}} target="_newtab">{{link}} </a></pre>
+                      {%endfor%}
+
+                  {% endif %}
+                {% endif %}
+            </div>
+
+            {% if project %}
+              <div class="tab-pane" id="yellow">
+                  <h1>Past Projects</h1>
+                  {% for proj in project %}
+                  <p>
+                   Name: {{proj.student_name}}
+                   {% if proj.netid %} NetID: {{proj.netid}} {% endif %}
+                   {% if proj.year %} Year: {{proj.year}} {% endif %}
+                   {% if proj.project_title %} Project Title: {{proj.project_title}} {% endif %}
+                   {% if proj.project_description %} Project Description: {{proj.project_description}} {% endif %}
+                   {% if proj.project_description %} Project Description: {{proj.project_description}} {% endif %}
+                   {% if proj.department %} Department: {{proj.department}} {% endif %}
+                   {% if proj.link %} Link: {{proj.link}} {% endif %}
+                   </p>
+                  {% endfor %}
+              </div>
+            {% endif %}
+        </div>
 		</div>
 		
 		{% if formInvalid %}
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-<script type="text/javascript">
-    $(window).load(function(){
-        $('#editModal').modal('show');
-    });
-</script>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+      <script type="text/javascript">
+          $(window).load(function(){
+              $('#editModal').modal('show');
+          });
+      </script>
 		{% endif %}
 		
 		{% if professor %}
@@ -67,110 +184,11 @@
 
 			{% endif %}
 		{% endif %}
-		
-		
-		<div class="col-md-3 column">
-			{% if professor %}
-			{% else %}
-			<div class="row clearfix">
-				<div class="col-md-6 column">
-					{% if isFavorited == "1" %}
-						<p> Already Favorited </p>
-					{% else %}
-						<p> <form action='/fav_prof/{{prof.netid}}/' method="post">
-                        {% csrf_token %}
-                        <input type = "submit" value ="Favorite" />
-                        </form></p>
-					{% endif %}
-					
-				</div>
-			</div> 
-			{% endif %}
-			Professor is unable to accept students:{{prof.full}}
-		</div>
-		
-		
-		
-		
-		
-		
-		
+
 	</div>
 	<div class="row clearfix">
-		<div class="col-md-3 column">
-			{% if prof %}
-                {% if areas %}
-                    <h3>Research Areas</h3>
-                    <ul>
-                    {%for area in areas %}
-                        <li> {{area|title}} </li>
-                    {%endfor%}
-                    </ul>
-                {% endif %}     
-            
-			
-                {% if research %}
-                    <h3>Research Links</h3>
+		<div class="col-md-9 col-md-offset-3 column">
 
-                    {%for link in research %}
-                        <pre> <a href={{link}} target="_newtab">{{link}} </a></pre>
-                    {%endfor%}
-
-                {% endif %}                
-            {% endif %} 
-		</div>
-		<div class="col-md-9 column">
-			<ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
-                <li class="active"><a href="#red" data-toggle="tab">Description</a></li>
-                <li><a href="#orange" data-toggle="tab">Research Topics</a></li>
-                <li><a href="#yellow" data-toggle="tab">Past Projects</a></li>
-                <li><a href="#green" data-toggle="tab">Student Reviews</a></li>
-            </ul>
-            <div id="my-tab-content" class="tab-content">
-                <div class="tab-pane active" id="red">
-                    <h1>Description</h1>
-                    <p>{% if prof.description%} {{prof.description}} 
-                    {% else %} No Description Available. {% endif %}</p>
-                </div>
-                <div class="tab-pane" id="orange">
-                    <h1>Research Topics</h1>
-                    {% if not topics %} <p>No topics.</p>
-                    {% else %} <ul>
-                        {%for topic in topics %}
-                            <li> {{topic}} </li>
-                        {%endfor%} </ul>
-                    {% endif %} 
-                </div>
-                <div class="tab-pane" id="yellow">
-                    <h1>Past Projects</h1>
-                    {% for proj in project %}
-                    <p>
-                     Name: {{proj.student_name}}
-                     {% if proj.netid %} NetID: {{proj.netid}} {% endif %}
-                     {% if proj.year %} Year: {{proj.year}} {% endif %} 
-                     {% if proj.project_title %} Project Title: {{proj.project_title}} {% endif %} 
-                     {% if proj.project_description %} Project Description: {{proj.project_description}} {% endif %} 
-                     {% if proj.project_description %} Project Description: {{proj.project_description}} {% endif %} 
-                     {% if proj.department %} Department: {{proj.department}} {% endif %}
-                     {% if proj.link %} Link: {{proj.link}} {% endif %} 
-                     </p>
-                    {% endfor %}
-                </div>
-                <div class="tab-pane" id="green">
-                    <h1>Student Reviews</h1>
-                    {% for item in rating %}
-                    <p>
-                            Responsiveness: {{item.responsive}}
-                            Frequency of Contact: {{item.frequency}}
-                            Input into Idea: {{item.idea_input}}
-                            Overall Rating: {{item.overall}}
-                            Comments: {{item.comments}}
-                     </p>
-                    {% endfor %}
-                        
-                    
-                </div>
-            </div>
 		</div>
 	</div>
 
