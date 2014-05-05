@@ -56,13 +56,13 @@ def index(request):
         research_areas = department.research_areas.split(';')
     except Department.DoesNotExist:
         print 'Department does not exist'
-
     try:
         mod = Professor.unmoderated_objects.get(netid=request.user.username)
         context = {'results':results, 'research_areas':research_areas, 'new':new, 'sForm': sForm, 'pForm':pForm, 'student':student}
         return render_to_response('mod.html', context, context_instance=RequestContext(request))
     except:
         context = {'results':results, 'research_areas':research_areas, 'new':new, 'sForm': sForm, 'pForm':pForm, 'student':student}
+
         return render_to_response('index.html', context, context_instance=RequestContext(request))
     context = {'results':results, 'research_areas':research_areas, 'new':new, 'sForm': sForm, 'pForm':pForm, 'student':student}
     return render_to_response('index.html', context, context_instance=RequestContext(request))
@@ -152,17 +152,17 @@ def profile(request, id):
 
     if length > 0:
         # the minus error is so the error affects both sides of the bar
-        # the divide by 2 allows the bars to go beyond 100%, as there is a 2x larger wrapper around it.
         rating["responsive"] = rating["responsive"]/length - (rating["error1"] / 2) + randint(-5, 5)
         rating["frequency"] = rating["frequency"]/length - (rating["error2"] / 2) + randint(-5, 5)
         rating["idea_input"] = rating["idea_input"]/length - (rating["error3"] / 2) + randint(-5, 5)
+
+        rating["responsive"] = 49 if rating["responsive"] > 49 else rating["responsive"]
+        rating["frequency"] = 49 if rating["frequency"] > 49 else rating["frequency"]
+        rating["idea_input"] = 49 if rating["idea_input"] > 49 else rating["idea_input"]
     else:
         rating["responsive"] = 25  - (rating["error1"] / 2)
         rating["frequency"] = 25  - (rating["error2"] / 2)
         rating["idea_input"] = 25 - (rating["error3"] / 2)
-
-
-    Rating.objects.filter(professor=prof.id)
 
     project = Project.objects.filter(professor=prof.id)
     if prof.research_links: research = prof.research_links.split(';')
@@ -183,7 +183,6 @@ def profile(request, id):
     if student != None:
         if student.favorited_professors.filter(netid=prof.netid).exists():
             isFavorited = "1"
-
     try:
         myProf = Professor.objects.get(netid=request.user.username)
     except:
@@ -310,7 +309,6 @@ def student(request):
             student = None
     if student == None:
         return HttpResponseRedirect('/')
-
     formInvalid = False
     if isProfessor:
         return HttpResponseRedirect('/profile/'+str(request.user.username))
@@ -343,6 +341,5 @@ def student(request):
         form = StudentForm()
         profForm = ProfessorForm()
         eForm = EditStudentForm(instance=student)
-
     context ={'form': form, 'profForm': profForm, 'eForm': eForm, 'student': student, 'formInvalid': formInvalid}
     return render(request, 'student.html', context)

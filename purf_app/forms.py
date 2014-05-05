@@ -3,15 +3,15 @@ from purf_app.models import Professor, Student, Rating, Project, User
 from django.forms import ModelForm
 
 class EditStudentForm(ModelForm):
-	class Meta:
-		model = Student
-		fields = {'certificates', 'research_interests','year','department','email','name',}
-		
+    class Meta:
+        model = Student
+        fields = ('name','department','year','research_interests',)
+        
 class EditProfessorForm(ModelForm):
-	class Meta:
-		model = Professor
-		fields = {'full', 'research_links', 'research_topics','research_areas','description','website_link','phone','office','email','department','title','name',}
-		
+    class Meta:
+        model = Professor
+        fields = ('name','office','phone','website_link','description','research_areas','research_topics','full',)
+        
 class StudentForm(ModelForm):
     class Meta:
         model = Student
