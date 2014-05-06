@@ -148,7 +148,7 @@ var search_prof = (function () {
             querystring += "query=" + value + "&"
         })
         $(".checkbox :checkbox:checked").each(function(key, value){
-            querystring += "research_areas__icontains=" + value.value + "&"
+            querystring += "research_areas=" + value.value + "&"
         })
         return querystring
     }
