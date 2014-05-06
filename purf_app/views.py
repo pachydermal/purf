@@ -160,6 +160,7 @@ def profile(request, id):
         rating["frequency"] = 49 if rating["frequency"] > 49 else rating["frequency"]
         rating["idea_input"] = 49 if rating["idea_input"] > 49 else rating["idea_input"]
     else:
+        #if theres no review, make it random around the median
         rating["responsive"] = 25  - (rating["error1"] / 2)
         rating["frequency"] = 25  - (rating["error2"] / 2)
         rating["idea_input"] = 25 - (rating["error3"] / 2)

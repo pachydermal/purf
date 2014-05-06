@@ -112,7 +112,7 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
 
-TEMPLATE_CONTEXT_PROCESSORS += ('purf.context_processors.getStudent',)
+TEMPLATE_CONTEXT_PROCESSORS += ('purf.context_processors.getStudent','django.core.context_processors.request')
 
 # COMMENT EVERYTHING BELOW HERE WHEN RUNNING LOCALLY
 # REMEMBER TO UNCOMMENT BEFORE PUSHING!!
