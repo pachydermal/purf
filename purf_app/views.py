@@ -226,7 +226,7 @@ def message(request,id):
     prof = Professor.objects.get(netid=id)
 
     if request.method == 'POST':
-        send_mail('PURF - IW Request', 'This is an automated message from PURF: Princeton Undergraduate Research Finder, sent by ' + student.netid + '@princeton.edu . \n \n' + request.POST.__getitem__('message') + '\n \n purf.herokuapp.com \n Please delete PURF from your email chain for further correspondence.', 'from@example.com', [prof.email, student.email], fail_silently=False)
+        send_mail('PURF - IW Request from ' + student.name, request.POST.__getitem__('message') + '\n \n This is an automated message from PURF: Princeton Undergraduate Research Finder, sent by ' + student.netid + '@princeton.edu . \n purf.herokuapp.com \n Please delete PURF from your email chain for further correspondence.', 'from@example.com', [prof.email, student.email], fail_silently=False)
     return HttpResponseRedirect('/profile/' + prof.netid)
 @login_required
 def del_prof(request,id):
