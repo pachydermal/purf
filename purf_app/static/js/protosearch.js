@@ -84,7 +84,7 @@ var search_prof = (function () {
                 e.preventDefault();
                 return false;
             });
-        } else {
+        } else if ($('#search-results').length) {
             // if searchpage
             // set trigger on button press
             searchform.submit(function(e) {
@@ -101,14 +101,6 @@ var search_prof = (function () {
             });
 
             // search again when the back button is pressed
-            if (History.enabled) {
-                State = History.getState();
-                // set initial state to first page that was loaded
-                History.pushState({urlPath: window.location.pathname}, $("title").text(), State.urlPath);
-            } else {
-                return false;
-            }
-
             History.Adapter.bind(window,'statechange',function(){
                 stateless_search();
             });

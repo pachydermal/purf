@@ -14,9 +14,42 @@ body {
     height: 100%;
 }
 
+/*
+===========================================
+                 NAV BAR
+===========================================
+*/
+
 .navbar {
     background:white;
     border-bottom: 1px solid #f3f3f3 !important;
+}
+
+.navbar-brand {
+    color:orange;
+    font-weight:700;
+}
+.navbar-brand:hover {
+    color:#333;
+}
+
+.navbar .dropdown-toggle {
+    color: #333;
+}
+
+
+/*
+===========================================
+                HOME PAGE
+===========================================
+*/
+
+#home-title {
+    font-weight:300;
+}
+
+#home-form .form-group {
+    padding:0;
 }
 
 #home-background {
@@ -24,6 +57,8 @@ body {
     width:100%;
     position:absolute;
     margin:0;
+    top:0;
+    bottom:0;
 }
 
 /* the fake beautiful background */
@@ -35,6 +70,7 @@ body {
     height:100%;
     padding: 0;
     overflow: hidden;
+    position:relative;
 }
 
 #home-background .image {
@@ -77,33 +113,106 @@ body {
     height:100%;
 }
 
-.absolute-center {
-    height: 250px;
-    position: absolute;
-    width: 100%;
-    top: 0;
-    bottom: 0;
-    margin: auto;
+.vertical-center-outer {
+    display:table;
+    height:100%;
+    width:100%
 }
 
-.home-deadlines .btn {
+.vertical-center-inner {
+    display:table-cell;
+    vertical-align:middle;
+    height:100%;
+    width:100%"
+}
+
+#home-main-section {
+    height: 300px;
+    -webkit-transition: height .2s ease-in-out;
+    -moz-transition: height .2s ease-in-out;
+    -o-transition: height .2s ease-in-out;
+    transition: height .2s ease-in-out;
+}
+
+.home-deadline {
+    padding-bottom:20px;
+}
+
+.home-deadline.main {
+    height:200px;
+}
+
+.home-deadline .btn {
+    color: white;
     background: none;
+    width:80px;
     font-weight: 300;
     border: 1px solid white;
+    -webkit-transition: all .5s ease-in-out;
+    -moz-transition: all .5s ease-in-out;
+    -o-transition: all .5s ease-in-out;
+    transition: all .5s ease-in-out;
 }
-.home-deadlines .btn:hover {
+.home-deadline .btn:hover {
+    color: black;
     border: 1px solid black;
 }
+.home-deadline .btn:focus {
+    outline:none;
+}
 
-.home-deadlines a {
+.home-deadline .see-all {
     color: white;
     font-weight: 300;
     margin-left: 10px
 }
-
-.home-deadlines-date{
-    font-weight: 300;
+.home-deadline .see-all:hover {
+    color:black;
 }
+
+.home-deadline .date{
+    font-weight: 300;
+    margin-bottom:0;
+}
+
+.home-deadline .lead{
+    margin-top:0;
+    margin-bottom:10px;
+}
+
+.home-all-deadlines {
+    display: none;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    padding: 50px 0;
+    overflow: scroll;
+}
+
+.x-button {
+    display: none;
+    position: absolute;
+    top:53px;
+    right:0;
+    padding:20px;
+    color:white;
+    font-size:20px;
+    font-weight:300;
+    cursor: default;
+}
+.x-button:hover {
+    color: black;
+}
+.x-button:hover::before {
+    font-size: 13px;
+    content: "close ";
+}
+
+/*
+===========================================
+              SEARCH PAGE
+===========================================
+*/
 
 .search-bar {
     padding: 5px 0;
@@ -164,6 +273,12 @@ search-research-topics {
 .highlighted {
      background-color:rgb(255, 255, 200);
 }
+
+/*
+===========================================
+              PROFILE PAGE
+===========================================
+*/
 
 .profile-review-label {
     clear: none;

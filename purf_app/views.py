@@ -5,7 +5,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.template import RequestContext
 from django.core.mail import send_mail
 from django.contrib.auth.decorators import login_required
-from random import randint
+import random
 
 @login_required
 def index(request):
@@ -129,16 +129,16 @@ def profile(request, id):
         "responsive": 0,
         "frequency": 0,
         "idea_input": 0,
-        # with zero reviews, error ranges from 30% - 50% of the entire bar
-        "error1": 15 + randint(-10, 10),
-        "error2": 15 + randint(-10, 10),
-        "error3": 15 + randint(-10, 10),
+        # starting error value is 30 percent of the bar
+        "error1": 15,
+        "error2": 15,
+        "error3": 15,
     }
     comments = []
 
     length = 0.0
     for item in Rating.objects.filter(professor=prof.id):
-        # The * 20 is to convert the 1-5 scale to a 1-50 scale
+        # The times 10 is to convert the 1-5 scale to a 10-50 scale
         rating["responsive"] += float(item.responsive) * 10
         rating["frequency"] += float(item.frequency) * 10
         rating["idea_input"] += float(item.idea_input) * 10
@@ -146,23 +146,27 @@ def profile(request, id):
         length += 1
 
     if (length > 0):
-        rating["error1"] /= float (length + 1) / 3;
-        rating["error2"] /= float (length + 1) / 3;
-        rating["error3"] /= float (length + 1) / 3;
+        random.seed(rating["responsive"])
+        rating["error1"] = (rating["error1"] + random.randint(-5, 5)) / (float (length + 1) / 3);
+        random.seed(rating["frequency"])
+        rating["error2"] = (rating["error2"] + random.randint(-5, 5)) / (float (length + 1) / 3);
+        random.seed(rating["idea_input"])
+        rating["error3"] = (rating["error3"] + random.randint(-5, 5)) / (float (length + 1) / 3);
 
     if length > 0:
         # the minus error is so the error affects both sides of the bar
-        rating["responsive"] = rating["responsive"]/length - (rating["error1"] / 2) + randint(-5, 5)
-        rating["frequency"] = rating["frequency"]/length - (rating["error2"] / 2) + randint(-5, 5)
-        rating["idea_input"] = rating["idea_input"]/length - (rating["error3"] / 2) + randint(-5, 5)
+        random.seed(rating["responsive"])
+        rating["responsive"] = rating["responsive"]/length - (rating["error1"] / 2) + random.randint(-2, 2)
+        random.seed(rating["frequency"])
+        rating["frequency"] = rating["frequency"]/length - (rating["error2"] / 2) + random.randint(-2, 2)
+        random.seed(rating["idea_input"])
+        rating["idea_input"] = rating["idea_input"]/length - (rating["error3"] / 2) + random.randint(-2, 2)
 
         rating["responsive"] = 49 if rating["responsive"] > 49 else rating["responsive"]
         rating["frequency"] = 49 if rating["frequency"] > 49 else rating["frequency"]
         rating["idea_input"] = 49 if rating["idea_input"] > 49 else rating["idea_input"]
     else:
-        rating["responsive"] = 25  - (rating["error1"] / 2)
-        rating["frequency"] = 25  - (rating["error2"] / 2)
-        rating["idea_input"] = 25 - (rating["error3"] / 2)
+        rating = None
 
     project = Project.objects.filter(professor=prof.id)
     if prof.research_links: research = prof.research_links.split(';')

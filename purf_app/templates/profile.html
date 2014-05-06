@@ -55,6 +55,7 @@
       </p>
 
     <!-- PROFESSOR INFO -->
+      {% if rating %}
       <h3>Student Reviews</h3>
       <p>(Orange bars are error bars)</p>
       <p class="profile-review-left-text">Low</p>
@@ -84,6 +85,7 @@
           <div class="progress-bar error" style="width: {{rating.error3}}%;"></div>
         </div>
       </div>
+      {% endif %}
 
       {% endif %}
         <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
@@ -94,7 +96,6 @@
         </ul>
         <div id="my-tab-content" class="tab-content">
             <div class="tab-pane active" id="red">
-                <h1>Description</h1>
                 {% if prof %}
                   {% if prof.description%}
                     <p> {{prof.description}}</p>
@@ -131,19 +132,31 @@
 
             {% if project %}
               <div class="tab-pane" id="yellow">
-                  <h1>Past Projects</h1>
-                  {% for proj in project %}
-                  <p>
-                   Name: {{proj.student_name}}
-                   {% if proj.netid %} NetID: {{proj.netid}} {% endif %}
-                   {% if proj.year %} Year: {{proj.year}} {% endif %}
-                   {% if proj.project_title %} Project Title: {{proj.project_title}} {% endif %}
-                   {% if proj.project_description %} Project Description: {{proj.project_description}} {% endif %}
-                   {% if proj.project_description %} Project Description: {{proj.project_description}} {% endif %}
-                   {% if proj.department %} Department: {{proj.department}} {% endif %}
-                   {% if proj.link %} Link: {{proj.link}} {% endif %}
-                   </p>
-                  {% endfor %}
+                {% for proj in project %}
+                {% if proj.project_title %}
+                  <h3>{{proj.project_title}}</h3>
+                {% else %}
+                  <h3>Unknown Project Name</h3>
+                {% endif %}
+
+                <p>
+                {% if proj.student_name %}Research by {{proj.student_name}}{% endif %}
+                {% if proj.netid %} (netid: {{proj.netid}}){% endif %}
+                </p>
+
+                <p>
+                {% if proj.year %}{{proj.year}}{% endif %}
+                {% if proj.year and proj.department %} | {% endif %}
+                {% if proj.department %}{{proj.department}}{% endif %}
+                </p>
+
+                {% if proj.project_description %}
+                  <p>{{proj.project_description}}</p>
+                {% endif %}
+                {% if proj.link %}
+                  <p>Link: {{proj.link}}</p>
+                {% endif %}
+                {% endfor %}
               </div>
             {% endif %}
         </div>
