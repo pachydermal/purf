@@ -28,6 +28,7 @@
           </div>
         </div>
 			{% endif %}
+        {% if not professor %}
         <button type="button" data-toggle="modal" data-target="#messageModal">Message</button>
 
 
@@ -39,13 +40,14 @@
 								<h4 class="modal-title" id="myModalL">Request Independent Work</h4>
 							</div>
 							<div class="modal-body">
+                                Fill out this form to send an IW request through the PURF application.
 								<form action='/message/{{prof.netid}}/' method="post" >{% csrf_token %}
 									<div>
                                         {{ messageForm.as_p }}
 									</div>
 							</div>
 							<div class="modal-footer">
-								<input type="submit" name="save" value="Save Changes"/>
+								<input type="submit" name="save" value="Send Email"/>
 								</form>
 							</div>
 							<div class="modal-footer">
@@ -53,6 +55,7 @@
 						</div>
 					</div>
 				</div>
+      {% endif %}
       {% if prof.full %}
       <p>This professor reported they are unable to take on any more advisees. </p>
       {% else %}
