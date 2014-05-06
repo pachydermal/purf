@@ -74,6 +74,11 @@ ROOT_URLCONF = 'purf.urls'
 
 WSGI_APPLICATION = 'purf.wsgi.application'
 
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'purfapp@gmail.com'
+EMAIL_HOST_PASSWORD = 'kernighan'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
 
 # Database
 # https://docs.djangoproject.com/en/1.6/ref/settings/#databases

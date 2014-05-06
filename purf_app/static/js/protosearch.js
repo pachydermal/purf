@@ -78,18 +78,9 @@ var search_prof = (function () {
         searchbutton =  $("#searchbutton").first();
         searchresults = $("#search-results");
 
-        searchbox.focus();
-
-        // check if homepage or searchpage
-        if ($('#home-container').length) {
-            // if homepage
-            searchform.submit(function(e) {
-                window.location = "search/?" + build_search_query();
-                // return false to prevent normal browser submit and page navigation
-                e.preventDefault();
-                return false;
-            });
-        } else if ($('#search-results').length) {
+        // check if search page
+        if ($('#search-results').length) {
+            searchbox.focus();
             // if searchpage
             // set trigger on button press
             searchform.submit(function(e) {
@@ -110,7 +101,23 @@ var search_prof = (function () {
                 stateless_search();
             });
 
+
+            // search on first page load. This is a big cheat.
+            // Once search is finalized, then we have to write a server-side
+            // version of this.
             stateless_search();
+        } else {
+            // if homepage
+            searchform.submit(function(e) {
+                window.location = window.location.origin + "/search/?" + build_search_query()
+                // return false to prevent normal browser submit and page navigation
+                e.preventDefault();
+                return false;
+            });
+        }
+
+        if ($('#home-container').length) {
+            searchbox.focus();
         }
     }
 
@@ -118,6 +125,15 @@ var search_prof = (function () {
         var query = $.QueryString()["query"];
         if (typeof query !== 'undefined' && query.length > 0) {
             searchbox.val(query.join(" "));
+        }
+        var areas = $.QueryString()["research_areas__icontains"];
+        if (typeof areas !== 'undefined') {
+            for ( var i = 0; i < areas.length; i ++ ) {
+                $(".checkbox:contains(" + areas[i] + ") input").prop('checked', true);
+            }
+        }
+        if ((typeof query !== 'undefined' && query.length > 0) ||
+            (typeof research_areas !== 'undefined' && areas.length > 0)) {
             search();
         }
     }
@@ -141,41 +157,54 @@ var search_prof = (function () {
     search = function () {
         var querystring = build_search_query();
 
-        $.getJSON("../api/v1/search/?" + querystring + "format=json", function(data) {
+        $.getJSON(window.location.origin + "/api/v1/search/?" + querystring + "format=json", function(data) {
             searchresults.empty();
-            var items = [];
 
-            $.each( data.objects, function( key, val ) {
-                var research_areas = val.research_areas.split(';').join("</p><p>");
-                var research_topics = val.research_topics.split(';').join("</p><p>");
-                items.push(
-                        '<a href="../profile/' + val.netid + '">\
-                        <div class="row search-result"> \
-                          <div class="profile col-sm-1 search-thumbnail-container"> \
-                            <img class="search-thumbnail" src=' + val.image + '/> \
-                          </div> \
-                          <div class="name col-sm-2">\
-                            <p class="search-name">'
-                                + val.name +
-                            '</p>\
-                            <p class="search-department">' + val.department + '</p>\
-                          </div> \
-                          <div class="search-research-areas col-sm-4">\
-                            <p>' + research_areas + '</p> \
-                          </div> \
-                          <div class="search-research-topics col-sm-4">\
-                            <p>' + research_topics + '</p> \
-                          </div> \
-                        </div> \
-                        </a>'
-                        );
-            });
+            // what to display if there is nothing
+            if (!data.objects.length) {
+                searchresults.append('<div align="center">\
+                                <h4 align="center">No Results Found</h4>\
+                                <p>Hint: Try using more search queries, or partial words.</p>\
+                            </div>');
+            } else {
+                var items = [];
+                $.each( data.objects, function( key, val ) {
+                    var research_areas = val.research_areas.split(';').join("</p><p>");
+                    var research_topics = val.research_topics.split(';').join("</p><p>");
+                    items.push(
+                            '<a href=window.location.origin + "/profile/' + val.netid + '">\
+                            <div class="row search-result"> \
+                              <div class="profile col-sm-1 search-thumbnail-container"> \
+                                <img class="search-thumbnail" src=' + val.image + '/> \
+                              </div> \
+                              <div class="name col-sm-2">\
+                                <p class="search-name">'
+                                    + val.name +
+                                '</p>\
+                                <p class="search-department">' + val.department + '</p>\
+                              </div> \
+                              <div class="search-research-areas col-sm-4">\
+                                <p>' + research_areas + '</p> \
+                              </div> \
+                              <div class="search-research-topics col-sm-4">\
+                                <p>' + research_topics + '</p> \
+                              </div> \
+                            </div> \
+                            </a>'
+                            );
+                });
 
-            searchresults.append(items.join(""))
+                searchresults.append(items.join(""));
 
-            var queries = get_queries();
-            for (var i = 0; i < queries.length; i++) {
-                searchAndHighlight(queries[i], "#search-results")
+                // put an image placeholder for images that fail to load.
+                $('img').error(function(){
+                    $(this).attr('src','http://placekitten.com/200/201');
+                });
+
+                var queries = get_queries();
+                for (var i = 0; i < queries.length; i++) {
+                    searchAndHighlight(queries[i], "#search-results")
+                }
             }
         })
     }

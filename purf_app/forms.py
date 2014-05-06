@@ -34,3 +34,5 @@ class ShortProfessorForm(ModelForm):
         fields = ('department','research_areas')
         hidden_fields = ('netid', 'name', 'email')
 
+class MessageForm(forms.Form):
+        message = forms.CharField(max_length=20000,widget=forms.Textarea(attrs={'rows':6,'cols':80}))

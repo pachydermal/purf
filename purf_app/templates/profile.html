@@ -28,12 +28,40 @@
           </div>
         </div>
 			{% endif %}
+        {% if not professor %}
+        <button type="button" data-toggle="modal" data-target="#messageModal">Message</button>
 
+
+				<div class="modal in" id="messageModal" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+					<div class="modal-dialog modal-lg">
+						<div class="modal-content">
+							<div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+								<h4 class="modal-title" id="myModalL">Request Independent Work</h4>
+							</div>
+							<div class="modal-body">
+                                Fill out this form to send an IW request through the PURF application.
+								<form action='/message/{{prof.netid}}/' method="post" >{% csrf_token %}
+									<div>
+                                        {{ messageForm.as_p }}
+									</div>
+							</div>
+							<div class="modal-footer">
+								<input type="submit" name="save" value="Send Email"/>
+								</form>
+							</div>
+							<div class="modal-footer">
+							</div>
+						</div>
+					</div>
+				</div>
+      {% endif %}
       {% if prof.full %}
       <p>This professor reported they are unable to take on any more advisees. </p>
       {% else %}
       <p>This professor may be able to accept another advisee.</p>
-      <button class="btn">Message</button>
+
+
       {% endif %}
 		</div>
 
@@ -186,15 +214,14 @@
 							<div class="modal-body">
 								<form action={{url}} method="post" >{% csrf_token %}
 								{% for field in eForm %}
-									<div>
+
 										<label for="{{ field.label }}">{{ field.label_tag }}
 										{% if field.field.required %}<span class="special_class">*</span>{% endif %}</label>
 										{{ field }}
-									</div>
+
 								{% endfor %}
-							</div>
-							<div class="modal-footer">
-								<input type="submit" name="save" value="Save Changes"/>
+
+                                <input type="submit" name="save" value="Save Changes"/>
 								</form>
 							</div>
 						</div>

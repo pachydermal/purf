@@ -1,6 +1,6 @@
 from django.shortcuts import render, render_to_response
 from purf_app.models import Professor, Student, User, Rating, Project, Department
-from purf_app.forms import StudentForm, ShortProfessorForm, ShortStudentForm, ProfessorForm, EditProfessorForm, EditStudentForm
+from purf_app.forms import StudentForm, ShortProfessorForm, MessageForm,ShortStudentForm, ProfessorForm, EditProfessorForm, EditStudentForm
 from django.http import HttpResponseRedirect, HttpResponse
 from django.template import RequestContext
 from django.core.mail import send_mail
@@ -10,6 +10,7 @@ import random
 @login_required
 def index(request):
     results = []
+
 
     #Check if the first time they logged in
     try:
@@ -205,10 +206,28 @@ def profile(request, id):
             formInvalid = True
     #else:
     #    eForm = EditProfessorForm(instance=myProf)
-
-    context ={'prof': prof, 'department': department, 'rating': rating, 'comments': comments, 'project': project, 'research': research, 'areas': areas, 'topics': topics, 'isFavorited': isFavorited, 'eForm': eForm, 'url':url, 'formInvalid':formInvalid}
+    messageForm = MessageForm()
+    context ={'prof': prof, 'messageForm':messageForm, 'department': department, 'rating': rating, 'comments': comments, 'project': project, 'research': research, 'areas': areas, 'topics': topics, 'isFavorited': isFavorited, 'eForm': eForm, 'url':url, 'formInvalid':formInvalid}
     return render_to_response('profile.html', context, context_instance=RequestContext(request))
 
+@login_required
+def message(request,id):
+    #Prevent unidentified user from accessing any part of the site
+    try:
+        student = Student.objects.get(netid=request.user.username)
+    except Student.DoesNotExist:
+        try:
+            student = Professor.objects.get(netid=request.user.username)
+        except Professor.DoesNotExist:
+            student = None
+    if student == None:
+        return HttpResponseRedirect('/')
+    print id
+    prof = Professor.objects.get(netid=id)
+
+    if request.method == 'POST':
+        send_mail('PURF - IW Request from ' + student.name, request.POST.__getitem__('message') + '\n \n This is an automated message from PURF: Princeton Undergraduate Research Finder, sent by ' + student.netid + '@princeton.edu . \n purf.herokuapp.com \n Please delete PURF from your email chain for further correspondence.', 'from@example.com', [prof.email, student.email], fail_silently=False)
+    return HttpResponseRedirect('/profile/' + prof.netid)
 @login_required
 def del_prof(request,id):
     #Prevent unidentified user from accessing any part of the site
