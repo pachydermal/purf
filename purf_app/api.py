@@ -1,4 +1,4 @@
-from tastypie.resources import ModelResource
+from tastypie.resources import ModelResource, ALL
 from django.db.models import Q
 from purf_app.models import Professor, Student
 import operator
@@ -17,7 +17,7 @@ class SearchProfessorResource(ModelResource):
         filtering = {
             "department": ('exact'),
             "name": ('exact', 'startswith',),
-            "research_areas": ('exact', 'icontains',),
+            "research_areas": ('exact'),
         }
         resource_name = "search"
         allowed_methods = ['get']
@@ -37,9 +37,10 @@ class SearchProfessorResource(ModelResource):
             filters = {}
         orm_filters = super(SearchProfessorResource, self).build_filters(filters)
         filters_dict = dict(filters.iterlists())
+        qsets = []
+
         if('query' in filters_dict.keys()):
             query = filters_dict['query']
-            qsets = []
             for q in query:
                 qset = (
                     Q(name__icontains=q) |
@@ -49,17 +50,26 @@ class SearchProfessorResource(ModelResource):
                     )
                 qsets.append(qset)
 
-            orm_filters.update({'custom': qsets})
+        if('research_areas' in filters_dict.keys()):
+            research_areas = filters_dict['research_areas']
+            for q in research_areas:
+                qset = (
+                    Q(research_areas__icontains=q) |
+                    Q(research_areas__iexact=q)
+                    )
+                qsets.append(qset)
+        orm_filters.update({'custom': qsets})
         return orm_filters
 
     def apply_filters(self, request, applicable_filters):
+        if 'research_areas__exact' in applicable_filters:
+            applicable_filters.pop('research_areas__exact')
         if 'custom' in applicable_filters:
             custom = applicable_filters.pop('custom')
         else:
             custom = None
 
         semi_filtered = super(SearchProfessorResource, self).apply_filters(request, applicable_filters)
-
         if custom:
             query = custom.pop()
             for i in custom:

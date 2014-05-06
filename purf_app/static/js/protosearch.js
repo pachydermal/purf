@@ -84,7 +84,7 @@ var search_prof = (function () {
         if ($('#home-container').length) {
             // if homepage
             searchform.submit(function(e) {
-                window.location = "search/?" + build_search_query()
+                window.location = "search/?" + build_search_query();
                 // return false to prevent normal browser submit and page navigation
                 e.preventDefault();
                 return false;
@@ -132,7 +132,7 @@ var search_prof = (function () {
             querystring += "query=" + value + "&"
         })
         $(".checkbox :checkbox:checked").each(function(key, value){
-            querystring += "research_areas__icontains=" + value.value + "&"
+            querystring += "research_areas=" + value.value + "&"
         })
         return querystring
     }
