@@ -28,12 +28,7 @@
           </div>
         </div>
 			{% endif %}
-
-      {% if prof.full %}
-      <p>This professor reported they are unable to take on any more advisees. </p>
-      {% else %}
-      <p>This professor may be able to accept another advisee.</p>
-      <button type="button" data-toggle="modal" data-target="#messageModal">Message</button>
+        <button type="button" data-toggle="modal" data-target="#messageModal">Message</button>
 
 
 				<div class="modal in" id="messageModal" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -58,6 +53,11 @@
 						</div>
 					</div>
 				</div>
+      {% if prof.full %}
+      <p>This professor reported they are unable to take on any more advisees. </p>
+      {% else %}
+      <p>This professor may be able to accept another advisee.</p>
+
 
       {% endif %}
 		</div>
