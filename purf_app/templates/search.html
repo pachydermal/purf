@@ -1,38 +1,15 @@
 {% extends "base.html" %}
+
 {% block content %}
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-  <!-- SECTION HEADER + SEARCH BOX -->
-  <div class="container-fluid search-bar">
-    <div class="container">
-      <div class="row">
-          <div align="center" >
-            <form id="search-form" class="form-search">
-               <div class="form-group col-sm-6">
-                 <input id="searchbox" class="form-control" id="exampleInputEmail2" placeholder="Search for Professors, Departments or Research Areas here"/>
-               </div>
-                <button id="searchbutton" type="submit" class="btn btn-default col-sm-1">Search</button>
-            </form>
-                <!-- This part isn't working, obviously -->
-            <a data-toggle="collapse" data-target="#sliding-panel">
-              <div align="center">
-                Refine Search
-              </div>
-            </a>
-          </div>
-      </div>
-    </div>
-  </div>
-
-
   <!-- EXPANDING RESEARCH AREA SEARCH REFINEMENTS -->
-  <div class="container-fluid" style="background-color: #AECDD6;">
+  <div id="search-refinements" class="container-fluid">
     <div class="container">
       <div class="row" >
         <div id="sliding-panel" class="collapse">
           <div align="center">
             <!-- Make the following text responsive to major? -->
-            <h1>Research Areas</h1>
+            <h4>Refine Search by Research Area</h4>
           </div>
 
           <!-- Below taken from https://stackoverflow.com/questions/13810059/bootstrap-simple-form-checkbox-grids. Have to modify... note the first column is lower than the others? -->
@@ -54,11 +31,11 @@
   </div>
 
    <!-- SEARCH RESULTS -->
-  <div class="container-fluid search-results-container">
+  <div id="search-results-container" class="container-fluid">
     <div class="container">
       <div align="center">
         <!-- Make the following text responsive to major? -->
-        <h3>Search Results</h3>
+        <h3 align="right"><span class="glyphicon glyphicon-th-large"></span></h3>
       </div>
 
       <div id="search-results">
