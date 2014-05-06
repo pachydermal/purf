@@ -64,7 +64,7 @@ var search_prof = (function () {
     // the methods that are publicly accessible.
     // ENSURE THAT NO PRIVATE DATABASE VALUES CAN BE ACCESSED!!
     var public = {};
-    var searchform, searchbox, searchbutton, searchresults, searchareas;
+    var searchform, searchbox, searchbutton, searchresults, searchloading;
 
     // INITIALIZATION
     init = function () {
@@ -77,6 +77,7 @@ var search_prof = (function () {
         searchbox = $("#searchbox").first();
         searchbutton =  $("#searchbutton").first();
         searchresults = $("#search-results");
+        searchloading = $("#search-loading");
 
         // check if search page
         if ($('#search-results').length) {
@@ -109,7 +110,7 @@ var search_prof = (function () {
         } else {
             // if homepage
             searchform.submit(function(e) {
-                window.location = window.location.origin + "/search/?" + build_search_query()
+                window.location = "/search/?" + build_search_query()
                 // return false to prevent normal browser submit and page navigation
                 e.preventDefault();
                 return false;
@@ -126,7 +127,7 @@ var search_prof = (function () {
         if (typeof query !== 'undefined' && query.length > 0) {
             searchbox.val(query.join(" "));
         }
-        var areas = $.QueryString()["research_areas__icontains"];
+        var areas = $.QueryString()["research_areas"];
         if (typeof areas !== 'undefined') {
             for ( var i = 0; i < areas.length; i ++ ) {
                 $(".checkbox:contains(" + areas[i] + ") input").prop('checked', true);
@@ -157,8 +158,11 @@ var search_prof = (function () {
     search = function () {
         var querystring = build_search_query();
 
-        $.getJSON(window.location.origin + "/api/v1/search/?" + querystring + "format=json", function(data) {
-            searchresults.empty();
+        searchresults.empty();
+        searchloading.addClass("loading");
+
+        $.getJSON("/api/v1/search/?" + querystring + "format=json", function(data) {
+            searchloading.removeClass("loading");
 
             // what to display if there is nothing
             if (!data.objects.length) {
@@ -172,7 +176,7 @@ var search_prof = (function () {
                     var research_areas = val.research_areas.split(';').join("</p><p>");
                     var research_topics = val.research_topics.split(';').join("</p><p>");
                     items.push(
-                            '<a href=window.location.origin + "/profile/' + val.netid + '">\
+                            '<a href="/profile/' + val.netid + '">\
                             <div class="row search-result"> \
                               <div class="profile col-sm-1 search-thumbnail-container"> \
                                 <img class="search-thumbnail" src=' + val.image + '/> \
