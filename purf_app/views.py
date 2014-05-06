@@ -47,7 +47,7 @@ def index(request):
         sForm = ShortStudentForm()
         pForm = ShortProfessorForm()
 
-    research_areas = []
+    research_areas = ['CHM', 'COS', 'ELE', 'MOL']
     try:
         if student and student.department:
             department = Department.objects.get(name=student.department)
