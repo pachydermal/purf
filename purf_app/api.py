@@ -58,7 +58,7 @@ class SearchProfessorResource(ModelResource):
             for ra in research_areas:
                 raset = (
                     Q(research_areas__icontains=ra) |
-                    Q(research_areas__iexact=ra)
+                    Q(department__icontains=ra)
                     )
                 rasets.append(raset)
         orm_filters.update({'ras': rasets})
