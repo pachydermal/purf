@@ -49,31 +49,47 @@ class SearchProfessorResource(ModelResource):
                     Q(research_areas__icontains=q)
                     )
                 qsets.append(qset)
+        orm_filters.update({'custom': qsets})
 
+
+        rasets = []
         if('research_areas' in filters_dict.keys()):
             research_areas = filters_dict['research_areas']
-            for q in research_areas:
-                qset = (
-                    Q(research_areas__icontains=q) |
-                    Q(research_areas__iexact=q)
+            for ra in research_areas:
+                raset = (
+                    Q(research_areas__icontains=ra) |
+                    Q(research_areas__iexact=ra)
                     )
-                qsets.append(qset)
-        orm_filters.update({'custom': qsets})
+                rasets.append(raset)
+        orm_filters.update({'ras': rasets})
         return orm_filters
 
     def apply_filters(self, request, applicable_filters):
         if 'research_areas__exact' in applicable_filters:
             applicable_filters.pop('research_areas__exact')
+
         if 'custom' in applicable_filters:
             custom = applicable_filters.pop('custom')
         else:
             custom = None
+
+        if 'ras' in applicable_filters:
+            ras = applicable_filters.pop('ras')
+        else:
+            ras = None
+
 
         semi_filtered = super(SearchProfessorResource, self).apply_filters(request, applicable_filters)
         if custom:
             query = custom.pop()
             for i in custom:
                 query |= i
-        semi_filtered = semi_filtered.filter(query)
+            semi_filtered = semi_filtered.filter(query)
+
+        if ras:
+            ra = ras.pop()
+            for i in ras:
+                ra |= i
+            semi_filtered = semi_filtered.filter(ra)
 
         return semi_filtered
