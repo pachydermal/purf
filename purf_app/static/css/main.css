@@ -247,7 +247,7 @@ body {
     background: #fdfdfd;
 }
 
-.search-result .search-name {
+.search-name {
     color: orange;
 }
 
@@ -262,17 +262,32 @@ body {
     vertical-align: middle;
 }
 
-.search-research-areas {
-
-}
-
-search-research-topics {
-
+.search-research-areas p,
+.search-research-topics p {
+    font-size: 13px;
+    margin: 0 0 8px;
+    color: #555;
 }
 
 .highlighted {
      background-color:rgb(255, 255, 200);
 }
+
+.search-result.two {
+    padding: 30px 0;
+    border: solid 2px #D8D8D8;
+    border-top-width: 0px;
+    margin: 15px 0;
+    max-height: none;
+}
+.search-result.two:hover {
+    max-height: none;
+}
+
+.search-result.two .search-thumbnail-container {
+    margin: -30px 0;
+}
+
 
 /*
 ===========================================

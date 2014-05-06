@@ -68,6 +68,11 @@ var search_prof = (function () {
 
     // INITIALIZATION
     init = function () {
+
+        $("h3").click(function(){
+            $(".search-result").toggleClass("two");
+        })
+
         searchform = $("#search-form");
         searchbox = $("#searchbox").first();
         searchbutton =  $("#searchbutton").first();
@@ -146,19 +151,19 @@ var search_prof = (function () {
                 items.push(
                         '<a href="../profile/' + val.netid + '">\
                         <div class="row search-result"> \
-                          <div class="profile col-md-1 search-thumbnail-container"> \
+                          <div class="profile col-sm-1 search-thumbnail-container"> \
                             <img class="search-thumbnail" src=' + val.image + '/> \
                           </div> \
-                          <div class="name col-md-2">\
+                          <div class="name col-sm-2">\
                             <p class="search-name">'
                                 + val.name +
                             '</p>\
                             <p class="search-department">' + val.department + '</p>\
                           </div> \
-                          <div class="search-research-areas col-md-4">\
+                          <div class="search-research-areas col-sm-4">\
                             <p>' + research_areas + '</p> \
                           </div> \
-                          <div class="search-research-topics col-md-4">\
+                          <div class="search-research-topics col-sm-4">\
                             <p>' + research_topics + '</p> \
                           </div> \
                         </div> \
