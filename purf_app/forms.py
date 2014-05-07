@@ -36,3 +36,7 @@ class ShortProfessorForm(ModelForm):
 
 class MessageForm(forms.Form):
         message = forms.CharField(max_length=20000,widget=forms.Textarea(attrs={'rows':6,'cols':80}))
+		
+class RatingForm(ModelForm):
+	class Meta:
+		model = Rating

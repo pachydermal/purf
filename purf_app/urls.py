@@ -24,6 +24,7 @@ urlpatterns = patterns('',
     url(r'^del_prof2/(?P<id>.+)/$', views.del_prof2, name='del_prof2'),
     url(r'^message/(?P<id>.+)/$', views.message, name='message'),
     url(r'^fav_prof/(?P<id>.+)/$', views.fav_prof, name='fav_prof'),
+	url(r'^rating/$', views.rating, name='rating'),
     (r'^media/(?P<path>.*)$', 'django.views.static.serve',
         {'document_root': 'media'}),
 )
