@@ -1,6 +1,6 @@
 from django.shortcuts import render, render_to_response
 from purf_app.models import Professor, Student, User, Rating, Project, Department
-from purf_app.forms import StudentForm, ShortProfessorForm, MessageForm,ShortStudentForm, ProfessorForm, EditProfessorForm, EditStudentForm
+from purf_app.forms import StudentForm, ShortProfessorForm, MessageForm,ShortStudentForm, ProfessorForm, EditProfessorForm, EditStudentForm, RatingForm
 from django.http import HttpResponseRedirect, HttpResponse
 from django.template import RequestContext
 from django.core.mail import send_mail
@@ -228,6 +228,37 @@ def message(request,id):
     if request.method == 'POST':
         send_mail('PURF - IW Request from ' + student.name, request.POST.__getitem__('message') + '\n \n This is an automated message from PURF: Princeton Undergraduate Research Finder, sent by ' + student.netid + '@princeton.edu . \n purf.herokuapp.com \n Please delete PURF from your email chain for further correspondence.', 'from@example.com', [prof.email, student.email], fail_silently=False)
     return HttpResponseRedirect('/profile/' + prof.netid)
+    
+@login_required
+def rating(request):
+    #Prevent unidentified user from accessing any part of the site
+    try:
+        student = Student.objects.get(netid=request.user.username)
+    except Student.DoesNotExist:
+        try:
+            student = Professor.objects.get(netid=request.user.username)
+        except Professor.DoesNotExist:
+            student = None
+    if student == None:
+        return HttpResponseRedirect('/')
+
+    try:
+        student = Student.objects.get(netid=request.user.username)
+    except Student.DoesNotExist:
+        student = None
+
+    if request.method == 'POST':
+        print "IN POST!"
+        rForm = RatingForm(request.POST)
+        if rForm.is_valid():
+            rForm.save()
+            return HttpResponseRedirect('/')
+    else:
+        rForm = RatingForm()
+
+    context = {'rForm':rForm}
+    return render(request, 'rating.html', context)
+    
 @login_required
 def del_prof(request,id):
     #Prevent unidentified user from accessing any part of the site
