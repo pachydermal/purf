@@ -61,14 +61,14 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'django_cas.middleware.CASMiddleware',
-    'django.middleware.doc.XViewMiddleware',
+    # 'django_cas.middleware.CASMiddleware',
+    # 'django.middleware.doc.XViewMiddleware',
 )
 
-AUTHENTICATION_BACKENDS = (
-   'django.contrib.auth.backends.ModelBackend',
-   'django_cas.backends.CASBackend',
-)
+# AUTHENTICATION_BACKENDS = (
+#    'django.contrib.auth.backends.ModelBackend',
+#    'django_cas.backends.CASBackend',
+# )
 
 ROOT_URLCONF = 'purf.urls'
 
