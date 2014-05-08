@@ -11,7 +11,6 @@ import random
 def index(request):
     results = []
 
-
     #Check if the first time they logged in
     try:
         student = Student.objects.get(netid=request.user.username)
@@ -23,7 +22,6 @@ def index(request):
     if student == None:
         new = True
     else: new = False
-
     ##RECEIVE FORM DATA FOR FIRST USERS
     if request.method == 'POST':
         sForm = ShortStudentForm(request.POST)
@@ -38,11 +36,16 @@ def index(request):
                 return HttpResponseRedirect('/')
         elif 'professor' in request.POST:
             if pForm.is_valid():
-                temp_post = pForm.save(commit=False)
-                temp_post.netid = request.user.username
-                temp_post.email = request.user.username + '@princeton.edu'
-                temp_post.name = request.user.username #Fix this later
-                temp_post.save()
+                #pForm.save()
+
+
+                newprof = Professor(netid=request.user.username,research_areas=pForm.cleaned_data['research_areas'],department=pForm.cleaned_data['department'],email=request.user.username + '@princeton.edu', name=request.user.username)
+                newprof.save()
+                    # temp_post = pForm.save(commit=False)
+                    # temp_post.netid = request.user.username
+                    # temp_post.email = request.user.username + '@princeton.edu'
+                    # temp_post.name = request.user.username #Fix this later
+                    # temp_post.save()
                 return HttpResponseRedirect('/')
     else:
         sForm = ShortStudentForm()

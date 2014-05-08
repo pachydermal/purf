@@ -1,6 +1,7 @@
 from django import forms
 from purf_app.models import Professor, Student, Rating, Project, User
 from django.forms import ModelForm
+from moderation.forms import BaseModeratedObjectForm
 
 class EditStudentForm(ModelForm):
     class Meta:
@@ -17,7 +18,7 @@ class StudentForm(ModelForm):
         model = Student
         #fields = '__all__'
 
-class ProfessorForm(ModelForm):
+class ProfessorForm(BaseModeratedObjectForm):
     class Meta:
         model = Professor
         #fields = '__all__'
