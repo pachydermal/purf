@@ -53,9 +53,8 @@ class Rating(models.Model):
 
 class Project(models.Model):
     professor = models.ForeignKey('Professor')
-    student_name = models.CharField(max_length=200)
+    student_name = models.CharField(max_length=200, blank=True)
     netid = models.CharField(max_length=200, blank=True)
-    year = models.CharField(max_length=200,choices=YEARS)
     project_title = models.CharField(max_length=500)
     project_description = models.TextField(blank=True)
     type_of_project = models.CharField(max_length=200)
