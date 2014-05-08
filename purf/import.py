@@ -1,6 +1,6 @@
 # Full path and name to your csv file
 csv_filepathname="profs.tsv"
-csv_filepathname2 ="Projects.tsv"
+csv_filepathname2 ="PROJECT_FINAL.tsv"
 csv_filepathname3 ="Reviews.tsv"
 
 # Full path to your django project directory
