@@ -217,6 +217,8 @@ var search_prof = (function () {
 
     add_results = function (query_url) {
 
+        searchbox.typeahead('close');
+
         searchloading.addClass("loading");
 
         $.getJSON(query_url, function(data) {
@@ -234,6 +236,15 @@ var search_prof = (function () {
             } else {
                 var items = [];
                 $.each( data.objects, function( key, val ) {
+                    var department_html = ""
+                    if (val.department) {
+                        var departments = val.department.split(";")
+                        for (var i = 0; i < departments.length; i++) {
+                            department_html += '<span class="label ';
+                            department_html += departments[i] == "COS" ? 'label-warning' : 'label-default';
+                            department_html += '">' + departments[i] + '</span>';
+                        }
+                    }
                     var research_areas = val.research_areas.split(';').join("</p><p>");
                     var research_topics = val.research_topics.split(';').join("</p><p>");
                     items.push(
@@ -246,7 +257,7 @@ var search_prof = (function () {
                                 <p class="search-name">'
                                     + val.name +
                                 '</p>\
-                                <p class="search-department">' + val.department + '</p>\
+                                <p class="search-department">' + department_html + '</p>\
                               </div> \
                               <div class="search-research-areas col-sm-4">\
                                 <p>' + research_areas + '</p> \

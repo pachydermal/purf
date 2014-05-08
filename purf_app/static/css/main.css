@@ -14,12 +14,11 @@ body {
     height: 100%;
 }
 
-label {
+.label {
     font-size: 13px !important;
     font-weight:500 !important;
     color: #555
 }
-
 /*
 ===========================================
              TYPEAHEAD STYLE
@@ -432,10 +431,26 @@ label {
 }
 
 
+#search-results .label {
+    font-size: 75% !important;
+    font-weight:500 !important;
+    margin:1px;
+    color: white;
+}
+
+#search-results .label .highlighted {
+    background-color: #BBB;
+}
+
+#search-results .label.label-warning .highlighted {
+    background-color: #F5CA5D;
+}
 
 
 .search-name {
     color: orange;
+    margin-bottom: 0px;
+    margin-top: 15px;
 }
 
 .search-thumbnail-container {
