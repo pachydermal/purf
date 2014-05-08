@@ -119,19 +119,19 @@ STATICFILES_DIRS = (
 
 TEMPLATE_CONTEXT_PROCESSORS += ('purf.context_processors.getStudent','django.core.context_processors.request')
 
-# COMMENT EVERYTHING BELOW HERE WHEN RUNNING LOCALLY
-# REMEMBER TO UNCOMMENT BEFORE PUSHING!!
+COMMENT EVERYTHING BELOW HERE WHEN RUNNING LOCALLY
+REMEMBER TO UNCOMMENT BEFORE PUSHING!!
 
-# CAS_SERVER_URL = 'https://fed.princeton.edu/cas/'
-#
-# LOGIN_URL = '/login/'
-# # Parse database configuration from $DATABASE_URL
-#
-# import dj_database_url
-# DATABASES['default'] =  dj_database_url.config()
-#
-# # Honor the 'X-Forwarded-Proto' header for request.is_secure()
-# SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-#
-# # Allow all host headers
-# ALLOWED_HOSTS = ['*']
+CAS_SERVER_URL = 'https://fed.princeton.edu/cas/'
+
+LOGIN_URL = '/login/'
+# Parse database configuration from $DATABASE_URL
+
+import dj_database_url
+DATABASES['default'] =  dj_database_url.config()
+
+# Honor the 'X-Forwarded-Proto' header for request.is_secure()
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+# Allow all host headers
+ALLOWED_HOSTS = ['*']
