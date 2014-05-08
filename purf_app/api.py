@@ -1,12 +1,22 @@
 from tastypie.resources import ModelResource, ALL
 from django.db.models import Q
 from purf_app.models import Professor, Student
+from django.db import connection, transaction
+from moderation import moderation
 import operator
+import ast
 
 class ProfessorResource(ModelResource): 
-	class Meta: 
-		queryset = Professor.objects.all()
-		resource_name = "professor"
+    class Meta:
+        queryset = Professor.objects.all()
+
+        # exclude unmoderated professors
+        cursor = connection.cursor()
+        cursor.execute('SELECT object_pk FROM moderation_moderatedobject WHERE moderation_status=2')
+        for prof in cursor.fetchall():
+            queryset = queryset.exclude(pk=str(prof)[1:-2])
+
+        resource_name = "professor"
         # allowed_methods = ['post', 'get', 'patch', 'delete']
         allowed_methods = ['get']
         always_return_data = True
@@ -14,6 +24,13 @@ class ProfessorResource(ModelResource):
 class SearchProfessorResource(ModelResource):
     class Meta:
         queryset = Professor.objects.all()
+
+        # exclude unmoderated professors
+        cursor = connection.cursor()
+        cursor.execute('SELECT object_pk FROM moderation_moderatedobject WHERE moderation_status=2')
+        for prof in cursor.fetchall():
+            queryset = queryset.exclude(pk=str(prof)[1:-2])
+
         filtering = {
             "department": ('exact'),
             "name": ('exact', 'startswith',),

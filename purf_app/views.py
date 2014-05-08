@@ -7,10 +7,9 @@ from django.core.mail import send_mail
 from django.contrib.auth.decorators import login_required
 import random
 
-#@login_required
+@login_required
 def index(request):
     results = []
-
 
     #Check if the first time they logged in
     try:
@@ -23,7 +22,6 @@ def index(request):
     if student == None:
         new = True
     else: new = False
-
     ##RECEIVE FORM DATA FOR FIRST USERS
     if request.method == 'POST':
         sForm = ShortStudentForm(request.POST)
@@ -38,11 +36,16 @@ def index(request):
                 return HttpResponseRedirect('/')
         elif 'professor' in request.POST:
             if pForm.is_valid():
-                temp_post = pForm.save(commit=False)
-                temp_post.netid = request.user.username
-                temp_post.email = request.user.username + '@princeton.edu'
-                temp_post.name = request.user.username #Fix this later
-                temp_post.save()
+                #pForm.save()
+
+
+                newprof = Professor(netid=request.user.username,research_areas=pForm.cleaned_data['research_areas'],department=pForm.cleaned_data['department'],email=request.user.username + '@princeton.edu', name=request.user.username)
+                newprof.save()
+                    # temp_post = pForm.save(commit=False)
+                    # temp_post.netid = request.user.username
+                    # temp_post.email = request.user.username + '@princeton.edu'
+                    # temp_post.name = request.user.username #Fix this later
+                    # temp_post.save()
                 return HttpResponseRedirect('/')
     else:
         sForm = ShortStudentForm()
@@ -82,9 +85,9 @@ def department_text (dept):
         return "Princeton Undergraduate Research Finder"
 
 
-#@login_required
-def search (request, query):
-    #Prevent unidentified user from accessing any part of the site
+@login_required
+def search(request, query):
+
     try:
         student = Student.objects.get(netid=request.user.username)
     except Student.DoesNotExist:
@@ -112,7 +115,7 @@ def search (request, query):
     context = {'results':results, 'department': department, 'research_areas':research_areas, 'student':student}
     return render(request, 'search.html', context)
 
-#@login_required
+@login_required
 def profile(request, id):
     #Prevent unidentified user from accessing any part of the site
     try:
@@ -210,7 +213,7 @@ def profile(request, id):
     context ={'prof': prof, 'messageForm':messageForm, 'department': department, 'rating': rating, 'comments': comments, 'project': project, 'research': research, 'areas': areas, 'topics': topics, 'isFavorited': isFavorited, 'eForm': eForm, 'url':url, 'formInvalid':formInvalid}
     return render_to_response('profile.html', context, context_instance=RequestContext(request))
 
-#@login_required
+@login_required
 def message(request,id):
     #Prevent unidentified user from accessing any part of the site
     try:
@@ -229,7 +232,7 @@ def message(request,id):
         send_mail('PURF - IW Request from ' + student.name, request.POST.__getitem__('message') + '\n \n This is an automated message from PURF: Princeton Undergraduate Research Finder, sent by ' + student.netid + '@princeton.edu . \n purf.herokuapp.com \n Please delete PURF from your email chain for further correspondence.', 'from@example.com', [prof.email, student.email], fail_silently=False)
     return HttpResponseRedirect('/profile/' + prof.netid)
     
-#@login_required
+@login_required
 def rating(request):
     #Prevent unidentified user from accessing any part of the site
     try:
@@ -259,7 +262,7 @@ def rating(request):
     context = {'rForm':rForm}
     return render(request, 'rating.html', context)
     
-#@login_required
+@login_required
 def del_prof(request,id):
     #Prevent unidentified user from accessing any part of the site
     try:
@@ -277,7 +280,7 @@ def del_prof(request,id):
     student.favorited_professors.remove(prof)
     return HttpResponseRedirect('/account/')
 
-#@login_required
+@login_required
 def del_prof2(request,id):
     #Prevent unidentified user from accessing any part of the site
     try:
@@ -295,7 +298,7 @@ def del_prof2(request,id):
     student.favorited_professors.remove(prof)
     return HttpResponseRedirect('/profile/'+str(id))
 
-#@login_required
+@login_required
 def fav_prof(request,id):
     #Prevent unidentified user from accessing any part of the site
     try:
@@ -316,7 +319,7 @@ def fav_prof(request,id):
         print 'hi'
     return HttpResponseRedirect('/profile/'+str(id))
 
-#@login_required
+@login_required
 def new_prof(request):
     #Prevent unidentified user from accessing any part of the site
     try:
@@ -349,7 +352,7 @@ def new_prof(request):
     context = {'form':form, 'profForm':profForm}
     return render(request, 'student.html', context)
 
-#@login_required
+@login_required
 def student(request):
     #Prevent unidentified user from accessing any part of the site
     isProfessor = False
