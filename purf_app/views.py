@@ -261,7 +261,7 @@ def rating(request):
 
     context = {'rForm':rForm}
     return render(request, 'rating.html', context)
-    
+
 @login_required
 def del_prof(request,id):
     #Prevent unidentified user from accessing any part of the site

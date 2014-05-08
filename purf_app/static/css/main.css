@@ -430,16 +430,22 @@ body {
 }
 }
 
+.search-department {
+    line-height: 1.7;
+}
 
 #search-results .label {
     font-size: 75% !important;
     font-weight:500 !important;
-    margin:1px;
     color: white;
 }
 
+#search-results .label-default {
+    background-color: #CACACA;
+}
+
 #search-results .label .highlighted {
-    background-color: #BBB;
+    background-color: rgb(216, 216, 165);
 }
 
 #search-results .label.label-warning .highlighted {

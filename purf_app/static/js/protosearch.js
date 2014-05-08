@@ -241,8 +241,8 @@ var search_prof = (function () {
                         var departments = val.department.split(";")
                         for (var i = 0; i < departments.length; i++) {
                             department_html += '<span class="label ';
-                            department_html += departments[i] == "COS" ? 'label-warning' : 'label-default';
-                            department_html += '">' + departments[i] + '</span>';
+                            department_html += departments[i] == "CsOS" ? 'label-warning' : 'label-default';
+                            department_html += '">' + departments[i] + '</span> ';
                         }
                     }
                     var research_areas = val.research_areas.split(';').join("</p><p>");
@@ -279,7 +279,9 @@ var search_prof = (function () {
 
                 var queries = get_queries();
                 for (var i = 0; i < queries.length; i++) {
-                    searchAndHighlight(queries[i], "#search-results", true)
+                    // clear highlights the first time
+                    if ( i == 0 ) searchAndHighlight(queries[i], "#search-results", true);
+                    searchAndHighlight(queries[i], "#search-results", false);
                 }
 
                 // show button if there are more results
