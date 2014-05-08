@@ -22,6 +22,79 @@ label {
 
 /*
 ===========================================
+             TYPEAHEAD STYLE
+===========================================
+*/
+
+.twitter-typeahead {
+    width: 100%;
+}
+
+.tt-query,
+.tt-hint {
+    width: 396px;
+    height: 30px;
+    padding: 8px 12px;
+    font-size: 24px;
+    line-height: 30px;
+    border: 2px solid #ccc;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    border-radius: 8px;
+    outline: none;
+}
+
+.tt-query {
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+}
+
+.tt-hint {
+    color: #999
+}
+
+.tt-dropdown-menu {
+    width: 100%;
+    margin-top: 12px;
+    padding: 8px 0;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    border-radius: 8px;
+    -webkit-box-shadow: 0 5px 10px rgba(0,0,0,.2);
+    -moz-box-shadow: 0 5px 10px rgba(0,0,0,.2);
+    box-shadow: 0 5px 10px rgba(0,0,0,.2);
+}
+
+.tt-suggestion {
+    padding: 3px 20px;
+    font-size: 18px;
+    line-height: 24px;
+    font-size:13px;
+}
+
+.tt-suggestion.tt-cursor {
+    color: #fff;
+    background-color: #0097cf;
+}
+
+.tt-suggestions strong {
+    color: black;
+}
+
+.tt-suggestion p {
+    margin: 0;
+}
+
+.tt-suggestion .department {
+    color: #CCC;
+}
+
+/*
+===========================================
                 COOL TOOLS
 ===========================================
 */
@@ -37,6 +110,23 @@ label {
     vertical-align:middle;
     height:100%;
     width:100%"
+}
+
+#search-refinements-button.collapsed span.caret {
+    -webkit-transform: rotate(0deg);
+    -webkit-transition: -webkit-transform .25s linear;
+    -moz-transition:    -moz-transform .25s linear;
+    -o-transition:      -o-transform .25s linear;
+    -ms-transition:     -ms-transform .25s linear;
+    transition:         transform .25s linear;
+}
+#search-refinements-button span.caret {
+    -webkit-transform: rotate(180deg);
+    -webkit-transition: -webkit-transform .25s linear;
+    -moz-transition:    -moz-transform .25s linear;
+    -o-transition:      -o-transform .25s linear;
+    -ms-transition:     -ms-transform .25s linear;
+    transition:         transform .25s linear;
 }
 
 /*
@@ -104,11 +194,11 @@ label {
     width: 102%;
     margin: -2% -2%;
     background-size: cover;
-    -webkit-filter: blur(5px);
+    /* -webkit-filter: blur(5px);
     -moz-filter: blur(5px);
     -o-filter: blur(5px);
     -ms-filter: blur(5px);
-    filter: blur(5px);
+    filter: blur(5px); */
 }
 
 #home-background .orange {
@@ -118,10 +208,6 @@ label {
 }
 
 /* the fake beautiful background */
-
-#home-form {
-    overflow:hidden;
-}
 
 #home-container{
     height:100%;
@@ -251,6 +337,7 @@ label {
 }
 
 #search-results-container {
+    position: relative;
     background-color: #E6E6E6;
     min-height:100%;
     padding-bottom:50px;
@@ -373,6 +460,15 @@ label {
 .highlighted {
      background-color:rgb(255, 255, 200);
 }
+
+#search-load-more {
+    margin: 30px;
+}
+
+#search-load-more-btn {
+    display:block;
+}
+
 /*
 ===========================================
               PROFILE PAGE

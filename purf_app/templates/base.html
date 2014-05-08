@@ -17,6 +17,7 @@
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,300,700' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="{% static "css/main.css" %}">
     <link rel="stylesheet" type="text/css" href="{% static "css/animate.css" %}">
+    <link rel="shortcut icon" href="{% static "favicon.ico" %}">
     {% bootstrap_css %}
     <style>
          body {padding-top: 50px;}
@@ -70,7 +71,7 @@
                 <input id="searchbox" class="form-control" id="exampleInputEmail2" placeholder="Search for Professors, Departments or Research Areas here"/>
               </div>
               <button id="searchbutton" type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search"></span></button>
-              <a id="search-refinements-button" data-toggle="collapse" data-target="#sliding-panel"><span class="caret"></span></a>
+              <a id="search-refinements-button" class="collapsed" data-toggle="collapse" data-target="#sliding-panel"><span class="caret"></span></a>
             </form>
                   <!-- This part isn't working, obviously -->
           </div>
@@ -115,6 +116,7 @@
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
   <script src="{% static "js/jquery.history.js" %}"></script>
+  <script src="{% static "js/typeahead.bundle.min.js" %}"></script>
   <script src="{% static "js/protosearch.js" %}"></script>
   {% block javascript %} {% endblock %}
 

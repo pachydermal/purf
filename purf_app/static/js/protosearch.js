@@ -46,7 +46,7 @@ function searchAndHighlight(searchTerm, selector, removePreviousHighlights) {
             }
         };
         if(removePreviousHighlights) {
-            $('.'+highlightClass).removeClass(highlightClass);     //Remove old search highlights
+            $('.'+"highlighted").removeClass("highlighted");     //Remove old search highlights
         }
 
         $.each($(selector).children(), function(index,val){
@@ -102,7 +102,6 @@ var search_prof = (function () {
                 stateless_search();
             });
 
-
             // search on first page load. This is a big cheat.
             // Once search is finalized, then we have to write a server-side
             // version of this.
@@ -120,6 +119,57 @@ var search_prof = (function () {
         if ($('#home-container').length) {
             searchbox.focus();
         }
+
+        // autocomplete
+        var professorAutocomplete = new Bloodhound({
+            datumTokenizer: function (d) {
+                return Bloodhound.tokenizers.whitespace(d.value);
+            },
+            queryTokenizer: Bloodhound.tokenizers.whitespace,
+            remote: {
+                url: '/api/v1/search/?%QUERYformat=json',
+                replace: function (url, query) {
+                    var querystring = ""
+                    $.each(get_queries(), function(key, value){
+                        querystring += "query=" + value + "&"
+                    })
+                    $(".checkbox :checkbox:checked").each(function(key, value){
+                        querystring += "research_areas=" + value.value + "&"
+                    })
+                    return "/api/v1/search/?" +  querystring + "format=json"
+                },
+                filter: function (data) {
+                    return $.map(data.objects, function (professor) {
+                        return {
+                            name: professor.name,
+                            department: professor.department,
+                            link: "/profile/" + professor.netid,
+                        };
+                    });
+                }
+            }
+        });
+
+        professorAutocomplete.initialize();
+
+        searchbox.typeahead({
+            highlight: true,
+          },
+          {
+            displayKey: "",
+            templates: {
+            suggestion: function(item){ return item.name + ' <span class="department">' + item.department.split(";").join("\/") + "</span>"},
+          },
+          source: professorAutocomplete.ttAdapter(),
+        });
+
+        searchbox.on('typeahead:selected', function(e, item) {
+            window.location = item.link;
+        });
+        searchbox.on('typeahead:cursorchanged', function(e, item, dataset){
+            return;
+        });
+
     }
 
     stateless_search = function () {
@@ -143,6 +193,10 @@ var search_prof = (function () {
         return searchbox.val().trim().split(/[\s,\&;]+/)
     }
 
+    build_search_url = function () {
+        return "/api/v1/search/?" + build_search_query() + "format=json"
+    }
+
     build_search_query = function () {
         var querystring = ""
         $.each(get_queries(), function(key, value){
@@ -156,20 +210,27 @@ var search_prof = (function () {
 
     // MAIN SEARCH FUNCTION
     search = function () {
-        var querystring = build_search_query();
-
         searchresults.empty();
+
+        add_results(build_search_url());
+    }
+
+    add_results = function (query_url) {
+
         searchloading.addClass("loading");
 
-        $.getJSON("/api/v1/search/?" + querystring + "format=json", function(data) {
+        $.getJSON(query_url, function(data) {
+
+            $('#search-load-more').remove();
+
             searchloading.removeClass("loading");
 
             // what to display if there is nothing
             if (!data.objects.length) {
                 searchresults.append('<div align="center">\
-                                <h4 align="center">No Results Found</h4>\
-                                <p>Hint: Try using more search queries, or partial words.</p>\
-                            </div>');
+                                    <h4 align="center">No Results Found</h4>\
+                                    <p>Hint: Try using more search queries, or partial words.</p>\
+                                    </div>');
             } else {
                 var items = [];
                 $.each( data.objects, function( key, val ) {
@@ -202,15 +263,25 @@ var search_prof = (function () {
 
                 // put an image placeholder for images that fail to load.
                 $('img').error(function(){
-                    $(this).attr('src','http://placekitten.com/200/201');
+                    $(this).attr('src','http://placekitten.com/200/201?image=' + Math.floor(Math.random() * 17));
                 });
 
                 var queries = get_queries();
                 for (var i = 0; i < queries.length; i++) {
-                    searchAndHighlight(queries[i], "#search-results")
+                    searchAndHighlight(queries[i], "#search-results", true)
                 }
+
+                // show button if there are more results
+                if (data.meta.next) {
+                    searchresults.append('<div id="search-load-more" class="row">\
+                                            <div id="search-load-more-btn" class="col-sm-4 col-sm-offset-4 btn btn-warning">Load more results</div>\
+                                          </div>');
+                }
+                $('#search-load-more-btn').click(function(){
+                    add_results(data.meta.next);
+                });
             }
-        })
+        });
     }
 
     // on document ready, initialize the function

@@ -86,8 +86,8 @@ def department_text (dept):
 
 
 @login_required
-def search(request, query):
-
+def search (request, query):
+    #Prevent unidentified user from accessing any part of the site
     try:
         student = Student.objects.get(netid=request.user.username)
     except Student.DoesNotExist:
