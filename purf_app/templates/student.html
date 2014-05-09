@@ -44,7 +44,9 @@
 			</p>
 			{% if student %} <h3> {{student.name}} </h3> {% endif %}
 			{% if student %} <p> {{student.email}} </p> {% endif %}
-            <button type="button" data-toggle="modal" data-target="#editModal">Edit</button>
+            <button type="button" class="btn btn-default" data-toggle="modal" data-target="#editModal">
+                 <span class="glyphicon glyphicon-pencil"></span> Edit
+            </button>
 		</div>
 		<div class="col-md-3 column">
 		</div>
@@ -80,8 +82,8 @@
 								{% endfor %}
 							</div>
 							<div class="modal-footer">
-								<input type="submit" name="edit" value="Save Changes"/>
-								<button type = "button" class="btn btn-default" data-dismiss="modal">Close</button>
+								<button type = "button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+								<input type="submit" class="btn btn-primary" name="edit" value="Save Changes"/>
 								</form>
 							</div>
 						</div>
