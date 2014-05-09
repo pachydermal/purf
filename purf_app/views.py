@@ -71,7 +71,6 @@ def index(request):
     context = {'results':results, 'research_areas':research_areas, 'new':new, 'sForm': sForm, 'pForm':pForm, 'student':student}
     return render_to_response('index.html', context, context_instance=RequestContext(request))
 
-
 def department_text (dept):
     if dept == 'COS':
         return "Computer Science"
