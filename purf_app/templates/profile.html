@@ -12,16 +12,20 @@
       {% endif %}
       {% if not professor %}
         <div class="row clearfix">
-          <div class="col-md-6 column">
+          <div class="col-md-12 column">
             {% if isFavorited == "1" %}
               <form action='/del_prof2/{{prof.netid}}/' method="post">
                 {% csrf_token %}
-                <input type = "submit" value ="Remove from Favorites" />
+                <button class="btn btn-default" style="width:100%" type = "submit">
+                  <span class="glyphicon glyphicon-star-empty"></span> Remove from Favorites
+                </button>
               </form>
             {% else %}
               <form action='/fav_prof/{{prof.netid}}/' method="post">
                 {% csrf_token %}
-                <input type = "submit" value ="Favorite" />
+                <button class="btn btn-default" style="width:100%" type = "submit">
+                  <span class="glyphicon glyphicon-star"></span> Favorite
+                </button>
               </form>
 					{% endif %}
 
@@ -29,7 +33,9 @@
         </div>
 			{% endif %}
         {% if not professor %}
-        <button type="button" data-toggle="modal" data-target="#messageModal">Message</button>
+        <button type="button" class="btn btn-default" style="width:100%" data-toggle="modal" data-target="#messageModal">
+          <span class="glyphicon glyphicon-envelope"></span> Message
+        </button>
 
 
 				<div class="modal in" id="messageModal" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -43,14 +49,12 @@
                                 Fill out this form to send an IW request through the PURF application.
 								<form action='/message/{{prof.netid}}/' method="post" >{% csrf_token %}
 									<div>
-                                        {{ messageForm.as_p }}
+                      {{ messageForm.as_p }}
 									</div>
 							</div>
 							<div class="modal-footer">
-								<input type="submit" name="save" value="Send Email"/>
+								<input type="submit" class="btn btn-primary" name="save" value="Send Email"/>
 								</form>
-							</div>
-							<div class="modal-footer">
 							</div>
 						</div>
 					</div>
@@ -202,7 +206,9 @@
 		{% if professor %}
 			{% if professor.netid == prof.netid %}
 		
-				<button type="button" data-toggle="modal" data-target="#editModal">Edit</button>
+				<button type="button" data-toggle="modal" data-target="#editModal">
+          <span class="glyphicon glyphicon-pencil"></span> Edit
+        </button>
 		
 
 				<div class="modal in" id="editModal" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -214,14 +220,14 @@
 							<div class="modal-body">
 								<form action={{url}} method="post" >{% csrf_token %}
 								{% for field in eForm %}
-
+                  <div>
 										<label for="{{ field.label }}">{{ field.label_tag }}
 										{% if field.field.required %}<span class="special_class">*</span>{% endif %}</label>
 										{{ field }}
-
+                  </div>
 								{% endfor %}
 
-                                <input type="submit" name="save" value="Save Changes"/>
+                  <input type="submit" class="btn btn-primary" name="save" value="Save Changes"/>
 								</form>
 							</div>
 						</div>
