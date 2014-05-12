@@ -22,7 +22,7 @@ def index(request):
     if student == None:
         new = True
     else: new = False
-	
+
     # Receive form data for first-time users
     if request.method == 'POST':
         sForm = ShortStudentForm(request.POST)
@@ -45,7 +45,7 @@ def index(request):
         pForm = ShortProfessorForm()
 
     research_areas = ['CHM', 'COS', 'ELE', 'MOL']
-	
+
 	# store department to change research areas displayed on search
     try:
         if student and student.department:
@@ -55,7 +55,7 @@ def index(request):
         research_areas = department.research_areas.split(';')
     except Department.DoesNotExist:
         print 'Department does not exist'
-		
+
 	#if professor not yet approved, display moderation explanation form
     try:
         mod = Professor.unmoderated_objects.get(netid=request.user.username)
@@ -64,7 +64,7 @@ def index(request):
     except:
         context = {'results':results, 'research_areas':research_areas, 'new':new, 'sForm': sForm, 'pForm':pForm, 'student':student}
         return render_to_response('index.html', context, context_instance=RequestContext(request))
-		
+
     context = {'results':results, 'research_areas':research_areas, 'new':new, 'sForm': sForm, 'pForm':pForm, 'student':student}
     return render_to_response('index.html', context, context_instance=RequestContext(request))
 
@@ -80,6 +80,7 @@ def department_text (dept):
         return "Chemistry"
     else:
         return "Princeton Undergraduate Research Finder"
+
 
 
 @login_required
@@ -231,6 +232,21 @@ def message(request,id):
     return HttpResponseRedirect('/profile/' + prof.netid)
 
 @login_required
+def landing(request):
+    #Prevent unidentified user from accessing any part of the site
+    try:
+        student = Student.objects.get(netid=request.user.username)
+    except Student.DoesNotExist:
+        try:
+            student = Professor.objects.get(netid=request.user.username)
+        except Professor.DoesNotExist:
+            student = None
+    if student == None:
+        return HttpResponseRedirect('/')
+
+    return render(request, 'landing.html')
+
+@login_required
 def rating(request):
     #Prevent unidentified user from accessing any part of the site
     try:
@@ -258,7 +274,6 @@ def rating(request):
 
     context = {'rForm':rForm}
     return render(request, 'rating.html', context)
-
 # for un-favoriting professors from student account page
 @login_required
 def del_prof(request,id):
