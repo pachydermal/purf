@@ -22,7 +22,8 @@ def index(request):
     if student == None:
         new = True
     else: new = False
-    ##RECEIVE FORM DATA FOR FIRST USERS
+
+    # Receive form data for first-time users
     if request.method == 'POST':
         sForm = ShortStudentForm(request.POST)
         pForm = ShortProfessorForm(request.POST)
@@ -31,27 +32,21 @@ def index(request):
                 temp_post = sForm.save(commit=False)
                 temp_post.netid = request.user.username
                 temp_post.email = request.user.username + '@princeton.edu'
-                temp_post.name = request.user.username #Fix this later
+                temp_post.name = request.user.username
                 temp_post.save()
                 return HttpResponseRedirect('/')
         elif 'professor' in request.POST:
             if pForm.is_valid():
-                #pForm.save()
-
-
                 newprof = Professor(netid=request.user.username,research_areas=pForm.cleaned_data['research_areas'],department=pForm.cleaned_data['department'],email=request.user.username + '@princeton.edu', name=request.user.username)
                 newprof.save()
-                    # temp_post = pForm.save(commit=False)
-                    # temp_post.netid = request.user.username
-                    # temp_post.email = request.user.username + '@princeton.edu'
-                    # temp_post.name = request.user.username #Fix this later
-                    # temp_post.save()
                 return HttpResponseRedirect('/')
     else:
         sForm = ShortStudentForm()
         pForm = ShortProfessorForm()
 
     research_areas = ['CHM', 'COS', 'ELE', 'MOL']
+
+	# store department to change research areas displayed on search
     try:
         if student and student.department:
             department = Department.objects.get(name=student.department)
@@ -60,17 +55,20 @@ def index(request):
         research_areas = department.research_areas.split(';')
     except Department.DoesNotExist:
         print 'Department does not exist'
+
+	#if professor not yet approved, display moderation explanation form
     try:
         mod = Professor.unmoderated_objects.get(netid=request.user.username)
         context = {'results':results, 'research_areas':research_areas, 'new':new, 'sForm': sForm, 'pForm':pForm, 'student':student}
         return render_to_response('mod.html', context, context_instance=RequestContext(request))
     except:
         context = {'results':results, 'research_areas':research_areas, 'new':new, 'sForm': sForm, 'pForm':pForm, 'student':student}
-
         return render_to_response('index.html', context, context_instance=RequestContext(request))
+
     context = {'results':results, 'research_areas':research_areas, 'new':new, 'sForm': sForm, 'pForm':pForm, 'student':student}
     return render_to_response('index.html', context, context_instance=RequestContext(request))
 
+# used for department search page
 def department_text (dept):
     if dept == 'COS':
         return "Computer Science"
@@ -82,6 +80,7 @@ def department_text (dept):
         return "Chemistry"
     else:
         return "Princeton Undergraduate Research Finder"
+
 
 
 @login_required
@@ -114,6 +113,7 @@ def search (request, query):
     context = {'results':results, 'department': department, 'research_areas':research_areas, 'student':student}
     return render(request, 'search.html', context)
 
+#professor profile page
 @login_required
 def profile(request, id):
     #Prevent unidentified user from accessing any part of the site
@@ -206,12 +206,12 @@ def profile(request, id):
             return HttpResponseRedirect('/profile/'+str(request.user.username))
         else:
             formInvalid = True
-    #else:
-    #    eForm = EditProfessorForm(instance=myProf)
+
     messageForm = MessageForm()
     context ={'prof': prof, 'messageForm':messageForm, 'department': department, 'rating': rating, 'comments': comments, 'project': project, 'research': research, 'areas': areas, 'topics': topics, 'isFavorited': isFavorited, 'eForm': eForm, 'url':url, 'formInvalid':formInvalid}
     return render_to_response('profile.html', context, context_instance=RequestContext(request))
 
+#professor email feature
 @login_required
 def message(request,id):
     #Prevent unidentified user from accessing any part of the site
@@ -224,12 +224,27 @@ def message(request,id):
             student = None
     if student == None:
         return HttpResponseRedirect('/')
-    print id
     prof = Professor.objects.get(netid=id)
 
+	#email template
     if request.method == 'POST':
         send_mail('PURF - IW Request from ' + student.name, request.POST.__getitem__('message') + '\n \n This is an automated message from PURF: Princeton Undergraduate Research Finder, sent by ' + student.netid + '@princeton.edu . \n purf.herokuapp.com \n Please delete PURF from your email chain for further correspondence.', 'from@example.com', [prof.email, student.email], fail_silently=False)
     return HttpResponseRedirect('/profile/' + prof.netid)
+
+@login_required
+def landing(request):
+    #Prevent unidentified user from accessing any part of the site
+    try:
+        student = Student.objects.get(netid=request.user.username)
+    except Student.DoesNotExist:
+        try:
+            student = Professor.objects.get(netid=request.user.username)
+        except Professor.DoesNotExist:
+            student = None
+    if student == None:
+        return HttpResponseRedirect('/')
+
+    return render(request, 'landing.html')
 
 @login_required
 def rating(request):
@@ -250,7 +265,6 @@ def rating(request):
         student = None
 
     if request.method == 'POST':
-        print "IN POST!"
         rForm = RatingForm(request.POST)
         if rForm.is_valid():
             rForm.save()
@@ -260,7 +274,7 @@ def rating(request):
 
     context = {'rForm':rForm}
     return render(request, 'rating.html', context)
-
+# for un-favoriting professors from student account page
 @login_required
 def del_prof(request,id):
     #Prevent unidentified user from accessing any part of the site
@@ -279,6 +293,7 @@ def del_prof(request,id):
     student.favorited_professors.remove(prof)
     return HttpResponseRedirect('/account/')
 
+# for un-favoriting professor from their profile page; implemented to avoid redirecting to student account page
 @login_required
 def del_prof2(request,id):
     #Prevent unidentified user from accessing any part of the site
@@ -297,6 +312,7 @@ def del_prof2(request,id):
     student.favorited_professors.remove(prof)
     return HttpResponseRedirect('/profile/'+str(id))
 
+# for favoriting professors
 @login_required
 def fav_prof(request,id):
     #Prevent unidentified user from accessing any part of the site
@@ -315,9 +331,10 @@ def fav_prof(request,id):
         student = Student.objects.get(netid=request.user.username)
         student.favorited_professors.add(prof)
     except:
-        print 'hi'
+        print 'Cannot find student with this netid'
     return HttpResponseRedirect('/profile/'+str(id))
 
+# creates new professor
 @login_required
 def new_prof(request):
     #Prevent unidentified user from accessing any part of the site
@@ -351,6 +368,7 @@ def new_prof(request):
     context = {'form':form, 'profForm':profForm}
     return render(request, 'student.html', context)
 
+# student account page
 @login_required
 def student(request):
     #Prevent unidentified user from accessing any part of the site
