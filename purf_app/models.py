@@ -1,3 +1,5 @@
+# models.py: contains Django models Professor, Student, Rating, Project, Department
+
 import datetime
 from django.utils import timezone
 from django.db import models
@@ -6,6 +8,7 @@ from django.contrib.auth.models import User
 YEARS = ( ('Freshman','Freshman'),('Sophomore','Sophomore'),('Junior','Junior'), ('Senior', 'Senior'),)
 DEPTS = ( ('CHM','CHM'),('COS','COS'),('ELE','ELE'), ('MOL','MOL'),('Other', 'Other'),('Undecided', 'Undecided'),)
 
+# All fields except for title and advisees filled through scraping. All professors set as "open" initially
 class Professor(models.Model):
     netid = models.CharField(max_length=200)
     name = models.CharField(max_length=200)
@@ -25,6 +28,7 @@ class Professor(models.Model):
     def __unicode__(self):
         return self.name
 
+# email filled automatically using netid; fields such as resume_link, research_interests for future features
 class Student(models.Model):
     netid = models.CharField(max_length=200, primary_key=True)
     name = models.CharField(max_length=200)
@@ -42,7 +46,7 @@ class Student(models.Model):
     def __unicode__(self):  
         return self.name
 
-
+# Initial ratings populated using survey results. RatingForm will be used for future population
 class Rating(models.Model):
     professor = models.ForeignKey('Professor')
     responsive = models.PositiveIntegerField()
@@ -51,6 +55,7 @@ class Rating(models.Model):
     overall = models.PositiveIntegerField()
     comments = models.TextField(blank=True)
 
+# Projects populated using spreadsheets from CHM, MOL, COS, and ELE.
 class Project(models.Model):
     professor = models.ForeignKey('Professor')
     student_name = models.CharField(max_length=200, blank=True)

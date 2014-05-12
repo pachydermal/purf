@@ -16,12 +16,10 @@ class EditProfessorForm(ModelForm):
 class StudentForm(ModelForm):
     class Meta:
         model = Student
-        #fields = '__all__'
 
 class ProfessorForm(BaseModeratedObjectForm):
     class Meta:
         model = Professor
-        #fields = '__all__'
 
 class ShortStudentForm(ModelForm):
     class Meta:
