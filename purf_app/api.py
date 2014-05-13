@@ -17,7 +17,6 @@ class ProfessorResource(ModelResource):
             queryset = queryset.exclude(pk=str(prof)[1:-2])
 
         resource_name = "professor"
-        # allowed_methods = ['post', 'get', 'patch', 'delete']
         allowed_methods = ['get']
         always_return_data = True
 
@@ -31,6 +30,7 @@ class SearchProfessorResource(ModelResource):
         for prof in cursor.fetchall():
             queryset = queryset.exclude(pk=str(prof)[1:-2])
 
+        # allowed fields in query url
         filtering = {
             "department": ('exact'),
             "name": ('exact', 'startswith',),
@@ -40,15 +40,7 @@ class SearchProfessorResource(ModelResource):
         allowed_methods = ['get']
         always_return_data = True
 
-    # def obj_create(self, bundle, request=None, **kwargs):
-    #     bundle = super(GoalResource, self).obj_create(
-    #         bundle, request, user=request.user)
-    #
-    #     search_type = bundle.data["type"]
-    #     name = bundle.data["name"]
-    #     department = bundle.data["department"]
-
-
+    # build filters for selecting over professors
     def build_filters(self, filters=None):
         if filters is None:
             filters = {}
@@ -56,6 +48,7 @@ class SearchProfessorResource(ModelResource):
         filters_dict = dict(filters.iterlists())
         qsets = []
 
+        # build filters for search box terms
         if('query' in filters_dict.keys()):
             query = filters_dict['query']
             for q in query:
@@ -68,7 +61,7 @@ class SearchProfessorResource(ModelResource):
                 qsets.append(qset)
         orm_filters.update({'custom': qsets})
 
-
+        # build filters for refine research area checkboxes
         rasets = []
         if('research_areas' in filters_dict.keys()):
             research_areas = filters_dict['research_areas']
@@ -81,28 +74,35 @@ class SearchProfessorResource(ModelResource):
         orm_filters.update({'ras': rasets})
         return orm_filters
 
+    # apply filters over professor data
     def apply_filters(self, request, applicable_filters):
+        # ignore default research_areas tastypie filtering
         if 'research_areas__exact' in applicable_filters:
             applicable_filters.pop('research_areas__exact')
 
+        # grab search term related filters
         if 'custom' in applicable_filters:
             custom = applicable_filters.pop('custom')
         else:
             custom = None
 
+        # grab refine research area related filters
         if 'ras' in applicable_filters:
             ras = applicable_filters.pop('ras')
         else:
             ras = None
 
-
+        
         semi_filtered = super(SearchProfessorResource, self).apply_filters(request, applicable_filters)
+
+        # apply search term filters
         if custom:
             query = custom.pop()
             for i in custom:
                 query |= i
             semi_filtered = semi_filtered.filter(query)
 
+        # apply refine research area filters
         if ras:
             ra = ras.pop()
             for i in ras:

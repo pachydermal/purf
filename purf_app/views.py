@@ -97,6 +97,7 @@ def search (request, query):
 
     results = []
 
+    # grab research areas for the student's department
     research_areas = []
     try:
         if student and student.department:
