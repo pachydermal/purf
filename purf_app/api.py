@@ -109,4 +109,4 @@ class SearchProfessorResource(ModelResource):
                 ra |= i
             semi_filtered = semi_filtered.filter(ra)
 
-        return semi_filtered.sort()
+        return semi_filtered
