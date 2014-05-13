@@ -127,9 +127,8 @@
 
 
 <script>
-  $('img').error(function(){
-      $(this).attr('src','http://placekitten.com/200/201?image=' + Math.floor(Math.random() * 17));
-  });
+  // replace empty images with kitties
+  $('img[src=""]').attr('src','http://placekitten.com/200/201?image=' + Math.floor(Math.random() * 17));
 </script>
 
 {%endif %}
