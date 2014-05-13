@@ -35,7 +35,7 @@ TEMPLATE_DIRS = (
     'templates/index.html'
 )
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '127.0.0.1','purf.herokuapp.com']
 
 
 # Application definition
@@ -114,7 +114,6 @@ STATIC_ROOT = 'staticfiles'
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static'),
 )
 
 TEMPLATE_CONTEXT_PROCESSORS += ('purf.context_processors.getStudent','django.core.context_processors.request')
