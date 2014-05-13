@@ -112,7 +112,7 @@ def search (request, query):
     department = get_department(student)
     research_areas = get_research_areas(department)
 
-    context = {'results':results, 'department': department, 'research_areas':research_areas, 'student':student}
+    context = {'results':results, 'research_areas':research_areas, 'student':student}
     return render(request, 'search.html', context)
 
 #professor profile page
@@ -123,8 +123,7 @@ def profile(request, id):
     if student == None:
         return HttpResponseRedirect('/')
 
-    department = get_department(student)
-    research_areas = get_research_areas(department)
+    research_areas = get_research_areas(get_department(student))
 
     prof = Professor.objects.get(netid=id)
 
@@ -208,7 +207,7 @@ def profile(request, id):
             formInvalid = True
 
     messageForm = MessageForm()
-    context ={'department':department, 'research_areas': research_areas,
+    context ={'research_areas': research_areas,
               'prof': prof, 'messageForm':messageForm, 'prof_department': prof_department, 'rating': rating, 'comments': comments, 'project': project, 'research': research, 'areas': areas, 'topics': topics, 'isFavorited': isFavorited, 'eForm': eForm, 'url':url, 'formInvalid':formInvalid}
     return render_to_response('profile.html', context, context_instance=RequestContext(request))
 
@@ -232,8 +231,7 @@ def rating(request):
     student = get_student(request)
     if student == None:
         return HttpResponseRedirect('/')
-    department = get_department(student)
-    research_areas = get_research_areas(department)
+    research_areas = get_research_areas(get_department(student))
 
     try:
         student = Student.objects.get(netid=request.user.username)
@@ -248,8 +246,7 @@ def rating(request):
     else:
         rForm = RatingForm()
 
-    context = {'department':department, 'research_areas': research_areas,
-               'rForm':rForm}
+    context = {'research_areas': research_areas, 'rForm':rForm}
     return render(request, 'rating.html', context)
 
 # for un-favoriting professors from student account page
@@ -328,8 +325,7 @@ def student(request):
     #Prevent unidentified user from accessing any part of the site
     isProfessor = False
     student = get_student(request)
-    department = get_department(student)
-    research_areas = get_research_areas(department)
+    research_areas = get_research_areas(get_department(student))
     if student == None:
         return HttpResponseRedirect('/')
     formInvalid = False
@@ -364,7 +360,7 @@ def student(request):
         form = StudentForm()
         profForm = ProfessorForm()
         eForm = EditStudentForm(instance=student)
-    context = {'department':department, 'research_areas': research_areas,
+    context = {'research_areas': research_areas,
               'form': form, 'profForm': profForm, 'eForm': eForm, 'student': student, 'formInvalid': formInvalid}
     return render(request, 'student.html', context)
 
