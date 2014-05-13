@@ -88,9 +88,13 @@ var search_prof = (function () {
 
     // stored variables for convenience
     var searchform, searchbox, searchbutton, searchresults, searchloading;
+    var user_department;
 
     // INITIALIZATION
     init = function () {
+
+        // get the user's department
+        user_department = $('meta[name=user_department]').attr("content");
 
         // Bind on click of the button at the top of search results to change the css
         // of all the search results, so that they display the full results
@@ -284,12 +288,13 @@ var search_prof = (function () {
                 var items = [];
                 $.each( data.objects, function( key, val ) {
                     // Make departments go in fancy label spans
+                    // if the department matches the user_department, it is highlighted
                     var department_html = ""
                     if (val.department) {
                         var departments = val.department.split(";")
                         for (var i = 0; i < departments.length; i++) {
                             department_html += '<span class="label ';
-                            department_html += departments[i] == "CsOS" ? 'label-warning' : 'label-default';
+                            department_html += departments[i] == user_department ? 'label-warning' : 'label-default';
                             department_html += '">' + departments[i] + '</span> ';
                         }
                     }

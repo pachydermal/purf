@@ -1,5 +1,11 @@
 {% extends "base.html" %}
 
+{% block metatags %}
+  {% if department %}
+  <meta name="user_department" content="{{department}}">
+  {% endif %}
+{% endblock %}
+
 {% block content %}
 
    <!-- SEARCH RESULTS -->
@@ -28,7 +34,5 @@
     </div>
     <div id="search-loading"></div>
   </div>
-
-
 
 {% endblock %}
