@@ -2,34 +2,6 @@
 
 {% block content %}
 
-  <!-- EXPANDING RESEARCH AREA SEARCH REFINEMENTS -->
-  <div id="search-refinements" class="container-fluid">
-    <div class="container">
-      <div class="row" >
-        <div id="sliding-panel" class="collapse">
-          <div align="center">
-            <!-- Make the following text responsive to major? -->
-            <h4>Refine Search by Research Area</h4>
-          </div>
-
-          <!-- Below taken from https://stackoverflow.com/questions/13810059/bootstrap-simple-form-checkbox-grids. Have to modify... note the first column is lower than the others? -->
-
-          <!-- Have to somehow make this responsive??? -->
-          <div class="control-group clearfix">
-            <div class="checkbox-columns">
-              {% for area in research_areas %}
-                <label class="checkbox span2">
-                  <input type="checkbox" value="{{area}}">
-                  {{area}}
-                </label>
-              {% endfor %}
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
    <!-- SEARCH RESULTS -->
   <div id="search-results-container" class="container-fluid">
     <div class="container">

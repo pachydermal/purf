@@ -51,8 +51,8 @@
     <![endif]-->
   </head>
  
-   
- <div class="navbar navbar-fixed-top">
+ <body>
+  <div class="navbar navbar-fixed-top">
     <div class="container">
       <div class="navbar-header">
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -64,6 +64,7 @@
       </div>
       <div class="collapse navbar-collapse">
 
+        {# This searchbar is a block because it does not appear on the index page #}
         {% block search-bar %}
           <div id="search-form-container" class="col-sm-7 col-md-8 col-lg-9" >
             <form id="search-form" class="form-inline form-search">
@@ -71,9 +72,11 @@
                 <input id="searchbox" class="form-control" id="exampleInputEmail2" placeholder="Search for Professors, Departments or Research Areas here"/>
               </div>
               <button id="searchbutton" type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search"></span></button>
+              {# if there aren't any research areas for some reason, don't show this button #}
+              {% if research_areas %}
               <a id="search-refinements-button" class="collapsed" data-toggle="collapse" data-target="#sliding-panel"><span class="caret"></span></a>
+              {% endif %}
             </form>
-                  <!-- This part isn't working, obviously -->
           </div>
         {% endblock %}
 
@@ -110,8 +113,40 @@
       </div><!--/.nav-collapse -->
     </div>
   </div>
-  
- <body>
+
+  {# This block is not visible on the index page #}
+  {% block search-refinements %}
+  <!-- EXPANDING RESEARCH AREA SEARCH REFINEMENTS -->
+  {% if research_areas %}
+  <div id="search-refinements" class="container-fluid">
+    <div class="container">
+      <div class="row" >
+        <div id="sliding-panel" class="collapse">
+          <div align="center">
+            <!-- Make the following text responsive to major? -->
+            <h4>Refine Search by Research Area</h4>
+          </div>
+
+          <!-- Below taken from https://stackoverflow.com/questions/13810059/bootstrap-simple-form-checkbox-grids. Have to modify... note the first column is lower than the others? -->
+
+          <!-- Have to somehow make this responsive??? -->
+          <div class="control-group clearfix">
+            <div class="checkbox-columns">
+              {% for area in research_areas %}
+                <label class="checkbox span2">
+                  <input type="checkbox" value="{{area}}">
+                  {{area}}
+                </label>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+  {% endblock %}
+
   {% block content %} Content goes here {% endblock %}
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
@@ -121,21 +156,6 @@
   {% block javascript %} {% endblock %}
 
   {% bootstrap_javascript %}
-  <script src="{% static "js/bootbox.min.js" %}"></script>
-
-     <script>
-    {% if new %}
-    <!--bootbox.prompt("Are you a student or a professor?", function(result) {
-      if (result === null) {
-        Example.show("Prompt dismissed");
-      } else {
-        Example.show("Hi <b>"+result+"</b>");
-      }
-    });-->
-
-    {% endif %}
-    </script>
-
 
   </body>
 </html>

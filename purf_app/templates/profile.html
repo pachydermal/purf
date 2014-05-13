@@ -75,8 +75,8 @@
       <!-- PROFESSOR INFO -->
       <h1>{% if prof.name %}{{prof.name}} {%else%} N/A {%endif%}</h1>
       <p>
-        {% if department %} {% for d in department %} {{d}} {% endfor %} {% endif %}
-        {% if department and prof.title %} | {% endif %}
+        {% if prof_department %} {% for d in prof_department %} {{d}} {% endfor %} {% endif %}
+        {% if prof_department and prof.title %} | {% endif %}
         {{prof.title}}
       </p>
       <p> {{prof.email}} </p>

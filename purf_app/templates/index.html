@@ -1,8 +1,9 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block search-bar %}
-{% endblock %}
+{# the index page does not have search in the nav bar #}
+{% block search-bar %}{% endblock %}
+{% block search-refinements %}{% endblock %}
 
 {% block content %}
 
@@ -78,17 +79,18 @@
     </div>
     <div class="right col-md-4  col-lg-5">
       <div class="image" style="background-image:
-       {% if student.department == 'COS' %}
-            url(http://www.cs.princeton.edu/~cdecoro/edgedetection/csbldg.jpg)
-        {% elif student.department == 'ELE' %}
-            url(http://www.princeton.edu/~oktour/virtualtour/french/Images/Expansions/EQuadExp.jpg)
-        {% elif student.department == 'MOL' %}
-            url(http://www.vanderweil.com/resources/proj_PrincetonLewis.jpg)
-        {% elif student.department == 'CHM' %}
-            url(http://www.archithings.com/wp-content/uploads/2012/07/Frick-Chemistry-Laboratory-Princeton-University-USA-by-Hopkins-Architects.jpg)
-        {% else %}
-            url(http://www.webestates.biz/wp-content/uploads/2014/01/princeton-university-blair-hall-architecture-capture-this-146067.jpg)
-        {% endif %}
+      {# Choose a background image depending on your major #}
+      {% if student.department == 'COS' %}
+          url(http://www.cs.princeton.edu/~cdecoro/edgedetection/csbldg.jpg)
+      {% elif student.department == 'ELE' %}
+          url(http://www.princeton.edu/~oktour/virtualtour/french/Images/Expansions/EQuadExp.jpg)
+      {% elif student.department == 'MOL' %}
+          url(http://www.vanderweil.com/resources/proj_PrincetonLewis.jpg)
+      {% elif student.department == 'CHM' %}
+          url(https://d2iweeeny6suwz.cloudfront.net/thumbnails-PRODUCTION/12/a0/12a0eff46d552c2e8a486e7b0835e6e7.jpg)
+      {% else %}
+          url(http://www.webestates.biz/wp-content/uploads/2014/01/princeton-university-blair-hall-architecture-capture-this-146067.jpg)
+      {% endif %}
       ">
         <div class="orange">
         </div>

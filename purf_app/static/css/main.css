@@ -299,6 +299,7 @@ body {
     font-size:20px;
     font-weight:300;
     cursor: default;
+    z-index: 200;
 }
 .x-button:hover {
     color: black;

@@ -107,7 +107,7 @@
                     </tr>
                     {% if student.favorited_professors %} {%for prof in student.favorited_professors.all %} 
                     <tr>
-                        <td><img alt="140x140" src="{{prof.image}}" class="img-thumbnail"></td>
+                        <td><img src="{{prof.image}}" class="img-thumbnail"></td>
                         <td><a href="/profile/{{prof.netid}}">{{prof.name}}</a> </td>
                         <td>{{prof.email}} </td>
                         <td>{{prof.department}}</td>
@@ -125,6 +125,12 @@
 	</div>
 </div>
 
+
+<script>
+  $('img').error(function(){
+      $(this).attr('src','http://placekitten.com/200/201?image=' + Math.floor(Math.random() * 17));
+  });
+</script>
 
 {%endif %}
 {% endblock %}
