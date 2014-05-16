@@ -323,14 +323,23 @@ def new_prof(request):
 @login_required
 def student(request):
     #Prevent unidentified user from accessing any part of the site
-    isProfessor = False
-    student = get_student(request)
+    isProfessor = True
+    try:
+        student = Student.objects.get(netid=request.user.username)
+    except Student.DoesNotExist:
+	    student = None
     research_areas = get_research_areas(get_department(student))
+	
+    try:
+        prof = Professor.objects.get(netid=request.user.username)
+    except Professor.DoesNotExist:
+	    isProfessor = False
+		
+    if isProfessor:
+        return HttpResponseRedirect('/profile/'+str(request.user.username))
     if student == None:
         return HttpResponseRedirect('/')
     formInvalid = False
-    if isProfessor:
-        return HttpResponseRedirect('/profile/'+str(request.user.username))
     if request.method == 'POST':
         form = StudentForm(request.POST)
         profForm = ProfessorForm(request.POST)
